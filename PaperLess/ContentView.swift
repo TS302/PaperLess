@@ -12,9 +12,15 @@ struct ContentView: View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundStyle(.tint)
+                .foregroundStyle(.hellblau)
+
             Text("Hello, world!")
+                .font(.largeTitle)
+                .fontWeight(.black)
+                .foregroundStyle(.hellblau)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.dunkelblau)
         .padding()
     }
 }
