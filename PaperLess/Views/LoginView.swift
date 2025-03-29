@@ -11,13 +11,16 @@ struct LoginView: View {
     @StateObject private var userViewModel = UserViewModel()
     
     var body: some View {
-        NavigationStack{
+        
+        if userViewModel.isLoggedIn {
+            MainTabView(userViewModel: userViewModel)
+        } else {
             VStack{
-                Text("PAPERless")
+                Text("PAPERLESS")
                     .fontWeight(.black)
                     .font(.largeTitle)
                     .foregroundStyle(Color.dunkelblau)
-                    
+                
                 Text("Dokumente digitalisieren & verwelten!")
                     .font(.caption)
                     .fontWeight(.bold)
@@ -79,11 +82,6 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.hellblau)
-            .navigationDestination(isPresented: $userViewModel.isLoggedIn){
-                HomeView(
-                    userViewModel: userViewModel
-                )
-            }
         }
     }
 }
