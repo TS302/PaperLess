@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct UserViewModel: View {
+struct ButtonFehlermeldungView: View {
     
     @State private var password: String = "Passwort1."
     @State private var confirmPassword: String = ""
@@ -89,6 +89,6 @@ func validatePassword(_ password: String) -> Bool {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        UserViewModel()
+        ButtonFehlermeldungView()
     }
 }

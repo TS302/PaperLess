@@ -9,7 +9,16 @@ import SwiftUI
 
 @main
 struct PaperLessApp: App {
+    
     var body: some Scene {
+        
+        
+        
+        
+        
+        
+        
+        
         WindowGroup {
             ContentView()
         }
