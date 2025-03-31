@@ -45,7 +45,9 @@ class UserViewModel: ObservableObject {
     ///   - password: Das zum Benutzernamen gehörige Passwort.
     /// - Returns: `true`, wenn ein Benutzer mit diesen Zugangsdaten existiert, sonst `false`.
     func checkAccessData(username: String, password: String) -> Bool {
-        return userArray.contains { $0.username == username && $0.password == password }
+        return userArray.contains { user in
+            user.username == username && user.password == password
+        }
     }
 }
 
