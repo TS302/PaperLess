@@ -9,18 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var text = ""
+   
     @State private var firstname = ""
     @State private var lastname = ""
     @State private var email = ""
-    @State private var passwort = ""
-    @State private var validatePasswort = ""
+    @State private var password = ""
+    @State private var validatePassword = ""
+    @State private var showPassword: Bool = false
+    @State private var errorMessage: String = ""
     
-  
     
     
-
-
+    
+    
     var body: some View {
         
         HStack {
@@ -34,55 +35,52 @@ struct ContentView: View {
                 .font(.system(size:17))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, -20)
-           
+        .padding(.leading, -20)
+        
         
         GeometryReader { geometry in
             VStack {
                 Text("Konto erstellen")
-                .foregroundColor(.schwarz)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, geometry.safeAreaInsets.top + 20)
-//                .edgesIgnoringSafeArea(.top)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                Spacer()
-//                    .padding(.top, 200)
-                
-        Spacer()
-                
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Vorname")
-                    .font(.caption)
-                    .foregroundColor(.grau)
+                    .foregroundColor(.schwarz)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top, geometry.safeAreaInsets.top + 20)
                 
                 
-                TextField("Max", text: $firstname)
-                    .foregroundColor(.grau)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .frame(width: 300, height: 44)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.blau, lineWidth: 1))
-            }
-            
+                Spacer()
                 
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Nachname")
-                    .font(.caption)
-                    .foregroundColor(.grau)
-                TextField("Mustermann", text: $lastname)
-                    .foregroundColor(.grau)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .frame(width: 300, height: 44)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.blau, lineWidth: 1))
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Vorname")
+                        .font(.caption)
+                        .foregroundColor(.grau)
+                    
+                    
+                    TextField("Max", text: $firstname)
+                        .foregroundColor(.grau)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .frame(width: 300, height: 44)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.blau, lineWidth: 1))
+                }
                 
                 
-            }
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Nachname")
+                        .font(.caption)
+                        .foregroundColor(.grau)
+                    TextField("Mustermann", text: $lastname)
+                        .foregroundColor(.grau)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .frame(width: 300, height: 44)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.blau, lineWidth: 1))
+                    
+                    
+                }
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("E-mail")
@@ -98,21 +96,35 @@ struct ContentView: View {
                                 .stroke(Color.blau, lineWidth: 1))
                 }
                 
+                
+                
+                
+                
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Passwort")
                         .font(.caption)
                         .foregroundColor(.grau)
                     
                     
-                    TextField("********", text: $passwort)
-                        .foregroundColor(.grau)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .frame(width: 300, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.blau, lineWidth: 1))
+                    HStack {
+                        
+                        SecureField("********", text: $password)
+                            .foregroundColor(.grau)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .frame(width: 300, height: 44)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.blau, lineWidth: 1))
+                        
+                        
+                    }
+                    
                 }
+                
+                
+                
+                
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Passwort bestätigen")
@@ -120,32 +132,43 @@ struct ContentView: View {
                         .foregroundColor(.grau)
                     
                     
-                    TextField("********", text:
-                                $validatePasswort)
-                        .foregroundColor(.grau)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .frame(width: 300, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.blau, lineWidth: 1))
+                    SecureField("********", text:
+                                    $validatePassword)
+                    .foregroundColor(.grau)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .frame(width: 300, height: 44)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.blau, lineWidth: 1))
                 }
-
+                
                 
                 Spacer()
-            
-            
-            
-            
-            
-            Button("Registrieren") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-            }
-            .font(.system(size: 20))
-            .foregroundColor(.blau)
                 
                 
                 
+                
+                Button("Registrieren") {
+                    if PaperLess.validatePassword(password) {
+                        if password == validatePassword {
+                            errorMessage = "Registrierung erfolgreich!"
+                        } else {
+                            errorMessage = "Passwörter stimmen nicht überein!"
+                        }
+                    } else {
+                        errorMessage = "Passwort muss mindestens 8 Zeichen enthalten!"
+                    }
+                }
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(10)
+                
+                
+                
+               
                 HStack {
                     Button("Hast du schon ein Konto?") {
                     }
@@ -163,12 +186,12 @@ struct ContentView: View {
                 }
                 
                 
-        }
+            }
             .padding()
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-       
+            
             
         }
         

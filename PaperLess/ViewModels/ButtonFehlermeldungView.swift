@@ -63,8 +63,7 @@ struct ButtonFehlermeldungView: View {
                 } else {
                     errorMessage = "Passwort muss 8 Zeichen enthalten!"
                     
-//                    errorMessage = "Passwort muss 8 Zeichen, \n einen Großbuchstaben,eine \n und ein Sonderzeichen enthalten!"
-                    
+       
                 }
             }
             
