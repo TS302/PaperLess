@@ -8,7 +8,32 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @Binding var user: User
+    @Binding var isLoggedIn: Bool
+
     var body: some View {
-        Text("Settings")
+        NavigationView {
+            VStack {
+                Text("Einstellungen")
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.hellblau)
+            .navigationBarTitle("Einstellungen")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isLoggedIn = false
+                    }) {
+                        Image(systemName: "power.circle.fill")
+                            .foregroundStyle(Color.dunkelblau)
+                    }
+                }
+            }
+        }
     }
+}
+
+#Preview {
+    SettingsView(user: .constant(User(username: "Max Mustermann", password: "111111")), isLoggedIn: .constant(true))
 }
