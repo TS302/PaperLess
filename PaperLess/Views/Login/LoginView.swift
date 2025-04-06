@@ -93,3 +93,11 @@ struct LoginView: View {
     }
 }
 
+#Preview {
+    LoginView(
+        loginViewModel: LoginViewModel(),
+        user: .constant(User(username: "", password: "")),
+        isLoggedIn: .constant(false)
+    )
+}
+
