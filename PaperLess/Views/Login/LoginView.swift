@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -95,7 +95,6 @@ struct LoginView: View {
 
 #Preview {
     LoginView(
-        loginViewModel: LoginViewModel(),
         user: .constant(User(username: "", password: "")),
         isLoggedIn: .constant(false)
     )

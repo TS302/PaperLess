@@ -14,6 +14,8 @@ class LoginViewModel: ObservableObject {
         User(username: "Tom", password: "2222"),
     ]
     
+    
+    
     /// Überprüft, ob der übergebene Benutzername in Kombination mit dem Passwort im `userArray` vorhanden ist.
     ///
     /// Diese Funktion durchsucht das `userArray` nach einem Benutzer, dessen `username` und `password`

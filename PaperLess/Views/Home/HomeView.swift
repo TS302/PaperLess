@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -33,7 +33,7 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(documentArray) { document in
                     DocumentRow(document: document)
@@ -86,6 +86,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(loginViewModel: LoginViewModel(), user: .constant(User(username: "Mac Mustermann", password: "1111")), isLoggedIn: .constant(true))
+    HomeView(user: .constant(User(username: "Max Mustermann", password: "1111")), isLoggedIn: .constant(true))
 }
 
