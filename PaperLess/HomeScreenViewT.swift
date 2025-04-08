@@ -7,35 +7,34 @@
 
 import SwiftUI
 
-struct HomeScreenView: View {
+struct HomeScreenViewT: View {
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Willkommen auf der Startseite!")
-                    .font(.largeTitle)
-                    .padding()
-                
-                NavigationLink(destination: ContentView()) {
-                    Text("Zurück zur Registrierung")
-                        .font(.title)
-                        .foregroundColor(.blue)
+       
+            
+            NavigationView {
+                VStack {
+                    Text("Willkommen auf der Startseite!")
+                        .font(.largeTitle)
+                        .padding()
+                    
+                    NavigationLink(destination: ContentView()) {
+                        Text("Zurück zur Registrierung")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                    }
                 }
+                .navigationTitle("Startseite")
             }
-            .navigationTitle("Startseite")
         }
     }
-}
+        
 
-struct RegistrationScreenView: View {
-    var body: some View {
-        Text("Registrierungsbildschirm")
-            .font(.largeTitle)
-    }
-}
+
+ 
 
 struct HomeScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenView() // Hier wird nur einmal auf HomeScreenView verwiesen
+        HomeScreenViewT() // Hier wird nur einmal auf HomeScreenView verwiesen
     }
 }
 

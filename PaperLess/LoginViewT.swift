@@ -9,10 +9,27 @@ import SwiftUI
 
 struct LoginViewT: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                Text("Willkommen auf der Startseite!")
+                    .font(.largeTitle)
+                    .padding()
+                
+                NavigationLink(destination: ContentView()) {
+                    Text("Zurück zur Registrierung")
+                        .font(.title)
+                        .foregroundColor(.blue)
+                }
+            }
+            .navigationTitle("Login")
+        }
     }
 }
 
-#Preview {
-    LoginViewT()
+
+struct LoginViewT_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginViewT()
+    }
 }
+
