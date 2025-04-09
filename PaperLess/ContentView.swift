@@ -16,7 +16,10 @@ struct ContentView: View {
     @State private var confirmPassword: String = ""
     @State private var errorMessage: String = ""
     @State private var showPassword: Bool = false
-    @State private var isRegistred = false // Wird aktiviert, wenn Registrierung erfolgreich ist
+    
+    @State private var isRegistred = false
+//     Wird aktiviert, wenn Registrierung erfolgreich ist
+    
     @State private var navigateToLogin = false
 
     
@@ -39,7 +42,8 @@ struct ContentView: View {
                             .foregroundColor(.black)
                             .padding(.leading, -30)
 //                            .font(.system(size: 30))
-                            .font(.system(size: 30, weight: .heavy)) // genaue Dicke steuerbar
+                            .font(.system(size: 30, weight: .heavy))
+//                         genaue Dicke steuerbar
 
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -76,9 +80,9 @@ struct ContentView: View {
 //                    .padding(.leading, 80)
 //                    .padding(.leading, 50)
                     
-                    // Restlicher Inhalt
+                    
                     VStack {
-                        // Vorname Eingabe
+//                         Vorname Eingabe
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Vorname")
                                 .font(.caption)
@@ -96,7 +100,7 @@ struct ContentView: View {
                                 
                         }
                         
-                        // Nachname Eingabe
+//                         Nachname Eingabe
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Nachname")
                                 .font(.caption)
@@ -112,7 +116,7 @@ struct ContentView: View {
                                         .stroke(Color.blue, lineWidth: 1))
                         }
                         
-                        // E-Mail Eingabe
+//                         E-Mail Eingabe
                         VStack(alignment: .leading, spacing: 5) {
                             Text("E-Mail")
                                 .font(.caption)
@@ -127,11 +131,12 @@ struct ContentView: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.blue, lineWidth: 1))
                                 .onChange(of: email) { newValue in
-                                    email = newValue.lowercased() // E-Mail in Kleinbuchstaben umwandeln
+                                    email = newValue.lowercased()
+//                                     E-Mail in Kleinbuchstaben umwandeln
                                 }
                         }
                         
-                        // Passwort Eingabe
+//                         Passwort Eingabe
                         VStack(alignment: .leading) {
                             Text("Passwort")
                                 .font(.caption)
@@ -158,7 +163,7 @@ struct ContentView: View {
                                     .stroke(Color.blue, lineWidth: 1)
                             )
                             
-                            // Passwort bestätigen Eingabe
+//                             Passwort bestätigen Eingabe
                             Text("Passwort bestätigen")
                                 .font(.caption)
                                 .foregroundColor(.gray)
@@ -178,7 +183,8 @@ struct ContentView: View {
                             )
                         }
                         
-                        // Registrierung Button
+                        
+//                         Registrierung Button
                         Button("Registrieren") {
                             if validatePassword(password) {
                                 if password == confirmPassword {
@@ -191,24 +197,51 @@ struct ContentView: View {
                                 errorMessage = "Passwort muss 8 Zeichen enthalten!"
                             }
                         }
+//                        .frame(maxWidth: .infinity)
+                        .frame(width: 269, height: 18)
                         .font(.system(size: 20))
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(10)
+                        .padding(.top, 20)
                         
-                        // Fehlermeldung
+//                        Apple Button
+                        ContinueWithAppleView()
+//                            .frame(maxWidth: .infinity)
+                            .frame(width: 269, height: 18)
+                            .font(.system(size: 20))
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.black)
+                            .cornerRadius(10)
+                            .padding(.top, 5)
+
+//                        Google Button
+                        ContinueWithGoogleView()
+//                            .frame(maxWidth: .infinity)
+//                            .frame(width: 300, height: 18)
+                            .frame(width: 269, height: 18)
+                            .font(.system(size: 20))
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .padding(.top, 5)
+
+
+//                        Fehlermeldung
                         Text(errorMessage)
                             .foregroundColor(errorMessage.contains("erfolgreich") ? .green : .red)
                         
 //                         Navigation zu HomeScreenView
                         NavigationLink(destination: HomeScreenViewT(), isActive: $isRegistred) {
-                            EmptyView() // EmptyView zum Auslösen der Navigation
+                            EmptyView()
+//                             EmptyView zum Auslösen der Navigation
                         }
                         
                         Spacer()
                         
-                        // Anmeldung Text
+//                         Anmeldung Text
                         HStack {
                             Text("Hast du schon ein Konto?")
                                 .foregroundColor(.black)
@@ -221,9 +254,10 @@ struct ContentView: View {
                             .font(.system(size: 17))
                         }
 
-                        // NavigationLink zur LoginViewT
+//                         NavigationLink zur LoginViewT
                         NavigationLink(destination: LoginViewT(), isActive: $navigateToLogin) {
                             EmptyView()
+//                             EmptyView zum Auslösen der Navigation
                         }
 
                     }

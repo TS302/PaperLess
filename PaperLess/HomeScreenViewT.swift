@@ -34,7 +34,7 @@ struct HomeScreenViewT: View {
 
 struct HomeScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenViewT() // Hier wird nur einmal auf HomeScreenView verwiesen
+        HomeScreenViewT() 
     }
 }
 
