@@ -15,24 +15,26 @@ struct ContinueWithGoogleView: View {
             action?()
         }) {
             HStack(spacing: 12) {
-                Image("google_g") 
+                Image("google_g")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
+                    .padding(.leading, 15)
 
                 Text("Mit Google fortfahren")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.black)
+                    .padding(.leading, 17)
 
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-         //                            .frame(width: 269, height: 18)
-         //                            .font(.system(size: 20))
-         //                            .padding()
-         //                            .background(Color.white)
-         //                            .cornerRadius(10)
-         //                            .padding(.top, 5)
+//                                     .frame(width: 269, height: 18)
+//                                     .font(.system(size: 20))
+//                                     .padding()
+//                                     .background(Color.white)
+//                                     .cornerRadius(10)
+//                                     .padding(.top, 5)
             .frame(width: 269, height: 18)
             .padding(.horizontal, 16)
             .frame(height: 50)
