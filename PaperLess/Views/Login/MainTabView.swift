@@ -46,6 +46,6 @@ struct MainTabView: View {
                 Text("Einstellungen")
             }
         }
-        .tint(.dunkelblau)
+        .tint(.appSecondary)
     }
 }

@@ -40,7 +40,7 @@ struct HomeView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(Color.hellblau)
+            .background(Color.appSecondary)
             .navigationTitle("Favoriten")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -48,38 +48,38 @@ struct HomeView: View {
                         showAddDocument.toggle()
                     }) {
                         Image(systemName: "document.badge.plus")
-                            .foregroundStyle(Color.dunkelblau)
+                            .foregroundStyle(Color.primary)
                     }
                     
                     Button(action: {
                         showAddNFC.toggle()
                     }) {
                         Image(systemName: "badge.plus.radiowaves.right")
-                            .foregroundStyle(Color.dunkelblau)
+                            .foregroundStyle(Color.appPrimary)
                     }
                 }
             }
             .sheet(isPresented: $showAddDocument) {
                 VStack {
                     Text("Neues Dokument hinzufügen")
-                        .foregroundStyle(Color.dunkelblau)
+                        .foregroundStyle(Color.primary)
                         .font(.headline)
                         .fontWeight(.bold)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.hellblau)
+                .background(Color.secondary)
             }
             .sheet(isPresented: $showAddNFC) {
                 VStack {
                     Text("Neues NFC hinzufügen")
-                        .foregroundStyle(Color.dunkelblau)
+                        .foregroundStyle(Color.appPrimary)
                         .font(.headline)
                         .fontWeight(.bold)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.hellblau)
+                .background(Color.appSecondary)
             }
         }
     }
