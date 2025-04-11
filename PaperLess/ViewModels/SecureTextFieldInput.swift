@@ -46,7 +46,7 @@ struct SecureTextFieldInput: View {
 
 struct SecureTextFieldInput_Previews: PreviewProvider {
     static var previews: some View {
-        // Testvorschau mit konstanten Bindings
+//         Testvorschau mit konstanten Bindings
         SecureTextFieldInput(
             label: "Test-Passwort",
             text: .constant("geheim"),

@@ -11,272 +11,164 @@ struct ContentView: View {
     @State private var firstname = ""
     @State private var lastname = ""
     @State private var email = ""
-    
-    @State private var password: String = "Passwort1."
+    @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var errorMessage: String = ""
     @State private var showPassword: Bool = false
-    
     @State private var isRegistred = false
-//     Wird aktiviert, wenn Registrierung erfolgreich ist
-    
     @State private var navigateToLogin = false
+    @State private var showConfetti = false // Zustand für Konfetti anzeigen
 
-    
     var body: some View {
-        
         ZStack {
-    
-                
-            
-        
-            
             NavigationStack {
-                VStack(spacing: 100) {
+                VStack {
                     HStack {
                         Image("Wolke1")
                             .resizable()
-                            .frame(width: 120, height: 60)
+                            .frame(width: 85, height: 85)
+                            .background(Color.hellblau)
                         
-                        Text("Paperless")
+                        Text("PAPERLESS")
                             .foregroundColor(.black)
-                            .padding(.leading, -30)
-//                            .font(.system(size: 30))
+                            .padding(.leading, -100)
                             .font(.system(size: 30, weight: .heavy))
-//                         genaue Dicke steuerbar
-
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.hellblau)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 34)
-            
-//            NavigationStack {
-//                VStack(spacing: 10) {
-//                    HStack {
-//                        Image("Wolke1")
-//                            .resizable()
-//                            .frame(width: 120, height: 60)
-//                        
-//                        Text("Paperless")
-//                            .foregroundColor(.black)
-//                            .padding(.leading, -30)
-//                            .font(.system(size: 17))
-//                    }
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding(.leading, 8)
-                    
-                    
-                    
-                    
-                    
-//                    GeometryReader { geometry in
-//                        Text("Konto erstellen")
-//                            .foregroundColor(.black)
-//                            .font(.largeTitle)
-//                            .fontWeight(.bold)
-//                            .padding(.top, geometry.safeAreaInsets.top + 20)
-//                            .padding(.bottom, 40)
-//                    }
-//                    .frame(height: 100)
-//                    .padding(.leading, 80)
-//                    .padding(.leading, 50)
-                    
-                    
-                    VStack {
-//                         Vorname Eingabe
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Vorname")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            TextField("Max", text: $firstname)
-                                .foregroundColor(.gray)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(width: 300, height: 44)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.white)
-                                        .stroke(Color.blue, lineWidth: 1))
-                                
-                        }
-                        
-//                         Nachname Eingabe
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Nachname")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            TextField("Mustermann", text: $lastname)
-                                .foregroundColor(.gray)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(width: 300, height: 44)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.blue, lineWidth: 1))
-                        }
-                        
-//                         E-Mail Eingabe
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("E-Mail")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            TextField("max.mustermann@", text: $email)
-                                .foregroundColor(.gray)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(width: 300, height: 44)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.blue, lineWidth: 1))
-                                .onChange(of: email) { newValue in
-                                    email = newValue.lowercased()
-//                                     E-Mail in Kleinbuchstaben umwandeln
-                                }
-                        }
-                        
-//                         Passwort Eingabe
-                        VStack(alignment: .leading) {
-                            Text("Passwort")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            HStack {
-                                if showPassword {
-                                    TextField("Passwort", text: $password)
-                                } else {
-                                    SecureField("Passwort", text: $password)
-                                }
-                                
-                                Button(action: {
-                                    showPassword.toggle()
-                                }) {
-                                    Image(systemName: showPassword ? "eye.slash" : "eye")
-                                        .foregroundColor(.gray)
-                                }
+                    .padding(.leading, 13)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.top, -110)
+                    .background(Color.hellblau)
+
+                    VStack(alignment: .leading, spacing: 5) {
+                        TextFieldInput(label: "Vorname", text: $firstname)
+                        TextFieldInput(label: "Nachname", text: $lastname)
+                        TextFieldInput(label: "E-Mail", text: $email)
+                            .autocapitalization(.none)
+                            .onChange(of: email) { newValue in
+                                email = newValue.lowercased()
                             }
-                            .padding()
-                            .frame(width: 300, height: 44)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
-                            
-//                             Passwort bestätigen Eingabe
-                            Text("Passwort bestätigen")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            HStack {
-                                if showPassword {
-                                    TextField("Passwort bestätigen", text: $confirmPassword)
-                                } else {
-                                    SecureField("Passwort bestätigen", text: $confirmPassword)
-                                }
-                            }
-                            .padding()
-                            .frame(width: 300, height: 44)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.blue, lineWidth: 1)
-                            )
-                        }
-                        
-                        
-//                         Registrierung Button
-                        Button("Registrieren") {
-                            if validatePassword(password) {
-                                if password == confirmPassword {
-                                    errorMessage = "Registrierung erfolgreich!"
-                                    isRegistred = true // Erfolg! Navigation auslösen
-                                } else {
-                                    errorMessage = "Passwort stimmt nicht überein!"
+
+                        SecureTextFieldInput(label: "Passwort", text: $password, showPassword: $showPassword, showEyeIcon: true)
+                        SecureTextFieldInput(label: "Passwort bestätigen", text: $confirmPassword, showPassword: $showPassword, showEyeIcon: false)
+                    }
+
+                    Button("Registrieren") {
+                        if validatePassword(password) {
+                            if password == confirmPassword {
+                                let newUser = LocalUserData(firstname: firstname, lastname: lastname, email: email, password: password)
+
+                                AuthService.shared.registerUser(user: newUser) { result in
+                                    switch result {
+                                    case .success:
+                                        errorMessage = "Registrierung erfolgreich!"
+                                        isRegistred = true
+                                        showConfetti = true  // Zeige Konfetti an
+
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                            showConfetti = false  // Verstecke Konfetti nach 3 Sekunden
+                                        }
+
+                                    case .failure(let error):
+                                        errorMessage = error.localizedDescription
+                                    }
                                 }
                             } else {
-                                errorMessage = "Passwort muss 8 Zeichen enthalten!"
+                                errorMessage = "Passwort stimmt nicht überein!"
                             }
+                        } else {
+                            errorMessage = "Passwort muss mindestens 8 Zeichen, Groß-/Kleinbuchstaben, Zahl & Sonderzeichen enthalten!"
                         }
-//                        .frame(maxWidth: .infinity)
+                    }
+                    .frame(width: 269, height: 18)
+                    .font(.system(size: 20))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(.top, 20)
+                    .background(Color.hellblau)
+
+                    Text(errorMessage)
+                        .foregroundColor(errorMessage.contains("erfolgreich") ? .green : .red)
+
+                    ContinueWithAppleView()
                         .frame(width: 269, height: 18)
                         .font(.system(size: 20))
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.black)
                         .cornerRadius(10)
-                        .padding(.top, 20)
-                        
-//                        Apple Button
-                        ContinueWithAppleView()
-//                            .frame(maxWidth: .infinity)
-                            .frame(width: 269, height: 18)
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.black)
-                            .cornerRadius(10)
-                            .padding(.top, 5)
+                        .padding(.top, 5)
+                        .background(Color.hellblau)
 
-//                        Google Button
-                        ContinueWithGoogleView()
-//                            .frame(maxWidth: .infinity)
-//                            .frame(width: 300, height: 18)
-                            .frame(width: 269, height: 18)
-                            .font(.system(size: 20))
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .padding(.top, 5)
+                    ContinueWithGoogleView()
+                        .frame(width: 269, height: 18)
+                        .font(.system(size: 20))
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .padding(.top, 5)
+                        .background(Color.hellblau)
 
-
-//                        Fehlermeldung
-                        Text(errorMessage)
-                            .foregroundColor(errorMessage.contains("erfolgreich") ? .green : .red)
-                        
-//                         Navigation zu HomeScreenView
-                        NavigationLink(destination: HomeScreenViewT(), isActive: $isRegistred) {
-                            EmptyView()
-//                             EmptyView zum Auslösen der Navigation
-                        }
-                        
-                        Spacer()
-                        
-//                         Anmeldung Text
-                        HStack {
-                            Text("Hast du schon ein Konto?")
-                                .foregroundColor(.black)
-                                .font(.system(size: 13))
-                            
-                            Button("Anmelden") {
-                                navigateToLogin = true
-                            }
-                            .foregroundColor(.blue)
-                            .font(.system(size: 17))
-                        }
-
-//                         NavigationLink zur LoginViewT
-                        NavigationLink(destination: LoginViewT(), isActive: $navigateToLogin) {
-                            EmptyView()
-//                             EmptyView zum Auslösen der Navigation
-                        }
-
+                    NavigationLink(destination: HomeScreenViewT(), isActive: $isRegistred) {
+                        EmptyView()
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                    Spacer()
+
+                    HStack {
+                        Text("Hast du schon ein Konto?")
+                            .foregroundColor(.black)
+                            .font(.system(size: 13))
+                        
+                        Button("Anmelden") {
+                            navigateToLogin = true
+                        }
+                        .foregroundColor(.blue)
+                        .font(.system(size: 17))
+                    }
+
+                    NavigationLink(destination: LoginViewT(), isActive: $navigateToLogin) {
+                        EmptyView()
+                    }
+                }
+                .background(Color.hellblau)
+
+                // Konfetti-View, wenn `showConfetti` true ist
+                if showConfetti {
+                    ConfettiView(
+                        shapes: [
+                            .triangle,
+                            .slimRectangle,
+                            .roundedCross,
+                            .emoji("🎉"),
+                            .sfSymbol("heart.fill"),
+                            .image(Image(systemName: "star.fill"))
+                        ],
+                        numberOfParticles: 40,
+                        size: CGSize(width: 300, height: 400)
+                    )
+                    .transition(.opacity)
+                    .zIndex(1) // Konfetti über anderen UI-Elementen anzeigen
                 }
             }
         }
     }
-        
-        func validatePassword(_ password: String) -> Bool {
-            let pattern = #"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$"#
-            return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: password)
-        }
+
+    func validatePassword(_ password: String) -> Bool {
+        let pattern = #"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$"#
+        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: password)
     }
+}
 
 
+// Preview für ContentView
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
