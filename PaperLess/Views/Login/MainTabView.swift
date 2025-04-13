@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -16,10 +16,10 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             HomeView(
-                loginViewModel: loginViewModel,
                 user: $user,
                 isLoggedIn: $isLoggedIn
             )
+            .environmentObject(loginViewModel)
             .tabItem {
                 Image(systemName: "house")
                 Text("Home")
@@ -41,11 +41,11 @@ struct MainTabView: View {
                 user: $user,
                 isLoggedIn: $isLoggedIn
             )
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Einstellungen")
-                }
+            .tabItem {
+                Image(systemName: "gear")
+                Text("Einstellungen")
+            }
         }
-        .tint(.dunkelblau)
+        .tint(.appSecondary)
     }
 }

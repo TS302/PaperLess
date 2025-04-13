@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -33,14 +33,14 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(documentArray) { document in
                     DocumentRow(document: document)
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(Color.hellblau)
+            .background(Color.appSecondary)
             .navigationTitle("Favoriten")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -48,44 +48,44 @@ struct HomeView: View {
                         showAddDocument.toggle()
                     }) {
                         Image(systemName: "document.badge.plus")
-                            .foregroundStyle(Color.dunkelblau)
+                            .foregroundStyle(Color.primary)
                     }
                     
                     Button(action: {
                         showAddNFC.toggle()
                     }) {
                         Image(systemName: "badge.plus.radiowaves.right")
-                            .foregroundStyle(Color.dunkelblau)
+                            .foregroundStyle(Color.appPrimary)
                     }
                 }
             }
             .sheet(isPresented: $showAddDocument) {
                 VStack {
                     Text("Neues Dokument hinzufügen")
-                        .foregroundStyle(Color.dunkelblau)
+                        .foregroundStyle(Color.primary)
                         .font(.headline)
                         .fontWeight(.bold)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.hellblau)
+                .background(Color.secondary)
             }
             .sheet(isPresented: $showAddNFC) {
                 VStack {
                     Text("Neues NFC hinzufügen")
-                        .foregroundStyle(Color.dunkelblau)
+                        .foregroundStyle(Color.appPrimary)
                         .font(.headline)
                         .fontWeight(.bold)
                         .padding()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.hellblau)
+                .background(Color.appSecondary)
             }
         }
     }
 }
 
 #Preview {
-    HomeView(loginViewModel: LoginViewModel(), user: .constant(User(username: "Mac Mustermann", password: "1111")), isLoggedIn: .constant(true))
+    HomeView(user: .constant(User(username: "Max Mustermann", password: "1111")), isLoggedIn: .constant(true))
 }
 

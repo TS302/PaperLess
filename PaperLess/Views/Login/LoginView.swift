@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -23,26 +23,26 @@ struct LoginView: View {
             Text("PAPERLESS")
                 .fontWeight(.black)
                 .font(.largeTitle)
-                .foregroundStyle(Color.dunkelblau)
+                .foregroundStyle(Color.appPrimary)
             
             Text("Dokumente digitalisieren & verwelten!")
                 .font(.caption)
                 .fontWeight(.bold)
-                .foregroundStyle(Color.dunkelblau)
+                .foregroundStyle(Color.primary)
                 .opacity(0.8)
                 .padding(.bottom, 60)
             
             
             TextField("Benutzername", text: $user.username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .foregroundColor(Color.dunkelblau)
+                .foregroundColor(Color.appPrimary)
                 .font(.footnote)
                 .autocapitalization(.none)
                 .padding(.horizontal, 40)
                 .padding(.bottom, 10)
             
             SecureField("Passwort", text: $user.password)
-                .foregroundStyle(Color.dunkelblau)
+                .foregroundStyle(Color.appPrimary)
                 .font(.footnote)
                 .padding(.horizontal, 40)
                 .padding(.bottom,15)
@@ -50,7 +50,7 @@ struct LoginView: View {
             
             if loginError {
                 Text("Ungültiger Benutzername oder Passwort!")
-                    .foregroundStyle(.appRed)
+                    .foregroundStyle(.appError)
                     .font(.caption)
                     .padding(.bottom,15)
             }
@@ -65,7 +65,7 @@ struct LoginView: View {
                     RegistrationView()
                 }
                 .font(.footnote)
-                .foregroundColor(.dunkelblau)
+                .foregroundColor(.appPrimary)
                 .opacity(0.8)
                 
                 Spacer()
@@ -79,8 +79,8 @@ struct LoginView: View {
                     }
                 }
                 .frame(width: 100, height: 40)
-                .background(Color.dunkelblau)
-                .foregroundStyle(Color.hellblau)
+                .background(Color.appPrimary)
+                .foregroundStyle(Color.appSecondary)
                 .fontWeight(.bold)
                 .cornerRadius(6)
                 .shadow(color: .gray.opacity(0.6), radius: 4, x: 0, y: 2)
@@ -89,13 +89,12 @@ struct LoginView: View {
             .padding(.horizontal, 40)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.hellblau)
+        .background(Color.appSecondary)
     }
 }
 
 #Preview {
     LoginView(
-        loginViewModel: LoginViewModel(),
         user: .constant(User(username: "", password: "")),
         isLoggedIn: .constant(false)
     )

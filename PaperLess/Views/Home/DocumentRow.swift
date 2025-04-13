@@ -15,9 +15,9 @@ struct DocumentRow: View {
             Image(systemName: "text.page")
                 .font(.system(size: 25))
                 .frame(width: 50, height: 50)
-                .background(Color.dunkelblau)
+                .background(Color.primary)
                 .clipShape(Circle())
-                .foregroundStyle(Color.hellblau)
+                .foregroundStyle(Color.appOnPrimary)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(document.title)

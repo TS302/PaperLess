@@ -16,16 +16,16 @@ struct RootView: View {
     var body: some View {
         if isLoggedIn {
             MainTabView(
-                loginViewModel: loginViewModel,
                 user: $user,
                 isLoggedIn: $isLoggedIn
             )
+            .environmentObject(loginViewModel)
         } else {
             LoginView(
-                loginViewModel: loginViewModel,
                 user: $user,
                 isLoggedIn: $isLoggedIn
             )
+            .environmentObject(loginViewModel)
         }
     }
 }

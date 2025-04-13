@@ -18,7 +18,7 @@ struct SettingsView: View {
                 Text("Einstellungen")
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.hellblau)
+            .background(Color.secondary)
             .navigationBarTitle("Einstellungen")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -26,7 +26,7 @@ struct SettingsView: View {
                         isLoggedIn = false
                     }) {
                         Image(systemName: "power.circle.fill")
-                            .foregroundStyle(Color.dunkelblau)
+                            .foregroundStyle(Color.primary)
                     }
                 }
             }
