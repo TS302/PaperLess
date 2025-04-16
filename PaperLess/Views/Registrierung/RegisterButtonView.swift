@@ -8,11 +8,30 @@
 import SwiftUI
 
 struct RegisterButtonView: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            
+            Button("Registrieren") {
+                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+            }
+            .frame(width: 300, height: 50)
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(10)
+            
+        
+        
+            //        Hintergrundfarbe
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.hellblau)
+            
+        }
     }
-}
+    
 
-#Preview {
-    RegisterButtonView()
+
+struct RegisterButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegisterButtonView()
+    }
 }

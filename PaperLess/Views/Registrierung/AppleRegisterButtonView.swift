@@ -8,11 +8,41 @@
 import SwiftUI
 
 struct AppleRegisterButtonView: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        
+        
+        HStack {
+            
+          
+            
+            Button("Mit Apple fortfahren") {
+                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                
+            }
+            .frame(width: 300, height: 50)
+            .foregroundColor(.white)
+            .background(Color.black)
+            .cornerRadius(10)
+            .font(.system(size: 17))
+            
+            Image("apple_logo")
+                .resizable()
+                .frame(width: 47, height: 50)
+                .padding(.leading, -296 )
+                
+          
+            
+            
+        }
+        //        Hintergrundfarbe
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.hellblau)
     }
 }
-
-#Preview {
-    AppleRegisterButtonView()
+struct AppleRegisterButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        AppleRegisterButtonView()
+    }
 }

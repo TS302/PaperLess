@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct HomeScreenViewT: View {
+    
     var body: some View {
+        
         NavigationView {
-            VStack {
+            
+            VStack  {
+                
                 Text("Willkommen auf der Startseite!")
-                    .font(.largeTitle)
-                    .padding()
+                    .font(.system(size: 25))
+                    
+                 
                 
                 NavigationLink(destination: ContentView()) {
                     Text("Zurück zur Registrierung")

@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct LoginButtonView: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        
+        Button("Anmelden") {
+            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+        }
+        .foregroundColor(.blue)
+        .font(.system(size: 17))
+
+        
+        
+        
+        
+        
+        
     }
 }
 
-#Preview {
-    LoginButtonView()
+struct LoginButtonView_previers: PreviewProvider {
+    static var previews: some View {
+        LoginButtonView()
+    }
 }

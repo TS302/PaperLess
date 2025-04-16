@@ -8,167 +8,148 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+//    Textfelder
     @State private var firstname = ""
     @State private var lastname = ""
     @State private var email = ""
     @State private var password: String = ""
-    @State private var confirmPassword: String = ""
-    @State private var errorMessage: String = ""
+    @State private var passwordConfirmation: String = ""
+    @State private var label: String = ""
+    
+//     Zustand für die Sichtbarkeit des Passwortes
     @State private var showPassword: Bool = false
-    @State private var isRegistred = false
-    @State private var navigateToLogin = false
-    @State private var showConfetti = false // Zustand für Konfetti anzeigen
-
+ 
+    
+  
+    
+    
+    
+    
     var body: some View {
-        ZStack {
+        
             NavigationStack {
+                
                 VStack {
                     HStack {
                         Image("Wolke1")
                             .resizable()
                             .frame(width: 85, height: 85)
-                            .background(Color.hellblau)
+                            
                         
                         Text("PAPERLESS")
                             .foregroundColor(.black)
-                            .padding(.leading, -100)
+                            .padding()
                             .font(.system(size: 30, weight: .heavy))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.hellblau)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 13)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.top, -110)
-                    .background(Color.hellblau)
 
+                    }
+                    .padding(.leading, -85)
+                    .padding(.top, -10)
+                    Spacer(minLength: 100)
+
+                    
+                    
+                    
+                    
+                    
+                    
                     VStack(alignment: .leading, spacing: 5) {
-                        TextFieldInput(label: "Vorname", text: $firstname)
-                        TextFieldInput(label: "Nachname", text: $lastname)
-                        TextFieldInput(label: "E-Mail", text: $email)
-                            .autocapitalization(.none)
-                            .onChange(of: email) { newValue in
-                                email = newValue.lowercased()
-                            }
-
-                        SecureTextFieldInput(label: "Passwort", text: $password, showPassword: $showPassword, showEyeIcon: true)
-                        SecureTextFieldInput(label: "Passwort bestätigen", text: $confirmPassword, showPassword: $showPassword, showEyeIcon: false)
-                    }
-
-                    Button("Registrieren") {
-                        if validatePassword(password) {
-                            if password == confirmPassword {
-                                let newUser = LocalUserData(firstname: firstname, lastname: lastname, email: email, password: password)
-
-                                AuthService.shared.registerUser(user: newUser) { result in
-                                    switch result {
-                                    case .success:
-                                        errorMessage = "Registrierung erfolgreich!"
-                                        isRegistred = true
-                                        showConfetti = true  // Zeige Konfetti an
-
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                            showConfetti = false  // Verstecke Konfetti nach 3 Sekunden
-                                        }
-
-                                    case .failure(let error):
-                                        errorMessage = error.localizedDescription
-                                    }
-                                }
-                            } else {
-                                errorMessage = "Passwort stimmt nicht überein!"
-                            }
-                        } else {
-                            errorMessage = "Passwort muss mindestens 8 Zeichen, Groß-/Kleinbuchstaben, Zahl & Sonderzeichen enthalten!"
-                        }
-                    }
-                    .frame(width: 269, height: 18)
-                    .font(.system(size: 20))
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.top, 20)
-                    .background(Color.hellblau)
-
-                    Text(errorMessage)
-                        .foregroundColor(errorMessage.contains("erfolgreich") ? .green : .red)
-
-                    ContinueWithAppleView()
-                        .frame(width: 269, height: 18)
-                        .font(.system(size: 20))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black)
-                        .cornerRadius(10)
-                        .padding(.top, 5)
-                        .background(Color.hellblau)
-
-                    ContinueWithGoogleView()
-                        .frame(width: 269, height: 18)
-                        .font(.system(size: 20))
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .padding(.top, 5)
-                        .background(Color.hellblau)
-
-                    NavigationLink(destination: HomeScreenViewT(), isActive: $isRegistred) {
-                        EmptyView()
-                    }
-
-                    Spacer()
-
-                    HStack {
-                        Text("Hast du schon ein Konto?")
-                            .foregroundColor(.black)
-                            .font(.system(size: 13))
                         
-                        Button("Anmelden") {
-                            navigateToLogin = true
+                        Text("Vorname")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 55)
+                        TextFieldInput(label: "Vorname", text: $firstname)
+                        
+                        
+                        Text("Nachname")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 55)
+                        TextFieldInput(label: "Nachname", text: $lastname)
+                        
+                        
+                        Text("E-Mail")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 55)
+                        TextFieldInput(label: "E-Mail", text: $email)
+                        
+                        
+                        Text("Passwort")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 55)
+                        SecureTextFieldInput(label: "********", text: $password, showPassword: $showPassword, showEyeIcon: true)
+                        
+                        
+                        Text("Passwort bestätigen")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.leading, 55)
+                        SecureTextFieldInput(label: "********", text: $passwordConfirmation, showPassword: $showPassword, showEyeIcon: false)
+                    }
+                    
+//                    Abstand zwischen Textfeld und Registrierbutton
+                    Spacer(minLength: 40)
+                    
+                    
+                    VStack {
+                        
+                        NavigationLink(destination: HomeScreenViewT()) {
+                            RegisterButtonView()
                         }
-                        .foregroundColor(.blue)
-                        .font(.system(size: 17))
+                        
+                        NavigationLink(destination: HomeScreenViewT()) {
+                            AppleRegisterButtonView()
+                        }
+                        .padding(.leading, 7)
+                        NavigationLink(destination: HomeScreenViewT()) {
+                            GoogleRegisterButtonView()
+                        }
+                        .padding(.leading, 7)
                     }
+                    
+                        
+                    
+                    
+                    
+                  
+           
+                    
 
-                    NavigationLink(destination: LoginViewT(), isActive: $navigateToLogin) {
-                        EmptyView()
+                        
+                        HStack {
+                            
+                            Text("Hast du schon ein Konto?")
+                                .foregroundColor(.black)
+                                .font(.system(size: 13))
+                            
+                            
+                            NavigationLink(destination: LoginViewT()) {
+                                LoginButtonView()
+                            }
+                            .foregroundColor(.blue)
+                            .font(.system(size: 17))
+                        }
                     }
-                }
-                .background(Color.hellblau)
-
-                // Konfetti-View, wenn `showConfetti` true ist
-                if showConfetti {
-                    ConfettiView(
-                        shapes: [
-                            .triangle,
-                            .slimRectangle,
-                            .roundedCross,
-                            .emoji("🎉"),
-                            .sfSymbol("heart.fill"),
-                            .image(Image(systemName: "star.fill"))
-                        ],
-                        numberOfParticles: 40,
-                        size: CGSize(width: 300, height: 400)
-                    )
-                    .transition(.opacity)
-                    .zIndex(1) // Konfetti über anderen UI-Elementen anzeigen
+                    .background(Color.hellblau)
+                    
+                    
                 }
             }
         }
+  
+    
+ 
+    
+    
+    
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
-
-    func validatePassword(_ password: String) -> Bool {
-        let pattern = #"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$"#
-        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: password)
-    }
-}
-
-
-// Preview für ContentView
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+    
 
