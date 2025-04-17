@@ -37,7 +37,7 @@ struct LoginViewT: View {
                 
                 
                 
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: RegistrationView()) {
                     Text("Zurück zur Registrierung")
                         .font(.title2)
                         .foregroundColor(.blue)
@@ -45,7 +45,7 @@ struct LoginViewT: View {
                 }
             }
             .navigationTitle("Login")
-            .background(Color.hellblau) 
+            .background(Color.appOnprimary) 
         }
     }
 }

@@ -20,7 +20,7 @@ struct PaperLessApp: App {
         
         
         WindowGroup {
-            ContentView()
+            RegistrationView()
         }
     }
 }

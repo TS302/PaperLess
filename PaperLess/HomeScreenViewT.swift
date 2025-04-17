@@ -20,7 +20,7 @@ struct HomeScreenViewT: View {
                     
                  
                 
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: RegistrationView()) {
                     Text("Zurück zur Registrierung")
                         .font(.title)
                         .foregroundColor(.blue)
@@ -28,7 +28,7 @@ struct HomeScreenViewT: View {
             }
             .navigationTitle("Startseite")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.hellblau)
+            .background(Color.appOnprimary)
         }
     }
 }

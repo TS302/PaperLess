@@ -50,7 +50,7 @@ struct SecureTextFieldInput: View {
         
         //        Hintergrundfarbe
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.hellblau)
+        .background(Color.appOnprimary)
     }
 }
 
