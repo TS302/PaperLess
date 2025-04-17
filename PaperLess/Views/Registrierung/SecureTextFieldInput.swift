@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct SecureTextFieldInput: View {
+    
     var label: String
     @Binding var text: String
     @Binding var showPassword: Bool
     var showEyeIcon: Bool = true
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 5) {
-            Text(label)
-                .font(.caption)
-                .foregroundColor(.gray)
+            
 
             HStack {
                 if showPassword {
@@ -37,15 +37,27 @@ struct SecureTextFieldInput: View {
             }
             .padding()
             .frame(width: 300, height: 44)
-            .background(RoundedRectangle(cornerRadius: 8).fill(Color.white).stroke(Color.blue, lineWidth: 1))
-            .background(Color.hellblau)
+            .background(RoundedRectangle(cornerRadius:8)
+                .fill(Color.white))
+            
+            .overlay(RoundedRectangle(cornerRadius:8)
+                .stroke(Color.blue, lineWidth: 1))
         }
-        .padding(.bottom, 5)
+        
+        
+        
+        
+        
+        //        Hintergrundfarbe
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.hellblau)
     }
 }
 
 struct SecureTextFieldInput_Previews: PreviewProvider {
     static var previews: some View {
+        
+        
 //         Testvorschau mit konstanten Bindings
         SecureTextFieldInput(
             label: "Test-Passwort",
