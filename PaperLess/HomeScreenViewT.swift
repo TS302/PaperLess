@@ -28,7 +28,7 @@ struct HomeScreenViewT: View {
             }
             .navigationTitle("Startseite")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.hellblau)
+            .background(Color.appOnprimary)
         }
     }
 }

@@ -38,7 +38,7 @@ struct AppleRegisterButtonView: View {
         }
         //        Hintergrundfarbe
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.hellblau)
+        .background(Color.appOnprimary)
     }
 }
 struct AppleRegisterButtonView_Previews: PreviewProvider {

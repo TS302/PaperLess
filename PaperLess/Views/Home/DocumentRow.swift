@@ -17,7 +17,7 @@ struct DocumentRow: View {
                 .frame(width: 50, height: 50)
                 .background(Color.primary)
                 .clipShape(Circle())
-                .foregroundStyle(Color.appOnPrimary)
+                .foregroundStyle(Color.appOnprimary)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(document.title)
