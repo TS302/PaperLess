@@ -11,13 +11,12 @@ struct MainTabView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
-    @Binding var isLoggedIn: Bool
     
     var body: some View {
         TabView {
             HomeView(
                 user: $user,
-                isLoggedIn: $isLoggedIn
+                isLoggedIn: $user.isLoggedIn
             )
             .environmentObject(loginViewModel)
             .tabItem {
@@ -39,7 +38,7 @@ struct MainTabView: View {
             
             SettingsView(
                 user: $user,
-                isLoggedIn: $isLoggedIn
+                isLoggedIn: $user.isLoggedIn
             )
             .tabItem {
                 Image(systemName: "gear")

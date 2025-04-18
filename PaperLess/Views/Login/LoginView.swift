@@ -11,42 +11,32 @@ struct LoginView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     
     @Binding var user: User
-    @Binding var isLoggedIn: Bool
     
     @State private var loginError: Bool = false
     @State private var registrationSheetIsPressented: Bool = false
+    @State private var showPasswort: Bool = false
     
     var body: some View {
         VStack {
+            Spacer()
             
-            ///---> Hier  LOGO einfügen.
-            Text("PAPERLESS")
-                .fontWeight(.black)
-                .font(.largeTitle)
-                .foregroundStyle(Color.appPrimary)
+                Text("PAPERLESS")
+                    .fontWeight(.black)
+                    .font(.largeTitle)
+                    .foregroundStyle(Color.appPrimary)
+                
+                Text("Dokumente digitalisieren & verwelten!")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.primary)
+                    .opacity(0.8)
+                    .padding(.bottom, 60)
             
-            Text("Dokumente digitalisieren & verwelten!")
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundStyle(Color.primary)
-                .opacity(0.8)
-                .padding(.bottom, 60)
             
-            
-            TextField("Benutzername", text: $user.username)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .foregroundColor(Color.appPrimary)
-                .font(.footnote)
-                .autocapitalization(.none)
-                .padding(.horizontal, 40)
-                .padding(.bottom, 10)
-            
-            SecureField("Passwort", text: $user.password)
-                .foregroundStyle(Color.appPrimary)
-                .font(.footnote)
-                .padding(.horizontal, 40)
-                .padding(.bottom,15)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextFieldInput(label: "Benutzername", text: $user.email)
+                .padding(.bottom, 20)
+                SecureTextFieldInput(label: "Passwort", text: $user.password, showPassword: $showPasswort, showEyeIcon: false)
+                .padding(.bottom, 20)
             
             if loginError {
                 Text("Ungültiger Benutzername oder Passwort!")
@@ -58,11 +48,11 @@ struct LoginView: View {
             HStack{
                 Button("Registrieren") {
                     registrationSheetIsPressented.toggle()
-                    user.username = ""
+                    user.email = ""
                     user.password = ""
                 }
                 .sheet(isPresented: $registrationSheetIsPressented) {
-                    RegistrationView()
+                    RegistrationView(showPassword: $showPasswort, user: $user)
                 }
                 .font(.footnote)
                 .foregroundColor(.appPrimary)
@@ -71,9 +61,9 @@ struct LoginView: View {
                 Spacer()
                 
                 Button("Login") {
-                    if loginViewModel.checkAccessData(username: user.username, password: user.password) {
+                    if loginViewModel.checkAccessData(email: user.email, password: user.password) {
                         loginError = false
-                        isLoggedIn = true
+                        user.isLoggedIn = true
                     } else {
                         loginError = true
                     }
@@ -87,6 +77,7 @@ struct LoginView: View {
                 
             }
             .padding(.horizontal, 40)
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.appSecondary)
@@ -95,8 +86,8 @@ struct LoginView: View {
 
 #Preview {
     LoginView(
-        user: .constant(User(username: "", password: "")),
-        isLoggedIn: .constant(false)
+        user: .constant(User(firstname: "", lastname: "", email: "", password: "", isLoggedIn: false))
+        
     )
 }
 

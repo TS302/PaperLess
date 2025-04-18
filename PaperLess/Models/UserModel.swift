@@ -9,7 +9,10 @@ import Foundation
 
 struct User: Identifiable {
     let id: UUID = UUID()
-    var username: String
+    var firstname: String
+    var lastname: String
+    var email: String
     var password: String
+    var isLoggedIn: Bool
 }
 

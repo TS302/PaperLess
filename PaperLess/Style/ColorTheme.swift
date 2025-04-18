@@ -11,6 +11,4 @@ extension Color {
     static let primary = Color("AppPrimary")
     static let secondary = Color("AppSecondary")
     static let error = Color("AppError")
-    static let onPrimary = Color("AppOnPrimary")
-    static let onSecondary = Color("AppOnSecondary")
 }

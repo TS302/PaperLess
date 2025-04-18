@@ -10,8 +10,8 @@ import Foundation
 class LoginViewModel: ObservableObject {
         
     @Published var userArray: [User] = [
-        User(username: "Oguzhan", password: "1111"),
-        User(username: "Tom", password: "2222"),
+        User(firstname: "Oguzhan", lastname: "Cirpan", email: "cirpan@test.de", password: "1111", isLoggedIn: false),
+        User(firstname: "Tom", lastname: "Salih", email: "tom@test.de", password: "2222", isLoggedIn: false),
     ]
     
     
@@ -25,9 +25,9 @@ class LoginViewModel: ObservableObject {
     ///   - username: Der Benutzername, der geprüft werden soll.
     ///   - password: Das zum Benutzernamen gehörige Passwort.
     /// - Returns: `true`, wenn ein Benutzer mit diesen Zugangsdaten existiert, sonst `false`.
-    func checkAccessData(username: String, password: String) -> Bool {
+    func checkAccessData(email: String, password: String) -> Bool {
         return userArray.contains { user in
-            user.username == username && user.password == password
+            user.email == email && user.password == password
         }
     }
 }

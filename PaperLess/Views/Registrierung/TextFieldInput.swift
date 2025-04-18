@@ -14,25 +14,19 @@ struct TextFieldInput: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 5) {
-            
-            
+        VStack {
             TextField(label, text: $text)
-            
-                .padding()
-                .frame(width: 300, height: 44)
-                .background(RoundedRectangle(cornerRadius: 8)
+                .padding(.leading, 10)
+                .frame(height: 44)
+                .background(RoundedRectangle(cornerRadius: 6)
                     .fill(Color.white)
-                    .stroke(Color.blue, lineWidth: 1))
+                    .stroke(Color.appPrimary, lineWidth: 1))
         }
+        //        Hintergrundfarbe
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 40)
+        .background(Color.appSecondary)
         
-        
-        
-        
-        
-//        Hintergrundfarbe
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.appOnprimary)
     }
 }
 

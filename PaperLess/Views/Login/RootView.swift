@@ -10,20 +10,17 @@ import SwiftUI
 struct RootView: View {
     @StateObject private var loginViewModel = LoginViewModel()
     
-    @State private var user: User = User(username: "", password: "")
-    @State private var isLoggedIn: Bool = false
+    @State private var user: User = User(firstname: "", lastname: "", email: "", password: "", isLoggedIn: false)
     
     var body: some View {
-        if isLoggedIn {
+        if user.isLoggedIn {
             MainTabView(
-                user: $user,
-                isLoggedIn: $isLoggedIn
+                user: $user
             )
             .environmentObject(loginViewModel)
         } else {
             LoginView(
-                user: $user,
-                isLoggedIn: $isLoggedIn
+                user: $user
             )
             .environmentObject(loginViewModel)
         }

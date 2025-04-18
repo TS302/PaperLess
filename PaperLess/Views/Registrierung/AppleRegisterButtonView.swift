@@ -11,34 +11,27 @@ struct AppleRegisterButtonView: View {
     
     var body: some View {
         
-        
-        
         HStack {
-            
-          
-            
-            Button("Mit Apple fortfahren") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                
+            Button {
+                //Action
+            }label: {
+                HStack {
+                    Image("Apple_Logo")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                    Text("Mit Apple fortfahren")
+                }
             }
-            .frame(width: 300, height: 50)
+            .frame(maxWidth: .infinity, maxHeight: 50)
             .foregroundColor(.white)
             .background(Color.black)
-            .cornerRadius(10)
+            .cornerRadius(6)
             .font(.system(size: 17))
-            
-            Image("apple_logo")
-                .resizable()
-                .frame(width: 47, height: 50)
-                .padding(.leading, -296 )
-                
-          
-            
-            
+            .padding(.horizontal, 40)
         }
         //        Hintergrundfarbe
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.appOnprimary)
+        .background(Color.appSecondary)
     }
 }
 struct AppleRegisterButtonView_Previews: PreviewProvider {

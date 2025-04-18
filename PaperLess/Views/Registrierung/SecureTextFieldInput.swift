@@ -16,8 +16,7 @@ struct SecureTextFieldInput: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 5) {
-            
+        VStack {
 
             HStack {
                 if showPassword {
@@ -31,32 +30,28 @@ struct SecureTextFieldInput: View {
                         showPassword.toggle()
                     }) {
                         Image(systemName: showPassword ? "eye.slash" : "eye")
+                            .padding(.trailing, 10)
                             .foregroundColor(.gray)
                     }
                 }
             }
-            .padding()
-            .frame(width: 300, height: 44)
-            .background(RoundedRectangle(cornerRadius:8)
+            .padding(.leading, 10)
+            .frame(height: 44)
+            .background(RoundedRectangle(cornerRadius:6)
                 .fill(Color.white))
             
-            .overlay(RoundedRectangle(cornerRadius:8)
-                .stroke(Color.blue, lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius:6)
+                .stroke(Color.appPrimary, lineWidth: 1))
         }
-        
-        
-        
-        
-        
         //        Hintergrundfarbe
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.appOnprimary)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 40)
+        .background(Color.appSecondary)
     }
 }
 
 struct SecureTextFieldInput_Previews: PreviewProvider {
     static var previews: some View {
-        
         
 //         Testvorschau mit konstanten Bindings
         SecureTextFieldInput(

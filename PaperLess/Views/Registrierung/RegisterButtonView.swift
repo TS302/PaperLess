@@ -13,18 +13,18 @@ struct RegisterButtonView: View {
     
           
             Button("Registrieren") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                //Action
             }
-            .frame(width: 300, height: 50)
+            .frame(maxWidth: .infinity, maxHeight: 50)
             .foregroundColor(.white)
             .background(Color.blue)
-            .cornerRadius(10)
-            
-            
+            .cornerRadius(6)
+            .font(.system(size: 17))
             
             //        Hintergrundfarbe
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.appOnprimary)
+            .frame(maxHeight: .infinity)
+            .padding(.horizontal, 40)
+            .background(Color.appSecondary)
             
         }
     }

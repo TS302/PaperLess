@@ -16,7 +16,6 @@ struct HomeView: View {
     @State var showAddDocument: Bool = false
     @State var showAddNFC: Bool = false
     
-    
     var documentArray: [Document] = [
         Document(id: UUID(), title: "Mietvertrag", description: "Mietvertrag von der Wohnung in der Musterstraße 121 in Tübingen"),
         Document(id: UUID(), title: "Nebenkostenabrechnung", description: "Nebenkostenabrechnung für das Jahr 2024 der Wohnung in der Musterstraße 121 in Tübingen"),
@@ -86,6 +85,9 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(user: .constant(User(username: "Max Mustermann", password: "1111")), isLoggedIn: .constant(true))
+    HomeView(
+        user: .constant(
+            User(firstname: "Max", lastname:  "Mustermann",email: "max@beispiel.de", password: "geheim123", isLoggedIn: true)),isLoggedIn: .constant(true)
+    )
 }
 

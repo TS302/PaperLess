@@ -35,5 +35,8 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(user: .constant(User(username: "Max Mustermann", password: "111111")), isLoggedIn: .constant(true))
+    SettingsView(
+        user: .constant(
+            User(firstname: "Max", lastname:  "Mustermann",email: "max@beispiel.de", password: "geheim123", isLoggedIn: true)),isLoggedIn: .constant(true)
+    )
 }
