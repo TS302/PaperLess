@@ -12,8 +12,5 @@ struct ListRowTitle: ViewModifier {
         content
             .font(AppFonts.title)
             .foregroundColor(Color.appPrimary)
-            
-            
     }
-    
 }

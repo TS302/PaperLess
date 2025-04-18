@@ -20,22 +20,23 @@ struct LoginView: View {
         VStack {
             Spacer()
             
-                Text("PAPERLESS")
-                    .fontWeight(.black)
-                    .font(.largeTitle)
-                    .foregroundStyle(Color.appPrimary)
-                
-                Text("Dokumente digitalisieren & verwelten!")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.primary)
-                    .opacity(0.8)
-                    .padding(.bottom, 60)
+            Text("PAPERLESS")
+                .fontWeight(.black)
+                .font(.largeTitle)
+                .foregroundStyle(Color.appPrimary)
+            
+            Text("Dokumente digitalisieren & verwelten!")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.primary)
+                .opacity(0.8)
+                .padding(.bottom, 60)
             
             
-                TextFieldInput(label: "Benutzername", text: $user.email)
+            TextFieldInput(label: "Benutzername", text: $user.email)
                 .padding(.bottom, 20)
-                SecureTextFieldInput(label: "Passwort", text: $user.password, showPassword: $showPasswort, showEyeIcon: false)
+                .autocapitalization(.none)
+            SecureTextFieldInput(label: "Passwort", text: $user.password, showPassword: $showPasswort, showEyeIcon: false)
                 .padding(.bottom, 20)
             
             if loginError {
@@ -43,6 +44,7 @@ struct LoginView: View {
                     .foregroundStyle(.appError)
                     .font(.caption)
                     .padding(.bottom,15)
+                    .autocapitalization(.none)
             }
             
             HStack{
