@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Document: Identifiable {
+struct Document: Identifiable, Codable {
     var id: UUID
     var title: String
     var description: String
