@@ -9,99 +9,83 @@ import SwiftUI
 import PhotosUI
 
 struct NfcDetailView: View {
+    
     @Binding var nfcDocument: NfcDocument
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker = false
+    @State private var addingNote = false
+    @State private var selectedTab = 0
     
     var body: some View {
+        
         VStack {
             List {
                 Section(header: Text("Allgemeine Informationen")) {
                     
-                    TextField("Titel", text: $nfcDocument.title)
-                        .modifier(ListRowTitle())
+                    ListRowTextField(label: "Bezeichnung", text: $nfcDocument.title)
                     
-                    TextField("Marke", text: $nfcDocument.manufacturer)
-                        .modifier(ListRowTitle())
+                    ListRowTextField(label: "Marke", text: $nfcDocument.manufacturer)
                     
-                    TextField("Model", text: $nfcDocument.model)
-                        .modifier(ListRowTitle())
+                    ListRowTextField(label: "Model", text: $nfcDocument.model)
                     
-                    TextField("Seriennummer", text: $nfcDocument.serialNumber)
-                        .modifier(ListRowTitle())
-                    
-                    DatePicker("Erstelldatum", selection: $nfcDocument.purchaseDate, displayedComponents: [.date])
-                        .modifier(ListRowTitle())
-                        .accentColor(Color.appPrimary)
-                    
-                    DatePicker("Letztes Servicedatum", selection: $nfcDocument.lastServiceDate, displayedComponents: [.date])
-                        .modifier(ListRowTitle())
-                        .accentColor(Color.appPrimary)
+                    ListRowTextField(label: "Seriennummer", text: $nfcDocument.serialNumber)
                 }
                 
-                Section(
-                    header: HStack {
-                        Text("Bilder")
-                            .modifier(ListRowTitle())
-                        Spacer()
-                        Button(action: {
-                            showImagePicker.toggle()
-                        }) {
-                            Image(systemName: "plus")
-                        }
-                        
-                        
-                    }) {
-                        if let image = selectedImage {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 200)
-                                .cornerRadius(10)
-                        } else {
-                            HStack{
-                                Text("Kein Bild ausgewählt")
-                                    .modifier(ListRowTitle())
-                                
-                                PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                                    Text("Bild auswählen!")
-                                }
-                                .onChange(of: selectedItem) { oldItem, newItem in
-                                    
-                                    Task {
-                                        if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                            let uiImage = UIImage(data: data)
-                                            selectedImage = uiImage
-                                        }
-                                        
-                                    }
-                                }
-                            }
-                        }
+                Section {
+                    Picker("", selection: $selectedTab) {
+                        Text("Notizen").tag(0)
+                        Text("Bilder").tag(1)
+                        Text("Verleih").tag(2)
                     }
-                
-                Section(header: Text("Notizen")) {
-                    TextField("Notiz", text: $nfcDocument.notes)
-                        .font(AppFonts.body)
-                        .foregroundStyle(Color.appPrimary)
+                    .pickerStyle(.segmented)
+                    .tint(Color.appError)
+                    .padding(.vertical, 8)
+                }
+                if selectedTab == 0 {
+                    
+                    NoteSection(notes: $nfcDocument.notes) {
+                        addingNote = true
+                    }
+                   
+                } else if selectedTab == 1 {
+                    
+                    PhotosSection(selectedItem: $selectedItem, selectedImage: $selectedImage)
+                    
+                } else {
+                    Section("Verleih") {
+                        Text("Verleih")
+                    }
                 }
             }
+            .sheet(isPresented: $addingNote) {
+                AddNoteView(notes: $nfcDocument.notes)
+            }
+            .navigationTitle(nfcDocument.title)
         }
-        .navigationTitle("\(nfcDocument.title)")
     }
 }
 
 #Preview {
     
     let testDocument = NfcDocument(
-        title: "Testgerät",
-        manufacturer: "Muster Marke",
+        title: "BOSCH GX-2001 Schlagbohrmaschine",
+        manufacturer: "Bosch",
         model: "Beispielmodell 1.0",
-        serialNumber: "1010110",
+        serialNumber: "1010110-A21-300300300-XYZ",
         purchaseDate: Date(),
         lastServiceDate: Date(),
-        notes: "Dies ist ein Testgerät für die Vorschau die länger als eine Zeile lang sein sollte."
+        notes: [
+            Note(note: "Gerät mit NFC‑Sticker erfolgreich registriert und in der App angelegt.", date: Date()),
+            Note(note: "Batteriestatus prüfen: 85 % Restkapazität laut Sensor.", date: Date()),
+            Note(note: "Letzte Nutzung: 18.04.2025 um 16:30 Uhr – Daten synchronisiert.", date: Date()),
+            Note(note: "Firmware‑Update verfügbar: Version 2.1.0 herunterladen und installieren.", date: Date()),
+            Note(note: "NFC‑Lesefehler: Sticker neu positionieren und erneut scannen.", date: Date()),
+            Note(note: "Gerät in den Energiesparmodus versetzt – Wake‑Up per NFC möglich.", date: Date()),
+            Note(note: "Standort geändert: Gerät jetzt in Lagerhalle B abgelegt.", date: Date()),
+            Note(note: "Wartungsintervall fällig in 5 Tagen – Terminplanung empfohlen.", date: Date())
+        ]
     )
     NfcDetailView(nfcDocument: .constant(testDocument))
 }
+ 

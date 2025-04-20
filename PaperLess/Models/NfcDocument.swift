@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NfcDocument: Identifiable, Hashable {
+struct NfcDocument: Identifiable {
     let id: UUID = UUID()
     var title: String
     var manufacturer: String
@@ -15,5 +15,5 @@ struct NfcDocument: Identifiable, Hashable {
     var serialNumber: String
     var purchaseDate: Date
     var lastServiceDate: Date
-    var notes: String
+    var notes: [Note]
 }

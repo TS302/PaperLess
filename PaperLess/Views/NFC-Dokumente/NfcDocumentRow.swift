@@ -19,7 +19,7 @@ struct NfcDocumentRow: View {
                 Text(nfcDocument.title)
                     .modifier(ListRowTitle())
                 
-                Text(nfcDocument.notes)
+                Text(nfcDocument.notes.first?.note ?? "keine Notizen")
                     .modifier(ListRowSubtitle())
             }
         }
@@ -35,7 +35,9 @@ struct NfcDocumentRow: View {
         serialNumber: "1010110",
         purchaseDate: Date(),
         lastServiceDate: Date(),
-        notes: "Dies ist ein Testgerät für die Vorschau die länger als eine Zeile lang sein sollte."
+        notes: [
+            Note(note: "Dies ist ein Testgerät für die Vorschau die länger als eine Zeile lang sein sollte.", date: Date())
+        ]
     )
     NfcDocumentRow(nfcDocument: testDocument)
 }

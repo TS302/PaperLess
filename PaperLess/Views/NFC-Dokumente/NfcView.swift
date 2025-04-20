@@ -16,7 +16,9 @@ struct NfcView: View {
             serialNumber: "CPX-123456789",
             purchaseDate: Date(),
             lastServiceDate: Date(),
-            notes: "Filter wurde zuletzt im Dezember 2024 gewechselt."
+            notes: [
+                Note(note: "Filter wurde zuletzt im Dezember 2024 gewechselt.", date: Date()),
+            ]
         ),
         NfcDocument(
             title: "Wasserkocher Küche OG",
@@ -25,7 +27,9 @@ struct NfcView: View {
             serialNumber: "WK-00992341",
             purchaseDate: Date(),
             lastServiceDate: Date(),
-            notes: "Regelmäßiger Gebrauch, keine Wartung bisher notwendig."
+            notes: [
+                Note(note: "Regelmäßiger Gebrauch, keine Wartung bisher notwendig.", date: Date())
+            ]
         ),
         NfcDocument(
             title: "Bohrhammer 800",
@@ -34,7 +38,9 @@ struct NfcView: View {
             serialNumber: "PW800-887766",
             purchaseDate: Date(),
             lastServiceDate: Date(),
-            notes: "Stoßdämpfer defekt – Ersatzteil bestellt."
+            notes: [
+                Note(note: "Stoßdämpfer defekt – Ersatzteil bestellt.", date: Date())
+            ]
         ),
         NfcDocument(
             title: "Kaffeemaschine Büro",
@@ -43,7 +49,9 @@ struct NfcView: View {
             serialNumber: "CTB-220987",
             purchaseDate: Date(),
             lastServiceDate: Date(),
-            notes: "Wurde 2023 entkalkt. Regelmäßige Wartung empfohlen."
+            notes: [
+                Note(note: "Wurde 2023 entkalkt. Regelmäßige Wartung empfohlen.", date: Date())
+            ]
         ),
         NfcDocument(
             title: "Akkuschrauber MaxPower",
@@ -52,7 +60,9 @@ struct NfcView: View {
             serialNumber: "XD450-001122",
             purchaseDate: Date(),
             lastServiceDate: Date(),
-            notes: "Gerät wurde nach 6 Monaten das erste Mal gewartet."
+            notes: [
+                Note(note: "Gerät wurde nach 6 Monaten das erste Mal gewartet.", date: Date())
+            ]
         )
     ]
     
@@ -60,17 +70,12 @@ struct NfcView: View {
         
         NavigationStack {
             List {
-                ForEach($nfcDocuments, id: \.id) { $nfcDocument in
-                    NavigationLink(value: nfcDocument) {
+                ForEach($nfcDocuments) { $nfcDocument in
+                    NavigationLink {
+                        NfcDetailView(nfcDocument: $nfcDocument)
+                    } label: {
                         NfcDocumentRow(nfcDocument: nfcDocument)
                     }
-                }
-            }
-            .navigationDestination(for: NfcDocument.self) { nfcDocument in
-                if let index = nfcDocuments.firstIndex(where: {$0.id == nfcDocument.self.id}){
-                    NfcDetailView(nfcDocument: $nfcDocuments[index])
-                } else {
-                    Text("Dokument nicht verfügbar")
                 }
             }
         }
