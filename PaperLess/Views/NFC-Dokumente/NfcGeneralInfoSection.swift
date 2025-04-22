@@ -15,13 +15,13 @@ struct NfcGeneralInfoSection: View {
     var body: some View {
         
         Section {
-            ListRowTextField(label: "Bezeichnung", text: $document.title)
+            ListRowTextField(label: "Bezeichnung", text: $document.name)
             
-            ListRowTextField(label: "Marke", text: $document.manufacturer)
+            ListRowTextField(label: "Marke", text: $document.brand)
             
             ListRowTextField(label: "Model", text: $document.model)
             
-            ListRowTextField(label: "Seriennummer", text: $document.serialNumber)
+            ListRowTextField(label: "Seriennummer", text: $document.serialNumber.replacingNil(""))
         } header: {
             
             HStack {
@@ -47,12 +47,12 @@ struct NfcGeneralInfoSection: View {
             NfcGeneralInfoSection(
                 document: .constant(
                     NfcDocument(
-                        title: "Bohrmaschine",
-                        manufacturer: "",
+                        name: "Bohrmaschine",
+                        brand: "",
                         model: "",
                         serialNumber: "",
                         purchaseDate: Date(),
-                        lastServiceDate: Date()
+                        nextServiceDate: Date()
                     )
                 ),
                 editGeneralInfoAction: {

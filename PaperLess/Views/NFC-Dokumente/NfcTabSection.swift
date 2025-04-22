@@ -27,6 +27,6 @@ struct NfcTabSection: View {
 }
 
 #Preview {
-    var selectedTab = 1
-    NfcTabSection(selectedTab: .constant(selectedTab))
+    NfcTabSection(selectedTab: .constant(0))
 }
+

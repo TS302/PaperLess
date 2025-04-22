@@ -16,10 +16,10 @@ struct NfcDocumentRow: View {
                 .modifier(ListRowIcon())
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(nfcDocument.title)
+                Text(nfcDocument.name)
                     .modifier(ListRowTitle())
                 
-                Text(nfcDocument.notes?.first?.note ?? "keine Notizen")
+                Text(nfcDocument.notes.first?.note ?? "keine Notizen")
                     .modifier(ListRowSubtitle())
             }
         }
@@ -29,12 +29,12 @@ struct NfcDocumentRow: View {
 
 #Preview {
     let testDocument = NfcDocument(
-        title: "Testgerät",
-        manufacturer: "Muster Marke",
+        name: "Testgerät",
+        brand: "Muster Marke",
         model: "Beispielmodell 1.0",
         serialNumber: "1010110",
         purchaseDate: Date(),
-        lastServiceDate: Date(),
+        nextServiceDate: Date(),
         notes: [
             Note(note: "Dies ist ein Testgerät für die Vorschau die länger als eine Zeile lang sein sollte.", date: Date())
         ]

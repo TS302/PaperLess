@@ -25,7 +25,7 @@ struct NoteSection: View {
             }
         }) {
             if notes.isEmpty {
-                Text("Keine Notizen vorhanden. Klicke auf den Plus-Knopf, um eine zu erstellen.")
+                Text("Keine Notizen vorhanden.")
                     .modifier(ListRowSubtitle())
             } else {
                 ForEach($notes, id: \.id) { $note in

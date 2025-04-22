@@ -11,55 +11,56 @@ import PhotosUI
 struct NfcDetailView: View {
     
     @Binding var nfcDocument: NfcDocument
-    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var photosPickerItem: PhotosPickerItem? = nil
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker = false
     @State private var addingNote = false
     @State private var selectedTab = 0
     @State private var editGeneralInfo = false
-    
+    /*
     private var notesBinding: Binding<[Note]> {
         
         Binding<[Note]>(
-            get: { nfcDocument.notes ?? []},
-            set: { newValue in nfcDocument.notes = newValue.isEmpty ? nil : newValue }
+            get: { nfcDocument.notes },
+            set: { newValue in nfcDocument.notes = newValue }
         )
     }
+     */
     
     var body: some View {
         
-        List {
-            NfcTabSection(selectedTab: $selectedTab)
-            
-            if selectedTab == 0 {
-                NfcGeneralInfoSection(document: $nfcDocument, editGeneralInfoAction: {
-                    print("Allgemeine Informationen bearbeiten gedrückt!!")
-                })
-            } else if selectedTab == 1 {
+            List {
+                NfcTabSection(selectedTab: $selectedTab)
                 
-                NoteSection(notes: notesBinding) {
-                    addingNote = true
+                if selectedTab == 0 {
+                    NfcGeneralInfoSection(document: $nfcDocument, editGeneralInfoAction: {
+                        print("Allgemeine Informationen bearbeiten gedrückt!!")
+                    })
+                } else if selectedTab == 1 {
+                    
+                    NoteSection(notes: $nfcDocument.notes) {
+                        addingNote = true
+                    }
+                } else {
+                    PhotosSection(photosPickerItem: $photosPickerItem, selectedImage: $selectedImage)
                 }
-            } else {
-                PhotosSection(selectedItem: $selectedItem, selectedImage: $selectedImage)
             }
-        }
-        .modifier(ListStyleTitleInline(title: nfcDocument.title))
-        .sheet(isPresented: $addingNote) {
-            AddNoteView(notes: notesBinding)
-        }
+            .modifier(ListStyleTitleInline(title: nfcDocument.name))
+            .sheet(isPresented: $addingNote) {
+                AddNoteView(notes: $nfcDocument.notes)
+            }
     }
 }
 
 #Preview {
     
     let testDocument = NfcDocument(
-        title: "BOSCH GX-2001 Schlagbohrmaschine",
-        manufacturer: "Bosch",
+        name: "BOSCH GX-2001 Schlagbohrmaschine",
+        brand: "Bosch",
         model: "Beispielmodell 1.0",
         serialNumber: "1010110-A21-300300300-XYZ",
         purchaseDate: Date(),
-        lastServiceDate: Date(),
+        nextServiceDate: Date(),
         notes: [
             Note(note: "Gerät mit NFC‑Sticker erfolgreich registriert und in der App angelegt.", date: Date()),
             Note(note: "Batteriestatus prüfen: 85 % Restkapazität laut Sensor.", date: Date()),

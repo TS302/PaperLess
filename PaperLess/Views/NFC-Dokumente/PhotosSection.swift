@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct PhotosSection: View {
-    @Binding var selectedItem: PhotosPickerItem?
+    @Binding var photosPickerItem: PhotosPickerItem?
     @Binding var selectedImage: UIImage?
     
     var body: some View {
@@ -18,7 +18,7 @@ struct PhotosSection: View {
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(Color.appPrimary)
             Spacer()
-            PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
+            PhotosPicker(selection: $photosPickerItem, matching: .images, photoLibrary: .shared()) {
                 Image(systemName: "photo.badge.plus")
                     .font(.system(size: 20))
                     .foregroundStyle(Color.appPrimary)
@@ -32,7 +32,7 @@ struct PhotosSection: View {
                     .padding(.vertical, 10)
             }
         }
-        .onChange(of: selectedItem) { oldItem, newItem in
+        .onChange(of: photosPickerItem) { oldItem, newItem in
             Task {
                 if let photosPickerItem = newItem,
                    let data = try? await photosPickerItem.loadTransferable(type: Data.self),
@@ -49,7 +49,7 @@ struct PhotosSection: View {
     NavigationView {
         List {
             PhotosSection(
-                selectedItem: .constant(nil),
+                photosPickerItem: .constant(nil),
                 selectedImage: .constant(UIImage(systemName: "photo"))
             )
         }
