@@ -68,18 +68,25 @@ struct NfcView: View {
     
     var body: some View {
         
-        NavigationStack {
-            List {
-                ForEach($nfcDocuments) { $nfcDocument in
-                    NavigationLink {
-                        NfcDetailView(nfcDocument: $nfcDocument)
-                    } label: {
-                        NfcDocumentRow(nfcDocument: nfcDocument)
+        VStack {
+            NavigationStack {
+                List {
+                    ForEach($nfcDocuments) { $nfcDocument in
+                        NavigationLink {
+                            NfcDetailView(nfcDocument: $nfcDocument)
+                        } label: {
+                            NfcDocumentRow(nfcDocument: nfcDocument)
+                        }
                     }
                 }
+                .scrollContentBackground(.hidden)
+                .background(Color.appSecondary)
+                .navigationTitle("NFC-Dokumente")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
-        .navigationTitle("NFC-Dokumente")
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.red)
         
     }
 }

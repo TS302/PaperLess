@@ -14,26 +14,19 @@ struct ListRowTextField: View {
     var body: some View {
         VStack {
             Text(label)
-                .modifier(ListRowSubtitle())
+                .font(AppFonts.body)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Color.appPrimary)
+                .opacity(0.5)
             
             TextField("", text: $text)
-                .modifier(ListRowTitle())
+                .lineLimit(1)
+                .font(AppFonts.body)
+                .foregroundStyle(Color.black)
         }
     }
 }
 
 #Preview {
-    let testDocument = NfcDocument(
-        title: "Testgerät",
-        manufacturer: "Muster Marke",
-        model: "Beispielmodell 1.0",
-        serialNumber: "1010110",
-        purchaseDate: Date(),
-        lastServiceDate: Date(),
-        notes: [
-            Note(note: "Dies ist ein Testgerät für die Vorschau die länger als eine Zeile lang sein sollte.", date: Date())
-        ]
-    )
     ListRowTextField(label: "Bezeichnung", text: .constant("Test"))
 }

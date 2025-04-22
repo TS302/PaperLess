@@ -15,5 +15,5 @@ struct NfcDocument: Identifiable {
     var serialNumber: String
     var purchaseDate: Date
     var lastServiceDate: Date
-    var notes: [Note]
+    var notes: [Note]?
 }

@@ -16,52 +16,37 @@ struct NfcDetailView: View {
     @State private var showImagePicker = false
     @State private var addingNote = false
     @State private var selectedTab = 0
+    @State private var editGeneralInfo = false
+    
+    private var notesBinding: Binding<[Note]> {
+        
+        Binding<[Note]>(
+            get: { nfcDocument.notes ?? []},
+            set: { newValue in nfcDocument.notes = newValue.isEmpty ? nil : newValue }
+        )
+    }
     
     var body: some View {
         
-        VStack {
-            List {
-                Section(header: Text("Allgemeine Informationen")) {
-                    
-                    ListRowTextField(label: "Bezeichnung", text: $nfcDocument.title)
-                    
-                    ListRowTextField(label: "Marke", text: $nfcDocument.manufacturer)
-                    
-                    ListRowTextField(label: "Model", text: $nfcDocument.model)
-                    
-                    ListRowTextField(label: "Seriennummer", text: $nfcDocument.serialNumber)
-                }
+        List {
+            NfcTabSection(selectedTab: $selectedTab)
+            
+            if selectedTab == 0 {
+                NfcGeneralInfoSection(document: $nfcDocument, editGeneralInfoAction: {
+                    print("Allgemeine Informationen bearbeiten gedrückt!!")
+                })
+            } else if selectedTab == 1 {
                 
-                Section {
-                    Picker("", selection: $selectedTab) {
-                        Text("Notizen").tag(0)
-                        Text("Bilder").tag(1)
-                        Text("Verleih").tag(2)
-                    }
-                    .pickerStyle(.segmented)
-                    .tint(Color.appError)
-                    .padding(.vertical, 8)
+                NoteSection(notes: notesBinding) {
+                    addingNote = true
                 }
-                if selectedTab == 0 {
-                    
-                    NoteSection(notes: $nfcDocument.notes) {
-                        addingNote = true
-                    }
-                   
-                } else if selectedTab == 1 {
-                    
-                    PhotosSection(selectedItem: $selectedItem, selectedImage: $selectedImage)
-                    
-                } else {
-                    Section("Verleih") {
-                        Text("Verleih")
-                    }
-                }
+            } else {
+                PhotosSection(selectedItem: $selectedItem, selectedImage: $selectedImage)
             }
-            .sheet(isPresented: $addingNote) {
-                AddNoteView(notes: $nfcDocument.notes)
-            }
-            .navigationTitle(nfcDocument.title)
+        }
+        .modifier(ListStyleTitleInline(title: nfcDocument.title))
+        .sheet(isPresented: $addingNote) {
+            AddNoteView(notes: notesBinding)
         }
     }
 }
@@ -88,4 +73,4 @@ struct NfcDetailView: View {
     )
     NfcDetailView(nfcDocument: .constant(testDocument))
 }
- 
+

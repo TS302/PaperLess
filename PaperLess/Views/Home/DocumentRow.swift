@@ -15,7 +15,7 @@ struct DocumentRow: View {
             Image(systemName: "text.page")
                 .font(.system(size: 25))
                 .frame(width: 50, height: 50)
-                .background(Color.primary)
+                .background(Color.appPrimary)
                 .clipShape(Circle())
                 .foregroundStyle(Color.appSecondary)
             

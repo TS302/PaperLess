@@ -12,12 +12,15 @@ struct NoteSection: View {
     let addNoteAction: () -> Void
     
     var body: some View {
+        
         Section(header: HStack {
             Text("Notizen")
-                .modifier(ListRowSubtitle())
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(Color.appPrimary)
             Spacer()
             Button(action: addNoteAction) {
                 Image(systemName: "note.text.badge.plus")
+                    .font(.system(size: 20))
                     .foregroundStyle(Color.appPrimary)
             }
         }) {
@@ -27,18 +30,31 @@ struct NoteSection: View {
             } else {
                 ForEach($notes, id: \.id) { $note in
                     NavigationLink(destination: EditNoteView(note: $note)) {
+                        HStack {
+                            Image(systemName: "note.text")
+                                .font(.system(size: 30))
+                                .foregroundStyle(Color.appPrimary)
+                                .padding(.leading, -5)
+                                .padding(.trailing, 4)
+                            
+                        }
                         VStack (alignment: .leading) {
                             HStack {
                                 Text(note.date, style: .date)
-                                    .modifier(ListRowSubtitle())
+                                    .font(AppFonts.body)
+                                    .foregroundStyle(Color.appPrimary)
+                                    .opacity(0.5)
                                 Spacer()
                                 Text(note.date, style: .time)
-                                    .modifier(ListRowSubtitle())
+                                    .font(AppFonts.body)
+                                    .foregroundStyle(Color.appPrimary)
+                                    .opacity(0.5)
                             }
                             .padding(.vertical, 2)
                             Text(note.note)
+                                .lineLimit(1)
                                 .font(AppFonts.body)
-                                .foregroundStyle(Color.appPrimary)
+                                .foregroundStyle(Color.black)
                         }
                     }
                 }
@@ -54,10 +70,19 @@ struct NoteSection: View {
     NavigationView {
         List {
             NoteSection(
-                notes: .constant(Note.sampleData),
-                addNoteAction: { }
+                notes: .constant([
+                    Note(note: "Gerät mit NFC-Sticker registriert.", date: Date()),
+                    Note(note: "Batteriestatus geprüft: 85 % Restkapazität", date: Date())
+                ]),
+                addNoteAction: {
+                    print("Add Note tapped")
+                }
+            )
+            NoteSection(
+                notes: .constant([]),
+                addNoteAction: { print("Add Note tapped") }
             )
         }
-        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Notizen Preview")
     }
 }

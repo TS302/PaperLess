@@ -19,7 +19,7 @@ struct NfcDocumentRow: View {
                 Text(nfcDocument.title)
                     .modifier(ListRowTitle())
                 
-                Text(nfcDocument.notes.first?.note ?? "keine Notizen")
+                Text(nfcDocument.notes?.first?.note ?? "keine Notizen")
                     .modifier(ListRowSubtitle())
             }
         }

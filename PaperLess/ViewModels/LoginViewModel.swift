@@ -11,7 +11,7 @@ class LoginViewModel: ObservableObject {
         
     @Published var userArray: [User] = [
         User(firstname: "Oguzhan", lastname: "Cirpan", email: "cirpan@test.de", password: "1111", isLoggedIn: false),
-        User(firstname: "Tom", lastname: "Salih", email: "tom@test.de", password: "2222", isLoggedIn: false),
+        User(firstname: "Tom", lastname: "Salih", email: "tom", password: "2222", isLoggedIn: false),
     ]
     
     

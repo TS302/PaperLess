@@ -15,11 +15,13 @@ struct PhotosSection: View {
     var body: some View {
         Section(header: HStack {
             Text("Bilder")
-                .modifier(ListRowSubtitle())
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(Color.appPrimary)
             Spacer()
             PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
-                Image(systemName: "plus.square.fill")
-                    .foregroundColor(Color.appPrimary)
+                Image(systemName: "photo.badge.plus")
+                    .font(.system(size: 20))
+                    .foregroundStyle(Color.appPrimary)
             }
         }){
             if let image = selectedImage {
@@ -32,8 +34,8 @@ struct PhotosSection: View {
         }
         .onChange(of: selectedItem) { oldItem, newItem in
             Task {
-                if let item = newItem,
-                   let data = try? await item.loadTransferable(type: Data.self),
+                if let photosPickerItem = newItem,
+                   let data = try? await photosPickerItem.loadTransferable(type: Data.self),
                    let image = UIImage(data: data) {
                     selectedImage = image
                 }
@@ -41,8 +43,18 @@ struct PhotosSection: View {
         }
     }
 }
-/*
+
 #Preview {
-    PhotosSection(selectetItem: <#Binding<PhotosPickerItem?>#>, selectedImage: <#Binding<UIImage?>#>)
+    
+    NavigationView {
+        List {
+            PhotosSection(
+                selectedItem: .constant(nil),
+                selectedImage: .constant(UIImage(systemName: "photo"))
+            )
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Fotos")
+    }
 }
-*/
+
