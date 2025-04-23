@@ -7,11 +7,14 @@
 
 import SwiftUI
 
-extension Binding where Value == String? {
-    func replacingNil(_ defaultValue: String) -> Binding<String> {
-        Binding<String>(
-            get: { self.wrappedValue ?? defaultValue },
-            set: { self.wrappedValue = $0 }
-        )
-    }
+extension Binding {
+    func replacingNil<Wrapped>(or defaultValue: Wrapped) -> Binding<Wrapped>
+        where Value == Wrapped? {
+            Binding<Wrapped>(
+                get: { self.wrappedValue ?? defaultValue },
+                set: { self.wrappedValue = $0 }
+            )
+        }
+        
+    
 }

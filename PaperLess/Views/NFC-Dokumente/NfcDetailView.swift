@@ -17,38 +17,88 @@ struct NfcDetailView: View {
     @State private var addingNote = false
     @State private var selectedTab = 0
     @State private var editGeneralInfo = false
-    /*
-    private var notesBinding: Binding<[Note]> {
-        
-        Binding<[Note]>(
-            get: { nfcDocument.notes },
-            set: { newValue in nfcDocument.notes = newValue }
-        )
-    }
-     */
+    
+    @State private var categories: [String] = [
+        "Werkzeug", "Maschine", "Kleingerät", "Fahrzeug"
+    ]
+    @State private var addingCategory = false
+    @State private var newCategorie = ""
     
     var body: some View {
         
-            List {
-                NfcTabSection(selectedTab: $selectedTab)
+        List {
+            
+            NfcTabSection(selectedTab: $selectedTab)
+            
+            
+            
+            
+            if selectedTab == 0 {
+                NfcGeneralInfoSection(NfcDocument: $nfcDocument, editGeneralInfoAction: {
+                    print("Allgemeine Informationen bearbeiten gedrückt!!")
+                })
+            } else if selectedTab == 1 {
                 
-                if selectedTab == 0 {
-                    NfcGeneralInfoSection(document: $nfcDocument, editGeneralInfoAction: {
-                        print("Allgemeine Informationen bearbeiten gedrückt!!")
-                    })
-                } else if selectedTab == 1 {
-                    
-                    NoteSection(notes: $nfcDocument.notes) {
-                        addingNote = true
+                NoteSection(notes: $nfcDocument.notes) {
+                    addingNote = true
+                }
+            } else {
+                PhotosSection(photosPickerItem: $photosPickerItem, selectedImage: $selectedImage)
+            }
+            
+            Section(header: HStack {
+                Text("Management")
+                    .modifier(SectionTitle())
+                Spacer()
+                Button {
+                    print("Kategorie hinzufügen")
+                }label: {
+                    Image(systemName: "widget.small.badge.plus")
+                        .font(.system(size: 20))
+                        .foregroundStyle(Color.appPrimary)
+                }
+            }) {
+                
+                Picker("Status auswählen", selection: $nfcDocument.status) {
+                    ForEach(DeviceStatus.allCases) { status in
+                        HStack {
+                            Circle()
+                                .fill(status.color)
+                                .frame(width: 10, height: 10)
+                            Text(status.localizedName)
+                        }
+                        .tag(status)
                     }
-                } else {
-                    PhotosSection(photosPickerItem: $photosPickerItem, selectedImage: $selectedImage)
+                }
+                
+                Section {
+
+                    Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
+                        ForEach(ServiceInterval.allCases) { interval in
+                            Text(interval.localizedName)
+                                .tag(interval)
+                        }
+                    }
                 }
             }
-            .modifier(ListStyleTitleInline(title: nfcDocument.name))
-            .sheet(isPresented: $addingNote) {
-                AddNoteView(notes: $nfcDocument.notes)
+            
+            
+            
+        }
+        .modifier(ListStyleTitleInline(title: nfcDocument.name.isEmpty ? "Neues Gerät" : nfcDocument.name))
+        .sheet(isPresented: $addingNote) {
+            AddNoteView(notes: $nfcDocument.notes)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Image(systemName: "inset.filled.circle")
+                    .font(.caption)
+                    .foregroundColor(nfcDocument.status.color)
             }
+        }
+        .sheet(isPresented: $addingCategory) {
+            TextField("Name der neuer Kategorie", text: $newCategorie)
+        }
     }
 }
 
@@ -61,6 +111,7 @@ struct NfcDetailView: View {
         serialNumber: "1010110-A21-300300300-XYZ",
         purchaseDate: Date(),
         nextServiceDate: Date(),
+        status: DeviceStatus.available,
         notes: [
             Note(note: "Gerät mit NFC‑Sticker erfolgreich registriert und in der App angelegt.", date: Date()),
             Note(note: "Batteriestatus prüfen: 85 % Restkapazität laut Sensor.", date: Date()),

@@ -16,9 +16,19 @@ struct NfcDocumentRow: View {
                 .modifier(ListRowIcon())
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(nfcDocument.name)
-                    .modifier(ListRowTitle())
-                
+                HStack(spacing: 4) {
+                    Text(nfcDocument.name)
+                        .modifier(ListRowTitle())
+                    Spacer()
+                    Text(nfcDocument.status.localizedName)
+                        .foregroundStyle(Color.appSecondary)
+                        .padding(4)
+                        .font(.system(size: 9, weight: .black))
+                        .clipShape(Rectangle())
+                        .frame(width: 60, alignment: .center)
+                        .background(nfcDocument.status.color)
+                        .cornerRadius(4)
+                }
                 Text(nfcDocument.notes.first?.note ?? "keine Notizen")
                     .modifier(ListRowSubtitle())
             }

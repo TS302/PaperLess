@@ -15,8 +15,7 @@ struct NoteSection: View {
         
         Section(header: HStack {
             Text("Notizen")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(Color.appPrimary)
+                .modifier(SectionTitle())
             Spacer()
             Button(action: addNoteAction) {
                 Image(systemName: "note.text.badge.plus")

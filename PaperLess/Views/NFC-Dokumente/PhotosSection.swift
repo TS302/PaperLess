@@ -15,8 +15,7 @@ struct PhotosSection: View {
     var body: some View {
         Section(header: HStack {
             Text("Bilder")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(Color.appPrimary)
+                .modifier(SectionTitle())
             Spacer()
             PhotosPicker(selection: $photosPickerItem, matching: .images, photoLibrary: .shared()) {
                 Image(systemName: "photo.badge.plus")

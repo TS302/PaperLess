@@ -9,25 +9,34 @@ import SwiftUI
 
 struct NfcGeneralInfoSection: View {
     
-    @Binding var document: NfcDocument
+    @Binding var NfcDocument: NfcDocument
     var editGeneralInfoAction: () -> Void
     
     var body: some View {
         
         Section {
-            ListRowTextField(label: "Bezeichnung", text: $document.name)
             
-            ListRowTextField(label: "Marke", text: $document.brand)
+            ListRowTextField(label: "Bezeichnung", text: $NfcDocument.name)
             
-            ListRowTextField(label: "Model", text: $document.model)
+            ListRowTextField(label: "Marke", text: $NfcDocument.brand)
             
-            ListRowTextField(label: "Seriennummer", text: $document.serialNumber.replacingNil(""))
+            ListRowTextField(label: "Model", text: $NfcDocument.model)
+            
+            ListRowTextField(label: "Seriennummer", text: $NfcDocument.serialNumber.replacingNil(or: "1731829"))
+            
+            Picker("Typ", selection: $NfcDocument.category) {
+                Text("Keine").tag(String?.none)
+                ForEach(Category.allCases) { category in
+                    Text(category.localizedName).tag(Optional(category))
+                        .tag(category)
+                }
+            }
+            .padding(.vertical, 5)
         } header: {
             
             HStack {
                 Text("Allgemeine Informationen")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(Color.appPrimary)
+                    .modifier(SectionTitle())
                 Spacer()
                 Button(action: editGeneralInfoAction) {
                     Image(systemName: "square.and.pencil")
@@ -45,7 +54,7 @@ struct NfcGeneralInfoSection: View {
     NavigationView {
         List {
             NfcGeneralInfoSection(
-                document: .constant(
+                NfcDocument: .constant(
                     NfcDocument(
                         name: "Bohrmaschine",
                         brand: "",

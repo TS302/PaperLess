@@ -21,8 +21,7 @@ struct ListRowTextField: View {
             
             TextField("", text: $text)
                 .lineLimit(1)
-                .font(AppFonts.body)
-                .foregroundStyle(Color.black)
+               
         }
     }
 }
