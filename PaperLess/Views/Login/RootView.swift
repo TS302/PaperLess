@@ -10,7 +10,7 @@ import SwiftUI
 struct RootView: View {
     @StateObject private var loginViewModel = LoginViewModel()
     
-    @State private var user: User = User(firstname: "", lastname: "", email: "", password: "", isLoggedIn: false)
+    @State private var user: User = User(firstname: "", lastname: "", email: "tom", password: "2222", isLoggedIn: true)
     
     var body: some View {
         if user.isLoggedIn {

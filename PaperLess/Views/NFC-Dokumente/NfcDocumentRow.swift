@@ -19,6 +19,7 @@ struct NfcDocumentRow: View {
                 HStack(spacing: 4) {
                     Text(nfcDocument.name)
                         .modifier(ListRowTitle())
+                        .lineLimit(1)
                     Spacer()
                     Text(nfcDocument.status.localizedName)
                         .foregroundStyle(Color.appSecondary)

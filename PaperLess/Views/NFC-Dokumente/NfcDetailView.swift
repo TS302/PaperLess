@@ -18,20 +18,11 @@ struct NfcDetailView: View {
     @State private var selectedTab = 0
     @State private var editGeneralInfo = false
     
-    @State private var categories: [String] = [
-        "Werkzeug", "Maschine", "Kleingerät", "Fahrzeug"
-    ]
-    @State private var addingCategory = false
-    @State private var newCategorie = ""
-    
     var body: some View {
         
         List {
             
             NfcTabSection(selectedTab: $selectedTab)
-            
-            
-            
             
             if selectedTab == 0 {
                 NfcGeneralInfoSection(NfcDocument: $nfcDocument, editGeneralInfoAction: {
@@ -50,15 +41,9 @@ struct NfcDetailView: View {
                 Text("Management")
                     .modifier(SectionTitle())
                 Spacer()
-                Button {
-                    print("Kategorie hinzufügen")
-                }label: {
-                    Image(systemName: "widget.small.badge.plus")
-                        .font(.system(size: 20))
-                        .foregroundStyle(Color.appPrimary)
-                }
-            }) {
                 
+            })
+            {
                 Picker("Status auswählen", selection: $nfcDocument.status) {
                     ForEach(DeviceStatus.allCases) { status in
                         HStack {
@@ -72,7 +57,7 @@ struct NfcDetailView: View {
                 }
                 
                 Section {
-
+                    
                     Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
                         ForEach(ServiceInterval.allCases) { interval in
                             Text(interval.localizedName)
@@ -81,9 +66,6 @@ struct NfcDetailView: View {
                     }
                 }
             }
-            
-            
-            
         }
         .modifier(ListStyleTitleInline(title: nfcDocument.name.isEmpty ? "Neues Gerät" : nfcDocument.name))
         .sheet(isPresented: $addingNote) {
@@ -91,16 +73,19 @@ struct NfcDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Image(systemName: "inset.filled.circle")
-                    .font(.caption)
-                    .foregroundColor(nfcDocument.status.color)
+                Text(nfcDocument.status.localizedName)
+                    .foregroundStyle(Color.appSecondary)
+                    .padding(4)
+                    .font(.system(size: 9, weight: .black))
+                    .clipShape(Rectangle())
+                    .frame(width: 60, alignment: .center)
+                    .background(nfcDocument.status.color)
+                    .cornerRadius(4)
             }
-        }
-        .sheet(isPresented: $addingCategory) {
-            TextField("Name der neuer Kategorie", text: $newCategorie)
         }
     }
 }
+
 
 #Preview {
     
