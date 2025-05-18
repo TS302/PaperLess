@@ -79,3 +79,20 @@ enum Category: String, Codable, CaseIterable, Identifiable {
     var id: Self { self }
     var localizedName: String { rawValue }
 }
+
+enum SortOption: String, CaseIterable, Identifiable {
+    case name, status, category
+    
+    var id: Self { self }
+    
+    var title: String {
+        switch self {
+        case .name:
+            return "ABC"
+        case .status:
+            return "Status"
+        case .category:
+            return "Ketegorie"
+        }
+    }
+}

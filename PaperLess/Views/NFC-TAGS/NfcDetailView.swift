@@ -18,9 +18,10 @@ struct NfcDetailView: View {
     @State private var selectedTab = 0
     @State private var editGeneralInfo = false
     
+    
     var body: some View {
         
-        List {
+        Form {
             
             NfcTabSection(selectedTab: $selectedTab)
             
@@ -41,33 +42,21 @@ struct NfcDetailView: View {
                 Text("Management")
                     .modifier(SectionTitle())
                 Spacer()
-                
-            })
-            {
+            }){
                 Picker("Status auswählen", selection: $nfcDocument.status) {
                     ForEach(DeviceStatus.allCases) { status in
-                        HStack {
-                            Circle()
-                                .fill(status.color)
-                                .frame(width: 10, height: 10)
-                            Text(status.localizedName)
-                        }
-                        .tag(status)
+                        Text(status.localizedName).tag(status)
                     }
                 }
-                
-                Section {
-                    
-                    Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
-                        ForEach(ServiceInterval.allCases) { interval in
-                            Text(interval.localizedName)
-                                .tag(interval)
-                        }
+                Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
+                    ForEach(ServiceInterval.allCases) { interval in
+                        Text(interval.localizedName)
+                            .tag(interval)
                     }
                 }
             }
         }
-        .modifier(ListStyleTitleInline(title: nfcDocument.name.isEmpty ? "Neues Gerät" : nfcDocument.name))
+        //.modifier(ListStyleTitleInline(title: nfcDocument.name.isEmpty ? "Neues Gerät" : nfcDocument.name))
         .sheet(isPresented: $addingNote) {
             AddNoteView(notes: $nfcDocument.notes)
         }
@@ -85,6 +74,7 @@ struct NfcDetailView: View {
         }
     }
 }
+
 
 
 #Preview {
