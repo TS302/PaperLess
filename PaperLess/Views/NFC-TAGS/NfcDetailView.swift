@@ -17,6 +17,7 @@ struct NfcDetailView: View {
     @State private var addingNote = false
     @State private var selectedTab = 0
     @State private var editGeneralInfo = false
+    @State private var showEditSheet = false
     
     
     var body: some View {
@@ -26,9 +27,24 @@ struct NfcDetailView: View {
             NfcTabSection(selectedTab: $selectedTab)
             
             if selectedTab == 0 {
-                NfcGeneralInfoSection(NfcDocument: $nfcDocument, editGeneralInfoAction: {
-                    print("Allgemeine Informationen bearbeiten gedrückt!!")
-                })
+                Section {
+                    NfcGeneralInfoSection(nfcDocument: $nfcDocument)
+                } header: {
+                    HStack {
+                        Text("")
+                            .modifier(SectionTitle())
+                        Spacer()
+                        Button {
+                            showEditSheet = true
+                        } label: {
+                            Text("Bearbeiten")
+                                .padding(.trailing, -20)
+                                .font(AppFonts.subtitle)
+                                .foregroundStyle(Color.primary)
+                        }
+                    }
+                }
+                
             } else if selectedTab == 1 {
                 
                 NoteSection(notes: $nfcDocument.notes) {
@@ -56,9 +72,11 @@ struct NfcDetailView: View {
                 }
             }
         }
-        //.modifier(ListStyleTitleInline(title: nfcDocument.name.isEmpty ? "Neues Gerät" : nfcDocument.name))
         .sheet(isPresented: $addingNote) {
             AddNoteView(notes: $nfcDocument.notes)
+        }
+        .sheet(isPresented: $showEditSheet) {
+                EditGeneralInfoView(nfcDocument: $nfcDocument)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

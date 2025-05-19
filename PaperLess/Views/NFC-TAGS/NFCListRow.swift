@@ -7,25 +7,28 @@
 
 import SwiftUI
 
-struct ListRowTextField: View {
+struct NFCListRow: View {
     let label: String
     @Binding var text: String
     
     var body: some View {
         VStack {
             Text(label)
-                .font(AppFonts.body)
+                .font(AppFonts.subtitle)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 1)
                 .foregroundStyle(Color.appPrimary)
                 .opacity(0.5)
             
-            TextField("", text: $text)
+            Text(text)
+                .font(AppFonts.title)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .lineLimit(1)
-               
         }
     }
 }
 
 #Preview {
-    ListRowTextField(label: "Bezeichnung", text: .constant("Test"))
+    NFCListRow(label: "Bezeichnung", text: .constant("Test"))
 }
