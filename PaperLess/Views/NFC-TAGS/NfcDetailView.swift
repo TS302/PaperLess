@@ -53,30 +53,13 @@ struct NfcDetailView: View {
             } else {
                 PhotosSection(photosPickerItem: $photosPickerItem, selectedImage: $selectedImage)
             }
-            
-            Section(header: HStack {
-                Text("Management")
-                    .modifier(SectionTitle())
-                Spacer()
-            }){
-                Picker("Status auswählen", selection: $nfcDocument.status) {
-                    ForEach(DeviceStatus.allCases) { status in
-                        Text(status.localizedName).tag(status)
-                    }
-                }
-                Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
-                    ForEach(ServiceInterval.allCases) { interval in
-                        Text(interval.localizedName)
-                            .tag(interval)
-                    }
-                }
-            }
         }
         .sheet(isPresented: $addingNote) {
             AddNoteView(notes: $nfcDocument.notes)
         }
         .sheet(isPresented: $showEditSheet) {
                 EditGeneralInfoView(nfcDocument: $nfcDocument)
+                .presentationDetents([.height(650)])
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

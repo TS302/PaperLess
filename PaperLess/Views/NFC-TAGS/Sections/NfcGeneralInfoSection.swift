@@ -26,6 +26,9 @@ struct NfcGeneralInfoSection: View {
             nfcDocument.category?.localizedName ?? "Nicht verfügbar"
           )
         )
+        
+        NFCListRow(label: "Status", text: Binding.constant(nfcDocument.status.localizedName))
+        NFCListRow(label: "Serviceintervall", text: Binding.constant(nfcDocument.serviceIntervalMonth?.localizedName ?? "Nicht verfügbar"))
     }
 }
 

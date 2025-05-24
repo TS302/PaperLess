@@ -15,15 +15,43 @@ struct EditGeneralInfoView: View {
         NavigationStack {
             
             List {
-                NFCTextField(label: "Bezeichnung", text: $nfcDocument.name)
-                NFCTextField(label: "Marke", text: $nfcDocument.brand)
-                NFCTextField(label: "Model", text: $nfcDocument.model)
-                NFCTextField(label: "Seriennummer", text: $nfcDocument.serialNumber.replacingNil(or: "1111-2222-3333-4444"))
-                Picker("Typ", selection: $nfcDocument.category) {
-                    Text("Keine").tag(String?.none)
-                    ForEach(Category.allCases) { category in
-                        Text(category.localizedName).tag(Optional(category))
-                            .tag(category)
+                
+                
+                Section(header: HStack{
+                    Text("Allgemeine Informationen")
+                        .modifier(SectionTitle())
+                    Spacer()
+                }){
+                    NFCTextField(label: "Bezeichnung", text: $nfcDocument.name)
+                    NFCTextField(label: "Marke", text: $nfcDocument.brand)
+                    NFCTextField(label: "Model", text: $nfcDocument.model)
+                    NFCTextField(label: "Seriennummer", text: $nfcDocument.serialNumber.replacingNil(or: "1111-2222-3333-4444"))
+                    Picker("Typ", selection: $nfcDocument.category) {
+                        Text("Keine").tag(String?.none)
+                        ForEach(Category.allCases) { category in
+                            Text(category.localizedName).tag(Optional(category))
+                                .tag(category)
+                        }
+                    }
+                }
+                
+          
+                
+                Section(header: HStack {
+                    Text("Management")
+                        .modifier(SectionTitle())
+                    Spacer()
+                }){
+                    Picker("Status auswählen", selection: $nfcDocument.status) {
+                        ForEach(DeviceStatus.allCases) { status in
+                            Text(status.localizedName).tag(status)
+                        }
+                    }
+                    Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
+                        ForEach(ServiceInterval.allCases) { interval in
+                            Text(interval.localizedName)
+                                .tag(interval)
+                        }
                     }
                 }
                 .padding(.vertical, 5)
