@@ -1,30 +1,30 @@
 //
-//  EditGeneralInfoView.swift
+//  AddNFCTag.swift
 //  PaperLess
 //
-//  Created by Tom Salih on 18.05.25.
+//  Created by Tom Salih on 24.05.25.
 //
 
 import SwiftUI
 
-struct EditGeneralInfoView: View {
+struct AddNFCTag: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var nfcDocument: NfcDocument
+    @Binding var nfcDocuments: [NfcDocument]
+    @State var newNfcDocument = NfcDocument(name: "", brand: "", model: "")
     
     var body: some View {
         NavigationStack {
-            
             List {
                 Section(header: HStack{
                     Text("Allgemeine Informationen")
                         .modifier(SectionTitle())
                     Spacer()
                 }){
-                    NFCTextField(label: "Bezeichnung", text: $nfcDocument.name)
-                    NFCTextField(label: "Marke", text: $nfcDocument.brand)
-                    NFCTextField(label: "Model", text: $nfcDocument.model)
-                    NFCTextField(label: "Seriennummer", text: $nfcDocument.serialNumber.replacingNil(or: "1111-2222-3333-4444"))
-                    Picker("Typ", selection: $nfcDocument.category) {
+                    NFCTextField(label: "Bezeichnung", text: $newNfcDocument.name)
+                    NFCTextField(label: "Marke", text: $newNfcDocument.brand)
+                    NFCTextField(label: "Model", text: $newNfcDocument.model)
+                    NFCTextField(label: "Seriennummer", text: $newNfcDocument.serialNumber.replacingNil(or: ""))
+                    Picker("Typ", selection: $newNfcDocument.category) {
                         Text("Keine").tag(String?.none)
                         ForEach(Category.allCases) { category in
                             Text(category.localizedName).tag(Optional(category))
@@ -32,20 +32,17 @@ struct EditGeneralInfoView: View {
                         }
                     }
                 }
-                
-          
-                
                 Section(header: HStack {
                     Text("Management")
                         .modifier(SectionTitle())
                     Spacer()
                 }){
-                    Picker("Status auswählen", selection: $nfcDocument.status) {
+                    Picker("Status auswählen", selection: $newNfcDocument.status) {
                         ForEach(DeviceStatus.allCases) { status in
                             Text(status.localizedName).tag(status)
                         }
                     }
-                    Picker("Service-Intervall", selection: $nfcDocument.serviceIntervalMonth) {
+                    Picker("Service-Intervall", selection: $newNfcDocument.serviceIntervalMonth) {
                         ForEach(ServiceInterval.allCases) { interval in
                             Text(interval.localizedName)
                                 .tag(interval)
@@ -63,14 +60,13 @@ struct EditGeneralInfoView: View {
                             .foregroundStyle(Color.appError)
                     }
                 }
-                
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
+                        addNfcDocument(nfcDocuments: nfcDocuments, newNfcDocument: newNfcDocument)
                         dismiss()
                     } label: {
                         Text("Speichern")
                             .frame(maxWidth: .infinity)
-                            
                             .font(.caption)
                             .foregroundStyle(Color.appSecondary)
                             .padding(8)
@@ -83,17 +79,14 @@ struct EditGeneralInfoView: View {
             .background(Color.appSecondary)
         }
     }
+    
+    
+    func addNfcDocument(nfcDocuments: [NfcDocument], newNfcDocument: NfcDocument) {
+        self.nfcDocuments.append(newNfcDocument)
+    }
 }
 
 #Preview {
-    EditGeneralInfoView(nfcDocument: .constant(
-        NfcDocument(
-            name: "Bohrmaschine",
-            brand: "Bosch",
-            model: "A-1123142",
-            serialNumber: "2222-1111-55555-66666",
-            purchaseDate: Date(),
-            nextServiceDate: Date()
-        )
-    ))
+    let nfcDocuments: [NfcDocument] = []
+    AddNFCTag(nfcDocuments: .constant(nfcDocuments))
 }

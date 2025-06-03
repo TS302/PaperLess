@@ -19,7 +19,7 @@ struct NFCTextField: View {
                 .foregroundStyle(Color.appPrimary)
                 .opacity(0.5)
             
-            TextField("\(label)", text: $text)
+            TextField("", text: $text)
                 .font(AppFonts.title)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -40,6 +40,7 @@ struct NfcDocumentRow: View {
                     .foregroundStyle(Color.primary)
             }
         }
+        .frame(height: 50)
     }
 }
 
