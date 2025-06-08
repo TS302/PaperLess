@@ -11,11 +11,41 @@ struct VehicleDetailView: View {
     @EnvironmentObject var vehicleviewModel: VehicleViewModel
     
     @Binding var vehicle: Vehicle
+    
     var body: some View {
-            Text("\(vehicle.nfcTag.name)")
+        NavigationStack {
+            VehicleDetailCard(vehicle: vehicle)
+            
+            GroupBox {
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        Text("\(vehicle.nfcTag.name)")
+                            .modifier(TextFieldModi())
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                } label: {
+                    Text("Fahrzeugbezeichnung")
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                    
+                } 
+                
+            } label: {
+                Text("FAHRZEUGBRIEF")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+            .foregroundStyle(Color.primary)
+            .tint(Color.primary)
+            .padding(.horizontal, 20)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.secondary)
+            
     }
 }
 
 #Preview {
     VehicleDetailView(vehicle: .constant(Vehicle(nfcTag: NFCTag(id: UUID(), tagID: "000", name: "Test Auto", status: DeviceStatus.available, icon: ObjectIcon.car.rawValue), brand: "Testmarke", kennzeichen: "TÜ-TEST-001", color: CarColor.blue, kilometerstand: 11111, serviceInterval: ServiceInterval.nine, lastMaintenance: Date.now)))
+        .environmentObject(VehicleViewModel())
 }

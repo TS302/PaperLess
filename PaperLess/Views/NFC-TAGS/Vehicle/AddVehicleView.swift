@@ -43,4 +43,5 @@ struct AddVehicleView: View {
 
 #Preview {
     AddVehicleView()
+        .environmentObject(VehicleViewModel())
 }
