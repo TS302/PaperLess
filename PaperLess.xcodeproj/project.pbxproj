@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C755F4D22DF483C8001FF3F8 /* PaperLess.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PaperLess.xctestplan; sourceTree = "<group>"; };
 		C7F11D932D9723D500673AB9 /* PaperLess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaperLess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F11DA32D9723D700673AB9 /* PaperLessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaperLessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F11DAD2D9723D700673AB9 /* PaperLessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaperLessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +76,7 @@
 		C7F11D8A2D9723D500673AB9 = {
 			isa = PBXGroup;
 			children = (
+				C755F4D22DF483C8001FF3F8 /* PaperLess.xctestplan */,
 				C7F11D952D9723D500673AB9 /* PaperLess */,
 				C7F11DA62D9723D700673AB9 /* PaperLessTests */,
 				C7F11DB02D9723D700673AB9 /* PaperLessUITests */,

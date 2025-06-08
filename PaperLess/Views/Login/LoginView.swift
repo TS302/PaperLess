@@ -23,7 +23,7 @@ struct LoginView: View {
             Text("PAPERLESS")
                 .fontWeight(.black)
                 .font(.largeTitle)
-                .foregroundStyle(Color.appPrimary)
+                .foregroundStyle(Color.primary)
             
             Text("Dokumente digitalisieren & verwelten!")
                 .font(.caption)
@@ -41,7 +41,7 @@ struct LoginView: View {
             
             if loginError {
                 Text("Ungültiger Benutzername oder Passwort!")
-                    .foregroundStyle(.appError)
+                    .foregroundStyle(Color.error)
                     .font(.caption)
                     .padding(.bottom,15)
                     .autocapitalization(.none)

@@ -30,7 +30,7 @@ struct MainTabView: View {
                     Text("Dokumente")
                 }
             
-            NfcView()
+            NFCTagView()
                 .tabItem {
                     Image(systemName: "airtag.radiowaves.forward")
                     Text("NFC-Tag")
