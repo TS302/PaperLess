@@ -28,8 +28,8 @@ class VehicleListViewModel: ObservableObject {
         self.getVehicles = LoadVehiclesUseCase(repo: repo)
         self.addNewVehicle = AddVehicleUseCase(repo: repo)
         self.makeEmptyVehicle = MakeEmptyVehicleUseCase(repo: repo)
-        self.newVehicle = makeEmptyVehicle.execute()
         self.deleteVehicle = DeleteVehicleUseCase(repo: repo)
+        self.newVehicle = makeEmptyVehicle.execute()
     }
     
     func loadVehicles() {

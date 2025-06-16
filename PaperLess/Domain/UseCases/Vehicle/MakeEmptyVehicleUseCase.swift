@@ -8,10 +8,11 @@
 import Foundation
 
 struct MakeEmptyVehicleUseCase {
-    private let repo: VehicleRepository
-    init(repo: VehicleRepository) {
+    private let repo: VehicleRepositoryProtocol
+    init(repo: VehicleRepositoryProtocol) {
         self.repo = repo
     }
+    
     func execute() -> Vehicle {
         return repo.makeEmptyVehicle()
     }

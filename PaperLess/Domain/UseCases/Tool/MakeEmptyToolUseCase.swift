@@ -1,20 +1,20 @@
 //
-//  DeleteToolUseCase.swift
+//  MakeEmptyToolUseCase.swift
 //  PaperLess
 //
-//  Created by Tom Salih on 15.06.25.
+//  Created by Tom Salih on 16.06.25.
 //
 
 import Foundation
 
-struct DeleteToolUseCase {
+struct MakeEmptyToolUseCase {
     private let repository: ToolRepositoryProtocol
     
     init(repository: ToolRepositoryProtocol) {
         self.repository = repository
     }
     
-     func execute(id: UUID) {
-        repository.deleteTool(id: id)
+    func execute() -> Tool {
+        return repository.makeEmptyTool()
     }
 }

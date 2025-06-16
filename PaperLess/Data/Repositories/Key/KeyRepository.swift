@@ -22,11 +22,20 @@ class KeyRepository: KeyRepositoryProtocol {
         keys.append(key)
     }
     
-    func makeEmptyKeys() -> Key {
-        return Key(nfcTag: NFCTag(id: UUID(), tagID: "", name: "", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "")
-    }
-    
     func deleteKey(id: UUID) {
         keys.removeAll { $0.id == id }
+    }
+    
+    func makeEmptyKey() -> Key {
+        return Key(
+            nfcTag: NFCTag(
+                id: UUID(),
+                tagID: "",
+                name: "",
+                status: DeviceStatus.available,
+                icon: ObjectIcon.key.rawValue
+            ),
+            keyNumber: ""
+        )
     }
 }

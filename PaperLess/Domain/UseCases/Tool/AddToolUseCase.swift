@@ -1,20 +1,19 @@
 //
-//  DeleteToolUseCase.swift
+//  AddToolUseCase.swift
 //  PaperLess
 //
-//  Created by Tom Salih on 15.06.25.
+//  Created by Tom Salih on 16.06.25.
 //
 
 import Foundation
 
-struct DeleteToolUseCase {
+struct AddToolUseCase {
     private let repository: ToolRepositoryProtocol
-    
     init(repository: ToolRepositoryProtocol) {
         self.repository = repository
     }
     
-     func execute(id: UUID) {
-        repository.deleteTool(id: id)
+    func execute(newTool: Tool) {
+        repository.addTool(tool: newTool)
     }
 }

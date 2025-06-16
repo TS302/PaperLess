@@ -10,6 +10,6 @@ import Foundation
 protocol KeyRepositoryProtocol {
     func getAllKeys() -> [Key]
     func addKey(key: Key)
-    func makeEmptyKeys() -> Key
+    func makeEmptyKey() -> Key
     func deleteKey(id: UUID)
 }
