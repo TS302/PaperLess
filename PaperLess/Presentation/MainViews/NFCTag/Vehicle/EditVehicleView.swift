@@ -8,13 +8,35 @@
 import SwiftUI
 
 struct EditVehicleView: View {
-    @EnvironmentObject var vehicleviewModel: VehicleListViewModel
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
     @Binding var vehicle: Vehicle
 
     var body: some View {
-        List {
-            VehicleForm(vehicle: $vehicle, kmFormatter: Formatters.kmFormatter)
+        VStack {
+            List {
+                VehicleForm(vehicle: $vehicle, kmFormatter: Formatters.kmFormatter)
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.secondary)
+        
+        Button {
+            vehicleViewModel.updateVehicle(vehicle: vehicle)
+            dismiss()
+        } label: {
+            Text("Speichern")
+                .font(.callout)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity)
+                .foregroundStyle(Color.secondary)
+                .padding(10)
+                .background(Color.primary)
+                .cornerRadius(6)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 30)
+        }
+        
     }
 }
 

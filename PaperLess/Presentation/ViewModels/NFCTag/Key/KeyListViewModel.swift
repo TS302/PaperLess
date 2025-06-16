@@ -22,6 +22,7 @@ class KeyListViewModel: ObservableObject {
     private let addKey: AddKeyUseCase
     private let makeEmptyKey: MakeEmptyKeyUseCase
     private let deleteKey: DeleteKeyUseCase
+    private let updateKey: UpdateKeyUseCase
     
     init() {
         let repo = KeyRepository()
@@ -29,7 +30,10 @@ class KeyListViewModel: ObservableObject {
         self.addKey = AddKeyUseCase(repository: repo)
         self.makeEmptyKey = MakeEmptyKeyUseCase(repository: repo)
         self.deleteKey = DeleteKeyUseCase(repository: repo)
+        let updateKey = UpdateKeyUseCase(repository: repo)
+        
         self.newkey = makeEmptyKey.execute()
+        self.updateKey = updateKey
         
     }
     
@@ -39,6 +43,11 @@ class KeyListViewModel: ObservableObject {
     
     func addKey(key: Key) {
         addKey.execute(key: key)
+    }
+    
+    func updateKey(key: Key) {
+        updateKey.execute(key: key)
+        loadKeys()
     }
     
     func deleteKey(id: UUID) {

@@ -12,5 +12,5 @@ protocol ToolRepositoryProtocol {
     func addTool(tool: Tool)
     func makeEmptyTool() -> Tool
     func deleteTool(id: UUID)
-    
+    func updateTool(tool: Tool)    
 }

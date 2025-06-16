@@ -15,12 +15,13 @@ class ToolListViewModel: ObservableObject {
     @Published var showEditTool = false
     @Published var selectedSegment = 0
     @Published var tools: [Tool] = []
-    @Published var newTool: Tool
+    @Published var tool: Tool
     
     private let getTools: LoadToolsUseCase
     private let deleteTool: DeleteToolUseCase
     private let addTool: AddToolUseCase
     private let makeEmptyTool: MakeEmptyToolUseCase
+    private let updateTool: UpdateToolUseCase
     
     init() {
         let repository = ToolRepository()
@@ -28,17 +29,14 @@ class ToolListViewModel: ObservableObject {
         self.addTool = AddToolUseCase(repository: repository)
         self.makeEmptyTool = MakeEmptyToolUseCase(repository: repository)
         self.deleteTool = DeleteToolUseCase(repository: repository)
+        self.updateTool = UpdateToolUseCase(repository: repository)
         
-        self.newTool = makeEmptyTool.execute()
+        self.tool = makeEmptyTool.execute()
+        self.updateTool.execute(tool: tool)
     }
     
     func loadTools() {
         tools = getTools.execute()
-    }
-    
-    func deleteTool(id: UUID) {
-        deleteTool.execute(id: id)
-        loadTools()
     }
     
     func addTool(newTool: Tool) {
@@ -46,8 +44,19 @@ class ToolListViewModel: ObservableObject {
         loadTools()
     }
     
+    func updateTool(tool: Tool) {
+        updateTool.execute(tool: tool)
+    }
+    
+    func deleteTool(id: UUID) {
+        deleteTool.execute(id: id)
+        loadTools()
+    }
+    
+    
+    
     func emptyNewTool() {
-        newTool = makeEmptyTool.execute()
+        tool = makeEmptyTool.execute()
     }
     
     

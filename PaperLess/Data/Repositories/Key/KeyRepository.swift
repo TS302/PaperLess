@@ -9,6 +9,8 @@ import SwiftUI
 
 class KeyRepository: KeyRepositoryProtocol {
     
+    
+    
     private var keys: [Key] = [
         Key(nfcTag: NFCTag(id: UUID(), tagID: "005", name: "KFZ-Schlüssel", status: DeviceStatus.loaned, icon: ObjectIcon.key.rawValue), keyNumber: "111-A11-2234"),
         Key(nfcTag: NFCTag(id: UUID(), tagID: "006", name: "Briefkastenschlüssel", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "AB1-BC11-2234")
@@ -20,6 +22,12 @@ class KeyRepository: KeyRepositoryProtocol {
     
     func addKey(key: Key) {
         keys.append(key)
+    }
+    
+    func updateKey(key: Key) {
+        if let index = keys.firstIndex(where: { $0.id == key.id }) {
+            keys[index] = key
+        }
     }
     
     func deleteKey(id: UUID) {

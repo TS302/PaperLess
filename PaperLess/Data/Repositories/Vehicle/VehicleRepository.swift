@@ -164,6 +164,12 @@ class VehicleRepository: VehicleRepositoryProtocol {
         vehicles.append(newVehicle)
     }
     
+    func updateVehicle(vehicle: Vehicle) {
+        if let index = vehicles.firstIndex(where: { $0.id == vehicle.id }) {
+            vehicles[index] = vehicle
+        }
+    }
+    
     func deleteVehicle(id: UUID) {
         vehicles.removeAll { $0.id == id }
     }

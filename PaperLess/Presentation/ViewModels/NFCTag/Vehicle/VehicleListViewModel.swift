@@ -15,13 +15,14 @@ class VehicleListViewModel: ObservableObject {
     @Published var showEditVehicle = false
     @Published var selectedSegment = 0
     @Published var vehicles: [Vehicle] = []
-    @Published var newVehicle: Vehicle
+    @Published var vehicle: Vehicle
     @Published var filterOption: FilterOption = .all
     
     private let getVehicles: LoadVehiclesUseCase
     private let addNewVehicle: AddVehicleUseCase
     private let makeEmptyVehicle: MakeEmptyVehicleUseCase
     private let deleteVehicle: DeleteVehicleUseCase
+    private let updateVehicle: UpdateVehicleUseCase
     
     init() {
         let repo = VehicleRepository()
@@ -29,7 +30,10 @@ class VehicleListViewModel: ObservableObject {
         self.addNewVehicle = AddVehicleUseCase(repo: repo)
         self.makeEmptyVehicle = MakeEmptyVehicleUseCase(repo: repo)
         self.deleteVehicle = DeleteVehicleUseCase(repo: repo)
-        self.newVehicle = makeEmptyVehicle.execute()
+        self.updateVehicle = UpdateVehicleUseCase(repository: repo)
+        
+        self.vehicle = makeEmptyVehicle.execute()
+        self.updateVehicle.execute(vehicle: vehicle)
     }
     
     func loadVehicles() {
@@ -41,13 +45,18 @@ class VehicleListViewModel: ObservableObject {
         loadVehicles()
     }
     
+    func updateVehicle(vehicle: Vehicle) {
+        updateVehicle.execute(vehicle: vehicle)
+        loadVehicles()
+    }
+    
     func deleteVehicle(id: UUID) {
         deleteVehicle.execute(id: id)
         loadVehicles()
     }
     
     func emptyNewVehicle() {
-        newVehicle = makeEmptyVehicle.execute()
+        vehicle = makeEmptyVehicle.execute()
     }
     
     /// Liefert das formatierte Datum als String

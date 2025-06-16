@@ -8,7 +8,6 @@
 import SwiftUI
 
 class ToolRepository: ToolRepositoryProtocol {
-    
     private var tools: [Tool] = [
         Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger),
         Tool(nfcTag: NFCTag(id: UUID(), tagID: "004", name: "MultiTool 2000", status: DeviceStatus.defect, icon: ObjectIcon.tool.rawValue), brand: "MultiTool", toolType: ToolType.mobilerKran)
@@ -21,6 +20,12 @@ class ToolRepository: ToolRepositoryProtocol {
     func addTool(tool: Tool) {
         tools.append(tool)
     }
+    
+    func updateTool(tool: Tool) {
+            if let index = tools.firstIndex(where: { $0.id == tool.id }) {
+                tools[index] = tool
+            }
+        }
     
     func makeEmptyTool() -> Tool {
         return Tool(

@@ -12,4 +12,5 @@ protocol KeyRepositoryProtocol {
     func addKey(key: Key)
     func makeEmptyKey() -> Key
     func deleteKey(id: UUID)
+    func updateKey(key: Key)
 }

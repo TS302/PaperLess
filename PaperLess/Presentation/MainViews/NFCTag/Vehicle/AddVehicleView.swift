@@ -32,12 +32,12 @@ struct AddVehicleView: View {
             .padding(.horizontal, 30)
             
             List {
-                VehicleForm(vehicle: $vehicleViewModel.newVehicle, kmFormatter: Formatters.kmFormatter)
+                VehicleForm(vehicle: $vehicleViewModel.vehicle, kmFormatter: Formatters.kmFormatter)
             }
             .modifier(ListStyle(title: ""))
             
             Button {
-                vehicleViewModel.addVehicle(vehicle: vehicleViewModel.newVehicle)
+                vehicleViewModel.addVehicle(vehicle: vehicleViewModel.vehicle)
                 vehicleViewModel.emptyNewVehicle()
                 dismiss()
             } label: {
@@ -49,7 +49,7 @@ struct AddVehicleView: View {
                     .padding(10)
                     .background(Color.primary)
                     .cornerRadius(6)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 30)
                     .padding(.bottom, 30)
             }
         }
