@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @StateObject private var nfcTagViewModel = NFCTagViewModel()
+    @StateObject private var vehicleViewModel = VehicleListViewModel()
+    @StateObject private var toolViewmodel = ToolListViewModel()
+    @StateObject private var keyViewModel = KeyListViewModel()
+    @StateObject private var homeViewModel = HomeViewModel()
+    
     
     @Binding var user: User
     @Binding var isLoggedIn: Bool
@@ -34,13 +39,57 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(documentArray) { document in
-                    DocumentRow(document: document)
+                
+                SegmentPicker(selectedSegment: $homeViewModel.selectedSegment, segmentCount: 2, label1: "NFC-Tags", label2: "Dokumente", label3: "Leer")
+                
+                switch homeViewModel.selectedSegment {
+                case 0:
+                    SegmentPicker(selectedSegment: $nfcTagViewModel.selectedSegment, segmentCount: 3, label1: "Fahrzeuge", label2: "Tools", label3: "Schlüssel")
+                    
+                    switch nfcTagViewModel.selectedSegment {
+                    case 0:
+                        NFCTagListView(items: $vehicleViewModel.favoriteVehicles) { $vehicle in
+                            VehicleDetailView(vehicle: $vehicle)
+                                .environmentObject(vehicleViewModel)
+                        } onDelete: { vehicle in
+                            vehicleViewModel.toggleFavoriteVehicle(vehicle: vehicle)
+                        }
+                        
+                    case 1:
+                        NFCTagListView(items: $toolViewmodel.favoriteTools) { $tool in
+                            ToolDetailView(tool: $tool)
+                                .environmentObject(toolViewmodel)
+                        } onDelete: { tool in
+                            toolViewmodel.toggleToolFavorite(tool: tool)
+                        }
+                        
+                    case 2:
+                        NFCTagListView(items: $keyViewModel.favoriteKeys) { $key in
+                            KeyDetailView(key: $key)
+                                .environmentObject(keyViewModel)
+                        } onDelete: { key in
+                            keyViewModel.deleteKey(id: key.id)
+                        }
+                    default:
+                        EmptyView()
+                    }
+                case 2:
+                    ForEach(documentArray) { document in
+                        DocumentRow(document: document)
+                    }
+                    
+                default:
+                    EmptyView()
                 }
             }
+            .onAppear {
+                vehicleViewModel.loadFavoriteVehicles()
+                toolViewmodel.loadFavoriteTools()
+                keyViewModel.loadFavoriteKeys()
+            }
+            .modifier(ListStyle(title: "NFC-Tags"))
             .scrollContentBackground(.hidden)
             .background(Color.appSecondary)
-            .navigationTitle("Favoriten")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {

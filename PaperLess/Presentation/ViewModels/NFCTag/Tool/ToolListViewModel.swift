@@ -16,20 +16,25 @@ class ToolListViewModel: ObservableObject {
     @Published var selectedSegment = 0
     @Published var tools: [Tool] = []
     @Published var tool: Tool
+    @Published var favoriteTools: [Tool] = []
     
     private let getTools: LoadToolsUseCase
+    private let getFavoriteTools: LoadFavoriteToolUseCase
     private let deleteTool: DeleteToolUseCase
     private let addTool: AddToolUseCase
     private let makeEmptyTool: MakeEmptyToolUseCase
     private let updateTool: UpdateToolUseCase
+    private let toggleFavoriteTool: ToggleFavoruteToolUseCase
     
     init() {
         let repository = ToolRepository()
         self.getTools = LoadToolsUseCase(repository: repository)
+        self.getFavoriteTools = LoadFavoriteToolUseCase(repository: repository)
         self.addTool = AddToolUseCase(repository: repository)
         self.makeEmptyTool = MakeEmptyToolUseCase(repository: repository)
         self.deleteTool = DeleteToolUseCase(repository: repository)
         self.updateTool = UpdateToolUseCase(repository: repository)
+        self.toggleFavoriteTool = ToggleFavoruteToolUseCase(repository: repository)
         
         self.tool = makeEmptyTool.execute()
         self.updateTool.execute(tool: tool)
@@ -37,6 +42,10 @@ class ToolListViewModel: ObservableObject {
     
     func loadTools() {
         tools = getTools.execute()
+    }
+    
+    func loadFavoriteTools() {
+        favoriteTools = getFavoriteTools.execute()
     }
     
     func addTool(newTool: Tool) {
@@ -53,7 +62,9 @@ class ToolListViewModel: ObservableObject {
         loadTools()
     }
     
-    
+    func toggleToolFavorite(tool: Tool) {
+        toggleFavoriteTool.execute(tool: tool)
+    }
     
     func emptyNewTool() {
         tool = makeEmptyTool.execute()

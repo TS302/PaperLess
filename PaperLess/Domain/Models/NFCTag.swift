@@ -14,11 +14,12 @@ struct NFCTag: Identifiable {
     var status: DeviceStatus
     var icon: String
     
+    
     init(id: UUID,
          tagID: String,
          name: String,
          status: DeviceStatus,
-         icon: String
+         icon: String,
     ) {
         self.id = id
         self.tagID = tagID

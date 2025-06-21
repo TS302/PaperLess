@@ -97,6 +97,6 @@ struct VehicleDetailInfoView: View {
 }
 
 #Preview {
-    VehicleDetailInfoView(vehicle: .constant(Vehicle(nfcTag: NFCTag(id: UUID(), tagID: "000", name: "VW Golf 7 GTI", status: DeviceStatus.available, icon: ObjectIcon.car.rawValue), brand: "Testmarke", kennzeichen: "TÜ-TS-001", color: CarColor.blue, kilometerstand: 114000, serviceInterval: ServiceInterval.nine, lastMaintenance: Date.now)))
+    VehicleDetailInfoView(vehicle: .constant(Vehicle(nfcTag: NFCTag(id: UUID(), tagID: "000", name: "VW Golf 7 GTI", status: DeviceStatus.available, icon: ObjectIcon.car.rawValue), brand: "Testmarke", kennzeichen: "TÜ-TS-001", color: CarColor.blue, kilometerstand: 114000, serviceInterval: ServiceInterval.nine, lastMaintenance: Date.now, isFavorite: true)))
         .environmentObject(VehicleListViewModel())
 }

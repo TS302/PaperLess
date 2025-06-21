@@ -17,7 +17,7 @@ struct NFCTagView: View {
     var body: some View {
         NavigationStack {
             List {
-                SegmentPicker(selectedSegment: $nfcTagViewModel.selectedSegment, label1: "Fahrzeuge", label2: "Tools", label3: "Schlüssel")
+                SegmentPicker(selectedSegment: $nfcTagViewModel.selectedSegment, segmentCount: 3, label1: "Fahrzeuge", label2: "Tools", label3: "Schlüssel")
                 
                 switch nfcTagViewModel.selectedSegment {
                     

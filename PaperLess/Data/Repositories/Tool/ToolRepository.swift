@@ -8,13 +8,18 @@
 import SwiftUI
 
 class ToolRepository: ToolRepositoryProtocol {
+    
     private var tools: [Tool] = [
-        Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger),
-        Tool(nfcTag: NFCTag(id: UUID(), tagID: "004", name: "MultiTool 2000", status: DeviceStatus.defect, icon: ObjectIcon.tool.rawValue), brand: "MultiTool", toolType: ToolType.mobilerKran)
+        Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger, isFavorite: false),
+        Tool(nfcTag: NFCTag(id: UUID(), tagID: "004", name: "MultiTool 2000", status: DeviceStatus.defect, icon: ObjectIcon.tool.rawValue), brand: "MultiTool", toolType: ToolType.mobilerKran, isFavorite: true)
     ]
     
     func getAllTools() -> [Tool] {
         return tools
+    }
+    
+    func getAllFavouriteTools() -> [Tool] {
+        return tools.filter { $0.isFavorite }
     }
     
     func addTool(tool: Tool) {
@@ -36,14 +41,18 @@ class ToolRepository: ToolRepositoryProtocol {
                 icon: ObjectIcon.tool.rawValue
             ),
             brand: "",
-            toolType: ToolType.sonstiges)
+            toolType: ToolType.sonstiges,
+            isFavorite: true
+        )
     }
     
     func deleteTool(id: UUID) {
         tools.removeAll { $0.id == id }
     }
     
-    
+    func toggleFavouriteTool(tool: Tool) {
+        tool.isFavorite.toggle()
+    }
 }
 
 

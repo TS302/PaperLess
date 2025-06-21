@@ -18,7 +18,6 @@ struct MainTabView: View {
                 user: $user,
                 isLoggedIn: $user.isLoggedIn
             )
-            .environmentObject(loginViewModel)
             .tabItem {
                 Image(systemName: "house")
                 Text("Home")

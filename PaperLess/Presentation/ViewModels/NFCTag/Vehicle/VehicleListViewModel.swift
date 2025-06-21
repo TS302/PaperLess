@@ -16,21 +16,27 @@ class VehicleListViewModel: ObservableObject {
     @Published var selectedSegment = 0
     @Published var vehicles: [Vehicle] = []
     @Published var vehicle: Vehicle
+    @Published var favoriteVehicles: [Vehicle] = []
     @Published var filterOption: FilterOption = .all
     
     private let getVehicles: LoadVehiclesUseCase
+    
+    private let getFavoriteVehicles: LoadFavoriteVehiclesUseCase
     private let addNewVehicle: AddVehicleUseCase
     private let makeEmptyVehicle: MakeEmptyVehicleUseCase
     private let deleteVehicle: DeleteVehicleUseCase
     private let updateVehicle: UpdateVehicleUseCase
+    private let toggleIsFavoriteVehicle: ToggleFavoriteVehicleUseCase
     
     init() {
         let repo = VehicleRepository()
         self.getVehicles = LoadVehiclesUseCase(repo: repo)
+        self.getFavoriteVehicles = LoadFavoriteVehiclesUseCase(repository: repo)
         self.addNewVehicle = AddVehicleUseCase(repo: repo)
         self.makeEmptyVehicle = MakeEmptyVehicleUseCase(repo: repo)
         self.deleteVehicle = DeleteVehicleUseCase(repo: repo)
         self.updateVehicle = UpdateVehicleUseCase(repository: repo)
+        self.toggleIsFavoriteVehicle = ToggleFavoriteVehicleUseCase(repository: repo)
         
         self.vehicle = makeEmptyVehicle.execute()
         self.updateVehicle.execute(vehicle: vehicle)
@@ -38,6 +44,10 @@ class VehicleListViewModel: ObservableObject {
     
     func loadVehicles() {
         vehicles = getVehicles.execute()
+    }
+    
+    func loadFavoriteVehicles() {
+        favoriteVehicles = getFavoriteVehicles.execute()
     }
     
     func addVehicle(vehicle: Vehicle) {
@@ -53,6 +63,10 @@ class VehicleListViewModel: ObservableObject {
     func deleteVehicle(id: UUID) {
         deleteVehicle.execute(id: id)
         loadVehicles()
+    }
+    
+    func toggleFavoriteVehicle(vehicle: Vehicle) {
+        toggleIsFavoriteVehicle.execute(vehicle: vehicle)
     }
     
     func emptyNewVehicle() {

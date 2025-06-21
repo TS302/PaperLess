@@ -9,8 +9,10 @@ import Foundation
 
 protocol ToolRepositoryProtocol {
     func getAllTools() -> [Tool]
+    func getAllFavouriteTools() -> [Tool]
     func addTool(tool: Tool)
     func makeEmptyTool() -> Tool
     func deleteTool(id: UUID)
-    func updateTool(tool: Tool)    
+    func updateTool(tool: Tool)
+    func toggleFavouriteTool(tool: Tool)
 }

@@ -15,30 +15,38 @@ class KeyListViewModel: ObservableObject {
     @Published var showEditKey = false
     @Published var selectedSegment = 0
     @Published var keys: [Key] = []
-    @Published var newkey: Key
+    @Published var key: Key
+    @Published var favoriteKeys: [Key] = []
     @Published var filterOption: FilterOption = .all
     
     private let getKeys: LoadKeysUseCase
+    private let getFavoriteKeys: LoadFavoriteKeyUseCase
     private let addKey: AddKeyUseCase
     private let makeEmptyKey: MakeEmptyKeyUseCase
     private let deleteKey: DeleteKeyUseCase
     private let updateKey: UpdateKeyUseCase
+    private let toggleFavoriteKey: ToggleFavoriteKeyUseCase
     
     init() {
         let repo = KeyRepository()
         self.getKeys = LoadKeysUseCase(repository: repo)
+        self.getFavoriteKeys = LoadFavoriteKeyUseCase(repository: repo)
         self.addKey = AddKeyUseCase(repository: repo)
         self.makeEmptyKey = MakeEmptyKeyUseCase(repository: repo)
         self.deleteKey = DeleteKeyUseCase(repository: repo)
-        let updateKey = UpdateKeyUseCase(repository: repo)
+        self.updateKey = UpdateKeyUseCase(repository: repo)
+        self.toggleFavoriteKey = ToggleFavoriteKeyUseCase(repository: repo)
         
-        self.newkey = makeEmptyKey.execute()
-        self.updateKey = updateKey
-        
+        self.key = makeEmptyKey.execute()
+        self.updateKey.execute(key: key)
     }
     
     func loadKeys() {
         keys = getKeys.execute()
+    }
+    
+    func loadFavoriteKeys() {
+        favoriteKeys = getFavoriteKeys.execute()
     }
     
     func addKey(key: Key) {
@@ -55,8 +63,12 @@ class KeyListViewModel: ObservableObject {
         loadKeys()
     }
     
+    func togglefavoriteKey(key: Key) {
+        toggleFavoriteKey.execute(key: key)
+    }
+    
     func emptyKey() {
-        newkey = makeEmptyKey.execute()
+        key = makeEmptyKey.execute()
     }
     
 }

@@ -9,15 +9,17 @@ import SwiftUI
 
 class KeyRepository: KeyRepositoryProtocol {
     
-    
-    
     private var keys: [Key] = [
-        Key(nfcTag: NFCTag(id: UUID(), tagID: "005", name: "KFZ-Schlüssel", status: DeviceStatus.loaned, icon: ObjectIcon.key.rawValue), keyNumber: "111-A11-2234"),
-        Key(nfcTag: NFCTag(id: UUID(), tagID: "006", name: "Briefkastenschlüssel", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "AB1-BC11-2234")
+        Key(nfcTag: NFCTag(id: UUID(), tagID: "005", name: "KFZ-Schlüssel", status: DeviceStatus.loaned, icon: ObjectIcon.key.rawValue), keyNumber: "111-A11-2234", isFavorite: true),
+        Key(nfcTag: NFCTag(id: UUID(), tagID: "006", name: "Briefkastenschlüssel", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "AB1-BC11-2234", isFavorite: false)
     ]
     
     func getAllKeys() -> [Key] {
         return keys
+    }
+    
+    func getAllFavoriteKeys() -> [Key] {
+        return keys.filter { $0.isFavorite }
     }
     
     func addKey(key: Key) {
@@ -33,7 +35,7 @@ class KeyRepository: KeyRepositoryProtocol {
     func deleteKey(id: UUID) {
         keys.removeAll { $0.id == id }
     }
-    
+        
     func makeEmptyKey() -> Key {
         return Key(
             nfcTag: NFCTag(
@@ -43,7 +45,11 @@ class KeyRepository: KeyRepositoryProtocol {
                 status: DeviceStatus.available,
                 icon: ObjectIcon.key.rawValue
             ),
-            keyNumber: ""
+            keyNumber: "", isFavorite: true
         )
+    }
+    
+    func toggleFavoriteKey(key: Key) {
+        key.isFavorite.toggle()
     }
 }

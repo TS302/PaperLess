@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Vehicle: NFCTagProtocol {
+class Vehicle: NFCTagProtocol {
     let id: UUID = UUID()
     var nfcTag: NFCTag
     
@@ -18,6 +18,7 @@ struct Vehicle: NFCTagProtocol {
     var kilometerstand: Int
     var serviceInterval: ServiceInterval
     var lastMaintenance: Date
+    var isFavorite: Bool 
     
     init(nfcTag: NFCTag,
          brand: String,
@@ -25,7 +26,8 @@ struct Vehicle: NFCTagProtocol {
          color: CarColor,
          kilometerstand: Int,
          serviceInterval: ServiceInterval,
-         lastMaintenance: Date
+         lastMaintenance: Date,
+         isFavorite: Bool
     ) {
         self.nfcTag = nfcTag
         self.brand = brand
@@ -34,5 +36,6 @@ struct Vehicle: NFCTagProtocol {
         self.kilometerstand = kilometerstand
         self.serviceInterval = serviceInterval
         self.lastMaintenance = lastMaintenance
+        self.isFavorite = isFavorite
     }
 }

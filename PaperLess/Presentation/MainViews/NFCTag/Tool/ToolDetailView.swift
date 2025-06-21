@@ -18,5 +18,5 @@ struct ToolDetailView: View {
 }
 
 #Preview {
-    ToolDetailView(tool: .constant(Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger)))
+    ToolDetailView(tool: .constant(Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger, isFavorite: true)))
 }

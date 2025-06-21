@@ -28,14 +28,15 @@ struct NFCListRow<T: NFCTagProtocol>: View {
             }
             
             Spacer()
+            
             Image(systemName: tag.nfcTag.icon)
                 .padding(.trailing, 8)
             Text(tag.nfcTag.status.localizedName)
-                .frame(width: 75)
+                .frame(width: 60)
                 .padding(4)
                 .background((Color(tag.nfcTag.status.color)))
                 .foregroundStyle(Color.white)
-                .font(.caption)
+                .font(.caption2)
                 .fontWeight(.bold)
                 .cornerRadius(4)
         }

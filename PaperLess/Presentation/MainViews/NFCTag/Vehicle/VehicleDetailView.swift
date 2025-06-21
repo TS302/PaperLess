@@ -16,7 +16,7 @@ struct VehicleDetailView: View {
         
         NavigationStack {
             List {
-                SegmentPicker(selectedSegment: $vehicleViewModel.selectedSegment, label1: "Info", label2: "Inspektion", label3: "Historie")
+                SegmentPicker(selectedSegment: $vehicleViewModel.selectedSegment, segmentCount: 3, label1: "Info", label2: "Inspektion", label3: "Historie")
                 
                 switch vehicleViewModel.selectedSegment {
                     

@@ -16,5 +16,5 @@ struct KeyDetailView: View {
 }
 
 #Preview {
-    KeyDetailView(key: .constant(Key(nfcTag: NFCTag(id: UUID(), tagID: "005", name: "KFZ-Schlüssel", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "111-A11-2234")))
+    KeyDetailView(key: .constant(Key(nfcTag: NFCTag(id: UUID(), tagID: "005", name: "KFZ-Schlüssel", status: DeviceStatus.available, icon: ObjectIcon.key.rawValue), keyNumber: "111-A11-2234", isFavorite: true)))
 }

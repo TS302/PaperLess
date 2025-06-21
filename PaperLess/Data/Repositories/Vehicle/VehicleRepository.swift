@@ -8,7 +8,7 @@
 import SwiftUI
 
 class VehicleRepository: VehicleRepositoryProtocol {
-        
+    
     private var vehicles: [Vehicle] = [
         Vehicle(
             nfcTag: NFCTag(
@@ -17,7 +17,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Porsche", kennzeichen: "TÜ-TS-001",
             color: CarColor.blue, kilometerstand: 10000,
-            serviceInterval: .twelve, lastMaintenance: Date.now),
+            serviceInterval: .twelve, lastMaintenance: Date.now, isFavorite: true),
         Vehicle(
             nfcTag: NFCTag(
                 id: UUID(), tagID: "003", name: "BMW M3",
@@ -25,7 +25,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "BMW", kennzeichen: "M-BM-303",
             color: .red, kilometerstand: 20000,
-            serviceInterval: .six, lastMaintenance: Date()
+            serviceInterval: .six, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -34,7 +34,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Mercedes", kennzeichen: "S-MB-404",
             color: .black, kilometerstand: 12000,
-            serviceInterval: .twelve, lastMaintenance: Date()
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -43,7 +43,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Volkswagen", kennzeichen: "W-VD-505",
             color: .blue, kilometerstand: 30000,
-            serviceInterval: .three, lastMaintenance: Date()
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -52,7 +52,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Opel", kennzeichen: "B-OP-606",
             color: .green, kilometerstand: 25000,
-            serviceInterval: .nine, lastMaintenance: Date()
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -61,7 +61,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Ford", kennzeichen: "K-FD-707",
             color: .white, kilometerstand: 18000,
-            serviceInterval: .six, lastMaintenance: Date()
+            serviceInterval: .six, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -70,7 +70,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Toyota", kennzeichen: "HH-TY-808",
             color: .yellow, kilometerstand: 22000,
-            serviceInterval: .twelve, lastMaintenance: Date()
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -79,7 +79,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Honda", kennzeichen: "F‐HN‐909",
             color: .black, kilometerstand: 27000,
-            serviceInterval: .three, lastMaintenance: Date()
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -88,7 +88,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Nissan", kennzeichen: "D-NS-010",
             color: .red, kilometerstand: 16000,
-            serviceInterval: .nine, lastMaintenance: Date()
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -97,7 +97,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Mazda", kennzeichen: "MZ-11-011",
             color: .blue, kilometerstand: 14000,
-            serviceInterval: .six, lastMaintenance: Date()
+            serviceInterval: .six, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -106,7 +106,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Škoda", kennzeichen: "B-SK-012",
             color: .red, kilometerstand: 32000,
-            serviceInterval: .twelve, lastMaintenance: Date()
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -115,7 +115,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Seat", kennzeichen: "E-SE-013",
             color: .green, kilometerstand: 21000,
-            serviceInterval: .three, lastMaintenance: Date()
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -124,7 +124,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Peugeot", kennzeichen: "P-PE-014",
             color: .white, kilometerstand: 19500,
-            serviceInterval: .nine, lastMaintenance: Date()
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -133,7 +133,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Renault", kennzeichen: "R-RE-015",
             color: .blue, kilometerstand: 29000,
-            serviceInterval: .six, lastMaintenance: Date()
+            serviceInterval: .six, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -142,7 +142,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Citroën", kennzeichen: "C-CI-016",
             color: .yellow, kilometerstand: 13500,
-            serviceInterval: .twelve, lastMaintenance: Date()
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -151,13 +151,17 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Fiat", kennzeichen: "T-FI-017",
             color: .blue, kilometerstand:  8000,
-            serviceInterval: .three, lastMaintenance: Date()
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
         )
     ]
     
     
     func getAllVehicles() -> [Vehicle] {
         return vehicles
+    }
+    
+    func getAllFavoriteVehicles() -> [Vehicle] {
+        return vehicles.filter { $0.isFavorite }
     }
     
     func addVehicle(newVehicle: Vehicle) {
@@ -188,8 +192,13 @@ class VehicleRepository: VehicleRepositoryProtocol {
             color: .blue,
             kilometerstand: 0,
             serviceInterval: .twelve,
-            lastMaintenance: Date.now
+            lastMaintenance: Date.now,
+            isFavorite: true
         )
+    }
+    
+    func toggleFavoriteVehicle(vehicle: Vehicle) {
+        vehicle.isFavorite.toggle()
     }
     
     
