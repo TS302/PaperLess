@@ -7,36 +7,34 @@
 
 import SwiftUI
 
-/// Ein generischer List-View, der für alle Typen `T` funktioniert,
-/// die NFCTagProtocol + Identifiable erfüllen.
-/// - `items`: gebundene Liste von T
-/// - `destination`: Closure, die für jedes einzelne `Binding<T>` den Ziel-View zurückgibt
+/// Generische List-Komponente, die nur die Items anzeigt,
+/// für die `filter(item) == true` gilt.
 struct NFCTagListView<
     T: NFCTagProtocol & Identifiable,
     Destination: View
 >: View {
-    /// Gebundene Liste von Objekten vom Typ T (z.B. Binding<[Vehicle]> oder Binding<[Tool]>)
     @Binding var items: [T]
-    
-    /// Für jedes Element in `items` erzeugt diese Closure den Ziel-View (z.B. VehicleDetailView)
+    let filter: (T) -> Bool
     let destination: (Binding<T>) -> Destination
     let onDelete: (T) -> Void
-    
+
     var body: some View {
-        ForEach($items) { $item in
+        // 1) lokale Variable: Indizes filtern
+        let filteredIndices = items.indices.filter { filter(items[$0]) }
+        
+        // 2) über gefilterte Indizes iterieren
+        ForEach(filteredIndices, id: \.self) { idx in
+            let binding = $items[idx]       // echtes Binding auf Original-Array
+
             NavigationLink {
-                // Detail-View übergeben
-                destination($item)
+                destination(binding)
             } label: {
-                // Row-Ansicht (sollte NFCListRow<T> sein)
-                NFCListRow(tag: $item)
+                NFCListRow(tag: binding)
             }
-            // Optional: hier kannst du z.B. .listRowSeparator(...) oder .padding() hinzufügen,
-            // falls du für jede Zeile spezielle Modifikatoren brauchst.
             .listRowBackground(Color.secondary)
             .swipeActions(edge: .trailing) {
                 Button(role: .destructive) {
-                    onDelete(item)
+                    onDelete(items[idx])
                 } label: {
                     Label("Löschen", systemImage: "trash")
                 }
@@ -44,12 +42,5 @@ struct NFCTagListView<
             }
         }
     }
-    
-    private func delete(_ element: Binding<T>) {
-            // Finde den Index des gehakten Elements und entferne es
-            if let idx = items.firstIndex(where: { $0.id == element.wrappedValue.id }) {
-                items.remove(at: idx)
-            }
-        }
 }
 

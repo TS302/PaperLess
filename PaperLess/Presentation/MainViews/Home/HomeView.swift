@@ -8,33 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var nfcTagViewModel = NFCTagViewModel()
-    @StateObject private var vehicleViewModel = VehicleListViewModel()
-    @StateObject private var toolViewmodel = ToolListViewModel()
-    @StateObject private var keyViewModel = KeyListViewModel()
+    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
+    @EnvironmentObject var toolViewModel: ToolListViewModel
+    @EnvironmentObject var keyViewModel: KeyListViewModel
+    
     @StateObject private var homeViewModel = HomeViewModel()
-    
-    
-    @Binding var user: User
-    @Binding var isLoggedIn: Bool
-    
-    @State var showAddDocument: Bool = false
-    @State var showAddNFC: Bool = false
-    
-    var documentArray: [Document] = [
-        Document(id: UUID(), title: "Mietvertrag", description: "Mietvertrag von der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Nebenkostenabrechnung", description: "Nebenkostenabrechnung für das Jahr 2024 der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Übergabeprotokoll", description: "Protokoll zur Wohnungsübergabe in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Kündigungsschreiben", description: "Kündigung des Mietverhältnisses für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Mängelliste", description: "Aufstellung von Mängeln in der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Einzugsermächtigung", description: "SEPA-Einzugsermächtigung für die Mietzahlungen der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Mieterhöhung", description: "Mitteilung zur Mieterhöhung für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Hausordnung", description: "Hausordnung für das Mehrfamilienhaus in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Wohnungsbewerbung", description: "Bewerbungsschreiben für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Betriebs- und Heizkostenabrechnung", description: "Abrechnung der Betriebs- und Heizkosten für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Wohnungsübergabebericht", description: "Bericht zur Übergabe der Wohnung in der Musterstraße 121 in Tübingen"),
-        
-    ]
+    @StateObject private var nfcTagViewModel = NFCTagViewModel()
     
     var body: some View {
         NavigationStack {
@@ -48,23 +27,23 @@ struct HomeView: View {
                     
                     switch nfcTagViewModel.selectedSegment {
                     case 0:
-                        NFCTagListView(items: $vehicleViewModel.favoriteVehicles) { $vehicle in
+                        NFCTagListView(items: $vehicleViewModel.vehicles, filter: { $0.isFavorite }) { $vehicle in
                             VehicleDetailView(vehicle: $vehicle)
                                 .environmentObject(vehicleViewModel)
                         } onDelete: { vehicle in
-                            vehicleViewModel.toggleFavoriteVehicle(vehicle: vehicle)
+                            
                         }
                         
                     case 1:
-                        NFCTagListView(items: $toolViewmodel.favoriteTools) { $tool in
+                        NFCTagListView(items: $toolViewModel.tools, filter: { $0.isFavorite }) { $tool in
                             ToolDetailView(tool: $tool)
-                                .environmentObject(toolViewmodel)
+                                .environmentObject(toolViewModel)
                         } onDelete: { tool in
-                            toolViewmodel.toggleToolFavorite(tool: tool)
+                            toolViewModel.deleteTool(id: tool.id)
                         }
                         
                     case 2:
-                        NFCTagListView(items: $keyViewModel.favoriteKeys) { $key in
+                        NFCTagListView(items: $keyViewModel.keys, filter: { $0.isFavorite }) { $key in
                             KeyDetailView(key: $key)
                                 .environmentObject(keyViewModel)
                         } onDelete: { key in
@@ -74,7 +53,7 @@ struct HomeView: View {
                         EmptyView()
                     }
                 case 2:
-                    ForEach(documentArray) { document in
+                    ForEach(homeViewModel.documentArray) { document in
                         DocumentRow(document: document)
                     }
                     
@@ -83,31 +62,24 @@ struct HomeView: View {
                 }
             }
             .onAppear {
-                vehicleViewModel.loadFavoriteVehicles()
-                toolViewmodel.loadFavoriteTools()
-                keyViewModel.loadFavoriteKeys()
+                vehicleViewModel.loadVehicles()
+                toolViewModel.loadTools()
+                keyViewModel.loadKeys()
             }
-            .modifier(ListStyle(title: "NFC-Tags"))
+            .modifier(ListStyle(title: "Favoriten"))
             .scrollContentBackground(.hidden)
             .background(Color.appSecondary)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {
-                        showAddDocument.toggle()
+                        homeViewModel.showAddDocument.toggle()
                     }) {
                         Image(systemName: "document.badge.plus")
                             .foregroundStyle(Color.primary)
                     }
-                    
-                    Button(action: {
-                        showAddNFC.toggle()
-                    }) {
-                        Image(systemName: "badge.plus.radiowaves.right")
-                            .foregroundStyle(Color.appPrimary)
-                    }
                 }
             }
-            .sheet(isPresented: $showAddDocument) {
+            .sheet(isPresented: $homeViewModel.showAddDocument) {
                 VStack {
                     Text("Neues Dokument hinzufügen")
                         .foregroundStyle(Color.primary)
@@ -118,7 +90,7 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.secondary)
             }
-            .sheet(isPresented: $showAddNFC) {
+            .sheet(isPresented: $homeViewModel.showAddNFC) {
                 VStack {
                     Text("Neues NFC hinzufügen")
                         .foregroundStyle(Color.appPrimary)
@@ -134,9 +106,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(
-        user: .constant(
-            User(firstname: "Max", lastname:  "Mustermann",email: "max@beispiel.de", password: "geheim123", isLoggedIn: true)),isLoggedIn: .constant(true)
-    )
+    HomeView()
 }
 

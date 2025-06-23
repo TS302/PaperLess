@@ -13,8 +13,8 @@ struct ToggleFavoriteVehicleUseCase {
         self.repository = repository
     }
     
-    func execute(vehicle: Vehicle) {
-        repository.toggleFavoriteVehicle(vehicle: vehicle)
+    func execute(id: UUID) {
+        repository.toggleFavoriteVehicle(id: id)
     }
 }
 

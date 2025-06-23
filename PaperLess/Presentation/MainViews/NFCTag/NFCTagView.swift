@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct NFCTagView: View {
+    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
+    @EnvironmentObject var toolViewModel: ToolListViewModel
+    @EnvironmentObject var keyViewModel: KeyListViewModel
     
     @StateObject private var nfcTagViewModel = NFCTagViewModel()
-    @StateObject private var vehicleViewModel = VehicleListViewModel()
-    @StateObject private var toolViewModel = ToolListViewModel()
-    @StateObject private var keyViewModel = KeyListViewModel()
     
     var body: some View {
         NavigationStack {
@@ -22,7 +22,7 @@ struct NFCTagView: View {
                 switch nfcTagViewModel.selectedSegment {
                     
                 case 0:
-                    NFCTagListView(items: $vehicleViewModel.vehicles) { $vehicle in
+                    NFCTagListView(items: $vehicleViewModel.vehicles, filter: { _ in true }) { $vehicle in
                         VehicleDetailView(vehicle: $vehicle)
                             .environmentObject(vehicleViewModel)
                     } onDelete: { vehicle in
@@ -30,7 +30,7 @@ struct NFCTagView: View {
                     }
                     
                 case 1:
-                    NFCTagListView(items: $toolViewModel.tools) { $tool in
+                    NFCTagListView(items: $toolViewModel.tools, filter: { _ in true }) { $tool in
                         ToolDetailView(tool: $tool)
                             .environmentObject(toolViewModel)
                     } onDelete: { tool in
@@ -38,7 +38,7 @@ struct NFCTagView: View {
                     }
                     
                 case 2:
-                    NFCTagListView(items: $keyViewModel.keys) { $key in
+                    NFCTagListView(items: $keyViewModel.keys, filter: { _ in true }) { $key in
                         KeyDetailView(key: $key)
                             .environmentObject(keyViewModel)
                     } onDelete: { key in
@@ -69,7 +69,7 @@ struct NFCTagView: View {
             }
             .sheet(isPresented: $nfcTagViewModel.showAddVehicle) {
                 AddVehicleView()
-                    .environmentObject(vehicleViewModel)               
+                    .environmentObject(vehicleViewModel)
             }
             .searchable(text: $nfcTagViewModel.searchText, prompt: "Suchen")
             .modifier(ListStyle(title: "NFC-Tags"))

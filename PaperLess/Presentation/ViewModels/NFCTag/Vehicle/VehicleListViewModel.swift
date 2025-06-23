@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class VehicleListViewModel: ObservableObject {
     
@@ -16,11 +17,9 @@ class VehicleListViewModel: ObservableObject {
     @Published var selectedSegment = 0
     @Published var vehicles: [Vehicle] = []
     @Published var vehicle: Vehicle
-    @Published var favoriteVehicles: [Vehicle] = []
     @Published var filterOption: FilterOption = .all
     
     private let getVehicles: LoadVehiclesUseCase
-    
     private let getFavoriteVehicles: LoadFavoriteVehiclesUseCase
     private let addNewVehicle: AddVehicleUseCase
     private let makeEmptyVehicle: MakeEmptyVehicleUseCase
@@ -29,7 +28,7 @@ class VehicleListViewModel: ObservableObject {
     private let toggleIsFavoriteVehicle: ToggleFavoriteVehicleUseCase
     
     init() {
-        let repo = VehicleRepository()
+        let repo = VehicleRepository.shared
         self.getVehicles = LoadVehiclesUseCase(repo: repo)
         self.getFavoriteVehicles = LoadFavoriteVehiclesUseCase(repository: repo)
         self.addNewVehicle = AddVehicleUseCase(repo: repo)
@@ -40,16 +39,13 @@ class VehicleListViewModel: ObservableObject {
         
         self.vehicle = makeEmptyVehicle.execute()
         self.updateVehicle.execute(vehicle: vehicle)
+        loadVehicles()
     }
     
     func loadVehicles() {
         vehicles = getVehicles.execute()
     }
-    
-    func loadFavoriteVehicles() {
-        favoriteVehicles = getFavoriteVehicles.execute()
-    }
-    
+        
     func addVehicle(vehicle: Vehicle) {
         addNewVehicle.execute(newVehicle: vehicle)
         loadVehicles()
@@ -65,8 +61,9 @@ class VehicleListViewModel: ObservableObject {
         loadVehicles()
     }
     
-    func toggleFavoriteVehicle(vehicle: Vehicle) {
-        toggleIsFavoriteVehicle.execute(vehicle: vehicle)
+    func toggleFavoriteVehicle(id: UUID) {
+        toggleIsFavoriteVehicle.execute(id: id)
+        loadVehicles()
     }
     
     func emptyNewVehicle() {

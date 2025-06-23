@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct RootView: View {
+    
+    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
+    @EnvironmentObject var toolViewModel: ToolListViewModel
+    @EnvironmentObject var keyViewModel: KeyListViewModel
+    
     @StateObject private var loginViewModel = LoginViewModel()
     
     @State private var user: User = User(firstname: "", lastname: "", email: "tom", password: "2222", isLoggedIn: true)
@@ -18,6 +23,9 @@ struct RootView: View {
                 user: $user
             )
             .environmentObject(loginViewModel)
+            .environmentObject(vehicleViewModel)
+            .environmentObject(toolViewModel)
+            .environmentObject(keyViewModel)
         } else {
             LoginView(
                 user: $user

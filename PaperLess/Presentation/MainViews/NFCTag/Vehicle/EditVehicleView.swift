@@ -14,11 +14,13 @@ struct EditVehicleView: View {
     
     var body: some View {
         VStack {
+
             List {
                 VehicleForm(vehicle: $vehicle, kmFormatter: Formatters.kmFormatter)
             }
             Button {
                 vehicleViewModel.updateVehicle(vehicle: vehicle)
+                vehicleViewModel.loadVehicles()
                 dismiss()
             } label: {
                 Text("Speichern")

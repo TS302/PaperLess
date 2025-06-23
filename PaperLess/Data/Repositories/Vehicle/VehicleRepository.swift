@@ -9,6 +9,11 @@ import SwiftUI
 
 class VehicleRepository: VehicleRepositoryProtocol {
     
+    static let shared = VehicleRepository()
+    private init(){
+        
+    }
+    
     private var vehicles: [Vehicle] = [
         Vehicle(
             nfcTag: NFCTag(
@@ -34,7 +39,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Mercedes", kennzeichen: "S-MB-404",
             color: .black, kilometerstand: 12000,
-            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -43,7 +48,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Volkswagen", kennzeichen: "W-VD-505",
             color: .blue, kilometerstand: 30000,
-            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -52,7 +57,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Opel", kennzeichen: "B-OP-606",
             color: .green, kilometerstand: 25000,
-            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -155,6 +160,8 @@ class VehicleRepository: VehicleRepositoryProtocol {
         )
     ]
     
+    private var favoriteVehicles: [Vehicle] = []
+    
     
     func getAllVehicles() -> [Vehicle] {
         return vehicles
@@ -197,8 +204,10 @@ class VehicleRepository: VehicleRepositoryProtocol {
         )
     }
     
-    func toggleFavoriteVehicle(vehicle: Vehicle) {
-        vehicle.isFavorite.toggle()
+    func toggleFavoriteVehicle(id: UUID) {
+        if let index = vehicles.firstIndex(where: { $0.id == id}) {
+            vehicles[index].isFavorite.toggle()
+        }
     }
     
     

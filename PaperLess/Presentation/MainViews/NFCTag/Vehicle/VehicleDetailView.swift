@@ -38,6 +38,11 @@ struct VehicleDetailView: View {
                             .foregroundStyle(Color.primary)
                     }
                 }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(vehicle.isFavorite ? .yellow : Color.primary.opacity(0.3))
+                }
             }
             .sheet(isPresented: $vehicleViewModel.showEditVehicle) {
                 EditVehicleView(vehicle: $vehicle)
@@ -46,4 +51,5 @@ struct VehicleDetailView: View {
         }
     }
 }
+
 

@@ -14,5 +14,5 @@ protocol VehicleRepositoryProtocol {
     func makeEmptyVehicle() -> Vehicle
     func deleteVehicle(id: UUID)
     func updateVehicle(vehicle: Vehicle)
-    func toggleFavoriteVehicle(vehicle: Vehicle)
+    func toggleFavoriteVehicle(id: UUID)
 }

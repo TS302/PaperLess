@@ -16,6 +16,11 @@ struct VehicleForm: View {
         
         ///MARK Hier weiter auslagern
         
+        Toggle("Favorit", isOn: $vehicle.isFavorite)
+            .toggleStyle(SwitchToggleStyle(tint: .primary))
+            .foregroundStyle(Color.primary)
+            .listRowBackground(Color.secondary)
+        
         HStack {
             FormTextField(value: $vehicle.nfcTag.name, label: "Fahrzeugbezeichnung")
             Image(systemName: ObjectIcon.car.rawValue)

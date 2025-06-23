@@ -82,15 +82,15 @@ struct RegistrationView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: HomeView(user: $user, isLoggedIn: $user.isLoggedIn)) {
+                    NavigationLink(destination: HomeView()) {
                         RegisterButtonView()
                     }
                     
-                    NavigationLink(destination: HomeView(user: $user, isLoggedIn: $user.isLoggedIn)) {
+                    NavigationLink(destination: HomeView()) {
                         AppleRegisterButtonView()
                     }
                     .padding(.leading, 7)
-                    NavigationLink(destination: HomeView(user: $user, isLoggedIn: $user.isLoggedIn)) {
+                    NavigationLink(destination: HomeView()) {
                         GoogleRegisterButtonView()
                     }
                     .padding(.leading, 7)
