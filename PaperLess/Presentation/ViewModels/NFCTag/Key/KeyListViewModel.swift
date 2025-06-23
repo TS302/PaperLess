@@ -28,7 +28,7 @@ class KeyListViewModel: ObservableObject {
     private let toggleFavoriteKey: ToggleFavoriteKeyUseCase
     
     init() {
-        let repo = KeyRepository()
+        let repo = KeyRepository.shared
         self.getKeys = LoadKeysUseCase(repository: repo)
         self.getFavoriteKeys = LoadFavoriteKeyUseCase(repository: repo)
         self.addKey = AddKeyUseCase(repository: repo)

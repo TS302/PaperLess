@@ -9,6 +9,9 @@ import SwiftUI
 
 class ToolRepository: ToolRepositoryProtocol {
     
+    static let shared = ToolRepository()
+    private init() { }
+    
     private var tools: [Tool] = [
         Tool(nfcTag: NFCTag(id: UUID(), tagID: "003", name: "Henry 2000", status: DeviceStatus.available, icon: ObjectIcon.tool.rawValue), brand: "Henry", toolType: ToolType.staubsauger, isFavorite: false),
         Tool(nfcTag: NFCTag(id: UUID(), tagID: "004", name: "MultiTool 2000", status: DeviceStatus.defect, icon: ObjectIcon.tool.rawValue), brand: "MultiTool", toolType: ToolType.mobilerKran, isFavorite: true)

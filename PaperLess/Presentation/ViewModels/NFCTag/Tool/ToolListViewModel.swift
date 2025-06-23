@@ -27,7 +27,7 @@ class ToolListViewModel: ObservableObject {
     private let toggleFavoriteTool: ToggleFavoruteToolUseCase
     
     init() {
-        let repository = ToolRepository()
+        let repository = ToolRepository.shared
         self.getTools = LoadToolsUseCase(repository: repository)
         self.getFavoriteTools = LoadFavoriteToolUseCase(repository: repository)
         self.addTool = AddToolUseCase(repository: repository)
