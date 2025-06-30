@@ -10,9 +10,7 @@ import SwiftUI
 class VehicleRepository: VehicleRepositoryProtocol {
     
     static let shared = VehicleRepository()
-    private init(){
-        
-    }
+    private init(){ }
     
     private var vehicles: [Vehicle] = [
         Vehicle(
@@ -66,7 +64,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Ford", kennzeichen: "K-FD-707",
             color: .white, kilometerstand: 18000,
-            serviceInterval: .six, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .six, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -75,7 +73,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Toyota", kennzeichen: "HH-TY-808",
             color: .yellow, kilometerstand: 22000,
-            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .twelve, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -84,7 +82,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Honda", kennzeichen: "F‐HN‐909",
             color: .black, kilometerstand: 27000,
-            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -93,7 +91,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Nissan", kennzeichen: "D-NS-010",
             color: .red, kilometerstand: 16000,
-            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -129,7 +127,7 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Peugeot", kennzeichen: "P-PE-014",
             color: .white, kilometerstand: 19500,
-            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .nine, lastMaintenance: Date(), isFavorite: false
         ),
         Vehicle(
             nfcTag: NFCTag(
@@ -156,19 +154,12 @@ class VehicleRepository: VehicleRepositoryProtocol {
             ),
             brand: "Fiat", kennzeichen: "T-FI-017",
             color: .blue, kilometerstand:  8000,
-            serviceInterval: .three, lastMaintenance: Date(), isFavorite: true
+            serviceInterval: .three, lastMaintenance: Date(), isFavorite: false
         )
     ]
     
-    private var favoriteVehicles: [Vehicle] = []
-    
-    
     func getAllVehicles() -> [Vehicle] {
         return vehicles
-    }
-    
-    func getAllFavoriteVehicles() -> [Vehicle] {
-        return vehicles.filter { $0.isFavorite }
     }
     
     func addVehicle(newVehicle: Vehicle) {
@@ -202,12 +193,6 @@ class VehicleRepository: VehicleRepositoryProtocol {
             lastMaintenance: Date.now,
             isFavorite: true
         )
-    }
-    
-    func toggleFavoriteVehicle(id: UUID) {
-        if let index = vehicles.firstIndex(where: { $0.id == id}) {
-            vehicles[index].isFavorite.toggle()
-        }
     }
     
     

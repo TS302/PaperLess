@@ -14,7 +14,7 @@ struct DocumentRow: View {
         HStack(spacing: 15) {
             Image(systemName: "text.page")
                 .font(.system(size: 25))
-                .frame(width: 50, height: 50)
+                .frame(width: 40, height: 40)
                 .background(Color.appPrimary)
                 .clipShape(Circle())
                 .foregroundStyle(Color.appSecondary)

@@ -8,23 +8,18 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
-    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
-    @EnvironmentObject var toolViewModel: ToolListViewModel
-    @EnvironmentObject var keyViewModel: KeyListViewModel
+    @StateObject private var nfcTagViewModel = NFCTagViewModel()
     
     @Binding var user: User
     
     var body: some View {
         TabView {
             HomeView()
-            .environmentObject(vehicleViewModel)
-            .environmentObject(toolViewModel)
-            .environmentObject(keyViewModel)
-            .tabItem {
-                Image(systemName: "house")
-                Text("Home")
-            }
+                .environmentObject(nfcTagViewModel)
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
             
             DocumentView()
                 .tabItem {
@@ -33,9 +28,7 @@ struct MainTabView: View {
                 }
             
             NFCTagView()
-                .environmentObject(vehicleViewModel)
-                .environmentObject(toolViewModel)
-                .environmentObject(keyViewModel)
+                .environmentObject(nfcTagViewModel)
                 .tabItem {
                     Image(systemName: "airtag.radiowaves.forward")
                     Text("NFC-Tag")

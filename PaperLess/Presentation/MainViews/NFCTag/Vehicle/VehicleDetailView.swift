@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct VehicleDetailView: View {
-    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
-    
+    @StateObject private var vehicleDetailViewModel = VehicleDetailViewModel()
     @Binding var vehicle: Vehicle
     
     var body: some View {
         
         NavigationStack {
             List {
-                SegmentPicker(selectedSegment: $vehicleViewModel.selectedSegment, segmentCount: 3, label1: "Info", label2: "Inspektion", label3: "Historie")
+                SegmentPicker(selectedSegment: $vehicleDetailViewModel.selectedSegment, segmentCount: 2, label1: "Info", label2: "Inspektion", label3: "")
                 
-                switch vehicleViewModel.selectedSegment {
+                switch vehicleDetailViewModel.selectedSegment {
                     
                 case 0:
                     VehicleDetailInfoView(vehicle: $vehicle)
-                        .environmentObject(vehicleViewModel)
                     
                 default:
                     EmptyView()
@@ -32,21 +30,18 @@ struct VehicleDetailView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        vehicleViewModel.showEditVehicle.toggle()
+                        vehicleDetailViewModel.showEditVehicle.toggle()
                     } label: {
                         Image(systemName: "slider.horizontal.2.square")
                             .foregroundStyle(Color.primary)
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(vehicle.isFavorite ? .yellow : Color.primary.opacity(0.3))
-                }
             }
-            .sheet(isPresented: $vehicleViewModel.showEditVehicle) {
+            .sheet(isPresented: $vehicleDetailViewModel.showEditVehicle, onDismiss: {
+                vehicleDetailViewModel.vehicle = vehicle
+            }) {
                 EditVehicleView(vehicle: $vehicle)
-                    .environmentObject(vehicleViewModel)
+                    .environmentObject(vehicleDetailViewModel)
             }
         }
     }

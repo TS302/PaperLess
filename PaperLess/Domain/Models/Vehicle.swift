@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class Vehicle: NFCTagProtocol {
+class Vehicle: NFCTagProtocol, Identifiable {
     let id: UUID = UUID()
     var nfcTag: NFCTag
     

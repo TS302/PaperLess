@@ -55,6 +55,7 @@ class ToolListViewModel: ObservableObject {
     
     func updateTool(tool: Tool) {
         updateTool.execute(tool: tool)
+        loadTools()
     }
     
     func deleteTool(id: UUID) {

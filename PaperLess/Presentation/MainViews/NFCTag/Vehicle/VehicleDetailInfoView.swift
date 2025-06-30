@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct VehicleDetailInfoView: View {
-    @EnvironmentObject var vehicleviewModel: VehicleListViewModel
+    
     @Binding var vehicle: Vehicle
     
     var body: some View {
+         
         HStack {
             VStack(alignment: .leading) {
                 Text("Fahrzeugbezeichnung")
@@ -22,7 +23,8 @@ struct VehicleDetailInfoView: View {
                 HStack {
                     Text(vehicle.nfcTag.name)
                     Spacer()
-                    Image(systemName: "car.fill")
+                    Image(systemName: "star.fill")
+                        .foregroundColor(vehicle.isFavorite ? .yellow : Color.primary.opacity(0.3))
                 }
             }
         }
@@ -58,7 +60,7 @@ struct VehicleDetailInfoView: View {
             HStack {
                 Text("\(vehicle.color.rawValue)")
                 Spacer()
-                Image(systemName: "smallcircle.filled.circle.fill")
+                Image(systemName: "car.fill")
                     .foregroundStyle(vehicle.color.color)
                 
             }

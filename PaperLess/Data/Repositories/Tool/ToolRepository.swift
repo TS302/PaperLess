@@ -30,10 +30,10 @@ class ToolRepository: ToolRepositoryProtocol {
     }
     
     func updateTool(tool: Tool) {
-            if let index = tools.firstIndex(where: { $0.id == tool.id }) {
-                tools[index] = tool
-            }
+        if let index = tools.firstIndex(where: { $0.id == tool.id }) {
+            tools[index] = tool
         }
+    }
     
     func makeEmptyTool() -> Tool {
         return Tool(

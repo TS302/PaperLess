@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AddVehicleView: View {
-    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var addVehicleViewModel = AddVehicleViewModel()
     
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct AddVehicleView: View {
                     
             Spacer()
                 Button {
-                    vehicleViewModel.emptyNewVehicle()
+                    addVehicleViewModel.emptyNewVehicle()
                     dismiss()
                 } label: {
                     Image(systemName: "x.circle.fill")
@@ -32,13 +32,13 @@ struct AddVehicleView: View {
             .padding(.horizontal, 30)
             
             List {
-                VehicleForm(vehicle: $vehicleViewModel.vehicle, kmFormatter: Formatters.kmFormatter)
+                VehicleForm(vehicle: $addVehicleViewModel.vehicle, kmFormatter: Formatters.kmFormatter)
             }
             .modifier(ListStyle(title: ""))
             
             Button {
-                vehicleViewModel.addVehicle(vehicle: vehicleViewModel.vehicle)
-                vehicleViewModel.emptyNewVehicle()
+                addVehicleViewModel.addVehicle(vehicle: addVehicleViewModel.vehicle)
+                addVehicleViewModel.emptyNewVehicle()
                 dismiss()
             } label: {
                 Text("Speichern")

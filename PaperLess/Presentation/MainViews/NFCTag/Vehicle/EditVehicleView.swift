@@ -9,7 +9,8 @@ import SwiftUI
 
 struct EditVehicleView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var vehicleViewModel: VehicleListViewModel
+    @StateObject private var editVehicleViewModel = EditVehicleViewModel()
+    
     @Binding var vehicle: Vehicle
     
     var body: some View {
@@ -19,8 +20,7 @@ struct EditVehicleView: View {
                 VehicleForm(vehicle: $vehicle, kmFormatter: Formatters.kmFormatter)
             }
             Button {
-                vehicleViewModel.updateVehicle(vehicle: vehicle)
-                vehicleViewModel.loadVehicles()
+                editVehicleViewModel.updateVehicle(vehicle: vehicle)
                 dismiss()
             } label: {
                 Text("Speichern")
@@ -39,9 +39,4 @@ struct EditVehicleView: View {
         .background(Color.secondary)
         
     }
-}
-
-#Preview {
-    VehicleDetailView(vehicle: .constant(Vehicle(nfcTag: NFCTag(id: UUID(), tagID: "000", name: "VW Golf 7 GTI", status: DeviceStatus.available, icon: ObjectIcon.car.rawValue), brand: "Volkswagen", kennzeichen: "TÜ-TS-001", color: CarColor.blue, kilometerstand: 114000, serviceInterval: ServiceInterval.nine, lastMaintenance: Date.now, isFavorite: true)))
-        .environmentObject(VehicleListViewModel())
 }
