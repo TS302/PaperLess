@@ -13,9 +13,6 @@ struct VehicleForm: View {
     
     var body: some View {
         
-        
-        ///MARK Hier weiter auslagern
-        
         Toggle("Favorit", isOn: $vehicle.isFavorite)
             .toggleStyle(SwitchToggleStyle(tint: .primary))
             .foregroundStyle(Color.primary)

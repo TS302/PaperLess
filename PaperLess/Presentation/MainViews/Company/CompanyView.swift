@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct NFCTagView: View {
-    @EnvironmentObject var nfcTagViewModel: NFCTagViewModel
+struct CompanyView: View {
+    @EnvironmentObject var companyViewModel: CompanyViewModel
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    switch nfcTagViewModel.selectedSegment {
+                    switch companyViewModel.selectedSegment {
                         
                     case 0:
                         
-                        ForEach($nfcTagViewModel.vehicles) { $vehicles in
+                        ForEach($companyViewModel.vehicles) { $vehicles in
                             NavigationLink {
                                 VehicleDetailView(vehicle: $vehicles)
                             } label: {
@@ -28,7 +28,7 @@ struct NFCTagView: View {
                         .listRowBackground(Color.secondary)
                         
                     case 1:
-                        ForEach($nfcTagViewModel.tools) { $tool in
+                        ForEach($companyViewModel.tools) { $tool in
                             NavigationLink {
                                 ToolDetailView(tool: $tool)
                             } label: {
@@ -38,7 +38,7 @@ struct NFCTagView: View {
                         .listRowBackground(Color.secondary)
                         
                     case 2:
-                        ForEach($nfcTagViewModel.keys) { $key in
+                        ForEach($companyViewModel.keys) { $key in
                             NavigationLink {
                                 KeyDetailView(key: $key)
                             } label: {
@@ -52,36 +52,36 @@ struct NFCTagView: View {
                     }
                 } header: {
                     HStack {
-                        NFCTagListHeadline(selectedSegment: $nfcTagViewModel.selectedSegment)
+                        CompanyListHeadline(selectedSegment: $companyViewModel.selectedSegment)
                         Spacer()
-                        FavoriteNFCTagSegmentPicker(selectedSegment: $nfcTagViewModel.selectedSegment)
+                        FavoriteNFCTagSegmentPicker(selectedSegment: $companyViewModel.selectedSegment)
                     }
                 }
             }
             .onAppear {
-                nfcTagViewModel.loadVehicles()
-                nfcTagViewModel.loadTools()
-                nfcTagViewModel.loadKeys()
+                companyViewModel.loadVehicles()
+                companyViewModel.loadTools()
+                companyViewModel.loadKeys()
             }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     AddObjectMenu(
-                        showAddVehicle: $nfcTagViewModel.showAddVehicle,
-                        showAddTool: $nfcTagViewModel.showAddTool,
-                        showAddKey: $nfcTagViewModel.showAddKey
+                        showAddVehicle: $companyViewModel.showAddVehicle,
+                        showAddTool: $companyViewModel.showAddTool,
+                        showAddKey: $companyViewModel.showAddKey
                     )
                 }
             }
-            .sheet(isPresented: $nfcTagViewModel.showAddVehicle) {
+            .sheet(isPresented: $companyViewModel.showAddVehicle) {
                 AddVehicleView()
             }
-            .searchable(text: $nfcTagViewModel.searchText, prompt: "Suchen")
-            .modifier(ListStyle(title: "NFC-Tags"))
+            .searchable(text: $companyViewModel.searchText, prompt: "Suchen")
+            .modifier(ListStyle(title: "Firma"))
         }
         .background(Color.primary)
     }
 }
 
 #Preview {
-    NFCTagView()
+    CompanyView()
 }

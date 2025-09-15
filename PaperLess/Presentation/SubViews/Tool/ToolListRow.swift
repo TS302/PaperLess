@@ -10,7 +10,7 @@ import SwiftUI
 struct ToolListRow: View {
     @Binding var tool: Tool
     @EnvironmentObject var toolViewModel: ToolListViewModel
-    @EnvironmentObject var nfcTagViewModel: NFCTagViewModel
+    @EnvironmentObject var nfcTagViewModel: CompanyViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {

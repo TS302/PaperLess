@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NFCTagListHeadline: View {
+struct CompanyListHeadline: View {
     
     @Binding var selectedSegment: Int
     var body: some View {
@@ -33,5 +33,5 @@ struct NFCTagListHeadline: View {
 }
 
 #Preview {
-    NFCTagListHeadline(selectedSegment: .constant(0))
+    CompanyListHeadline(selectedSegment: .constant(0))
 }

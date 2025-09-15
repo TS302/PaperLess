@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ToolDetailView: View {
-    @EnvironmentObject var nfcTagViewModel: NFCTagViewModel
+    @EnvironmentObject var nfcTagViewModel: CompanyViewModel
     @Binding var tool: Tool
     
     var body: some View {

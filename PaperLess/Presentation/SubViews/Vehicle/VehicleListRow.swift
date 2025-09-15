@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VehicleListRow: View {
     @Binding var vehicle: Vehicle
-    @EnvironmentObject var nfcTagViewModel: NFCTagViewModel
+    @EnvironmentObject var nfcTagViewModel: CompanyViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {

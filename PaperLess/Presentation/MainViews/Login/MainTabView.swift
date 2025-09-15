@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @StateObject private var nfcTagViewModel = NFCTagViewModel()
+    @StateObject private var nfcTagViewModel = CompanyViewModel()
     
     @Binding var user: User
     
     var body: some View {
         TabView {
-            HomeView()
+            CompanyView()
                 .environmentObject(nfcTagViewModel)
                 .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
+                    Image(systemName: "house.lodge.fill")
+                    Text("Firma")
                 }
             
-            DocumentView()
+            StaffView()
                 .tabItem {
-                    Image(systemName: "text.document")
-                    Text("Dokumente")
-                }
-            
-            NFCTagView()
-                .environmentObject(nfcTagViewModel)
-                .tabItem {
-                    Image(systemName: "airtag.radiowaves.forward")
-                    Text("NFC-Tag")
+                    Image(systemName: "person.3.fill")
+                    Text("Personal")
                 }
             
             SettingsView(

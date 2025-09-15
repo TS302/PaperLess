@@ -1,15 +1,15 @@
 //
-//  HomeViewModel.swift
+//  NFCViewModel.swift
 //  PaperLess
 //
-//  Created by Tom Salih on 18.06.25.
+//  Created by Tom Salih on 25.05.25.
 //
 
 import Foundation
 import Combine
 
-final class HomeViewModel: ObservableObject {
-
+final class CompanyViewModel: ObservableObject {
+    
     @Published var searchText: String = ""
     @Published var selectedSegment = 0
     @Published var selectedFavoriteNFCTagSegment = 0
@@ -23,21 +23,6 @@ final class HomeViewModel: ObservableObject {
     @Published var vehicles: [Vehicle] = []
     @Published var tools: [Tool] = []
     @Published var keys: [Key] = []
-   
-    @Published var documentArray: [Document] = [
-        Document(id: UUID(), title: "Mietvertrag", description: "Mietvertrag von der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Nebenkostenabrechnung", description: "Nebenkostenabrechnung für das Jahr 2024 der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Übergabeprotokoll", description: "Protokoll zur Wohnungsübergabe in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Kündigungsschreiben", description: "Kündigung des Mietverhältnisses für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Mängelliste", description: "Aufstellung von Mängeln in der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Einzugsermächtigung", description: "SEPA-Einzugsermächtigung für die Mietzahlungen der Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Mieterhöhung", description: "Mitteilung zur Mieterhöhung für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Hausordnung", description: "Hausordnung für das Mehrfamilienhaus in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Wohnungsbewerbung", description: "Bewerbungsschreiben für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Betriebs- und Heizkostenabrechnung", description: "Abrechnung der Betriebs- und Heizkosten für die Wohnung in der Musterstraße 121 in Tübingen"),
-        Document(id: UUID(), title: "Wohnungsübergabebericht", description: "Bericht zur Übergabe der Wohnung in der Musterstraße 121 in Tübingen"),
-        
-    ]
     
     private let getVehicles: LoadVehiclesUseCase
     private let updateVehicle: UpdateVehicleUseCase
@@ -45,6 +30,7 @@ final class HomeViewModel: ObservableObject {
     
     private let getTools: LoadToolsUseCase
     private let updateTool: UpdateToolUseCase
+    private let deleteTool: DeleteToolUseCase
     
     private let getKeys: LoadKeysUseCase
     private let updateKey: UpdateKeyUseCase
@@ -61,6 +47,7 @@ final class HomeViewModel: ObservableObject {
         
         self.getTools = LoadToolsUseCase(repository: toolRepository)
         self.updateTool = UpdateToolUseCase(repository: toolRepository)
+        self.deleteTool = DeleteToolUseCase(repository: toolRepository)
         
         self.getKeys = LoadKeysUseCase(repository: keyRepository)
         self.updateKey = UpdateKeyUseCase(repository: keyRepository)
@@ -95,6 +82,11 @@ final class HomeViewModel: ObservableObject {
         loadTools()
     }
     
+    func deleteTool(id: UUID) {
+        deleteTool.execute(id: id)
+        loadTools()
+    }
+    
     
     func loadKeys() {
         keys = getKeys.execute()
@@ -111,3 +103,5 @@ final class HomeViewModel: ObservableObject {
     }
 
 }
+
+

@@ -25,8 +25,8 @@ struct LoginView: View {
                 .font(.largeTitle)
                 .foregroundStyle(Color.primary)
             
-            Text("Dokumente digitalisieren & verwelten!")
-                .font(.caption)
+            Text("DIGITALISIEREN & VERWALTEN!")
+                .font(.caption2)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.primary)
                 .opacity(0.8)

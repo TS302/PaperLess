@@ -98,8 +98,8 @@
 		C7F11D8A2D9723D500673AB9 = {
 			isa = PBXGroup;
 			children = (
-				C755F4D22DF483C8001FF3F8 /* PaperLess.xctestplan */,
 				C7F11D952D9723D500673AB9 /* PaperLess */,
+				C755F4D22DF483C8001FF3F8 /* PaperLess.xctestplan */,
 				C7F11D942D9723D500673AB9 /* Products */,
 			);
 			sourceTree = "<group>";
