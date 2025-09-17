@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RegistrationView: View {
     @Binding var showPassword: Bool
-    @Binding var user: User
 
     @Environment(\.dismiss) private var dismiss
 
@@ -44,7 +43,7 @@ struct RegistrationView: View {
                 .opacity(0.8)
                 .padding(.bottom, 60)
             
-            TextFieldInput(label: "E-mail", text: $user.email)
+            TextFieldInput(label: "E-mail", text: $email)
                 .padding(.bottom, 20)
                 .autocapitalization(.none)
             SecureTextFieldInput(
@@ -84,10 +83,10 @@ struct RegistrationView: View {
 
                 Button("Konto erstellen") {
                     if formIsValid {
-                        user.email = email.trimmingCharacters(in: .whitespaces)
-                        user.password = password
-                        user.isLoggedIn = true
-                        dismiss()
+//                        user.email = email.trimmingCharacters(in: .whitespaces)
+//                        user.password = password
+//                        user.isLoggedIn = true
+//                        dismiss()
                     } else {
                         withAnimation { showValidationError = true }
                     }
@@ -116,7 +115,6 @@ struct RegistrationView: View {
 
 #Preview {
     RegistrationView(
-        showPassword: .constant(false),
-        user: .constant(User(firstname: "", lastname: "", email: "", password: "", isLoggedIn: false))
+        showPassword: .constant(false)
     )
 }

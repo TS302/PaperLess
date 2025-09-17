@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
-    @Binding var user: User
-    @Binding var isLoggedIn: Bool
+//    
+//    @Binding var user: User
+//    @Binding var isLoggedIn: Bool
 
     var body: some View {
         NavigationView {
@@ -23,7 +23,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isLoggedIn = false
+                        
                     }) {
                         Image(systemName: "power.circle.fill")
                             .foregroundStyle(Color.primary)
@@ -35,8 +35,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView(
-        user: .constant(
-            User(firstname: "Max", lastname:  "Mustermann",email: "max@beispiel.de", password: "geheim123", isLoggedIn: true)),isLoggedIn: .constant(true)
-    )
+    SettingsView()
 }

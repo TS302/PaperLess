@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C7FECCB12E79B0CA00191928 /* KMPObservableViewModelCore in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCB02E79B0CA00191928 /* KMPObservableViewModelCore */; settings = {ATTRIBUTES = (Required, ); }; };
+		C7FECCB32E79B0CA00191928 /* KMPObservableViewModelSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCB22E79B0CA00191928 /* KMPObservableViewModelSwiftUI */; };
+		C7FECCB62E79B13B00191928 /* KMPNativeCoroutinesAsync in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCB52E79B13B00191928 /* KMPNativeCoroutinesAsync */; };
+		C7FECCB82E79B13B00191928 /* KMPNativeCoroutinesCombine in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCB72E79B13B00191928 /* KMPNativeCoroutinesCombine */; };
+		C7FECCBA2E79B13B00191928 /* KMPNativeCoroutinesCore in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCB92E79B13B00191928 /* KMPNativeCoroutinesCore */; };
+		C7FECCBC2E79B13B00191928 /* KMPNativeCoroutinesRxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C7FECCBB2E79B13B00191928 /* KMPNativeCoroutinesRxSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C7F11DA42D9723D700673AB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -75,6 +84,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7FECCB12E79B0CA00191928 /* KMPObservableViewModelCore in Frameworks */,
+				C7FECCBA2E79B13B00191928 /* KMPNativeCoroutinesCore in Frameworks */,
+				C7FECCB82E79B13B00191928 /* KMPNativeCoroutinesCombine in Frameworks */,
+				C7FECCBC2E79B13B00191928 /* KMPNativeCoroutinesRxSwift in Frameworks */,
+				C7FECCB32E79B0CA00191928 /* KMPObservableViewModelSwiftUI in Frameworks */,
+				C7FECCB62E79B13B00191928 /* KMPNativeCoroutinesAsync in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +115,7 @@
 			children = (
 				C7F11D952D9723D500673AB9 /* PaperLess */,
 				C755F4D22DF483C8001FF3F8 /* PaperLess.xctestplan */,
+				C7FED17A2E7A084600191928 /* Frameworks */,
 				C7F11D942D9723D500673AB9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,6 +130,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C7FED17A2E7A084600191928 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -121,6 +144,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7F11DB72D9723D700673AB9 /* Build configuration list for PBXNativeTarget "PaperLess" */;
 			buildPhases = (
+				C7FED09A2E79D3EF00191928 /* ShellScript */,
 				C7F11D8F2D9723D500673AB9 /* Sources */,
 				C7F11D902D9723D500673AB9 /* Frameworks */,
 				C7F11D912D9723D500673AB9 /* Resources */,
@@ -134,6 +158,12 @@
 			);
 			name = PaperLess;
 			packageProductDependencies = (
+				C7FECCB02E79B0CA00191928 /* KMPObservableViewModelCore */,
+				C7FECCB22E79B0CA00191928 /* KMPObservableViewModelSwiftUI */,
+				C7FECCB52E79B13B00191928 /* KMPNativeCoroutinesAsync */,
+				C7FECCB72E79B13B00191928 /* KMPNativeCoroutinesCombine */,
+				C7FECCB92E79B13B00191928 /* KMPNativeCoroutinesCore */,
+				C7FECCBB2E79B13B00191928 /* KMPNativeCoroutinesRxSwift */,
 			);
 			productName = PaperLess;
 			productReference = C7F11D932D9723D500673AB9 /* PaperLess.app */;
@@ -211,6 +241,10 @@
 			);
 			mainGroup = C7F11D8A2D9723D500673AB9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C7FECCAF2E79B0CA00191928 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */,
+				C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C7F11D942D9723D500673AB9 /* Products */;
 			projectDirPath = "";
@@ -246,6 +280,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C7FED09A2E79D3EF00191928 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"/Users/tomsalih/AndroidStudioProjects/PaperLess\"\n\n./gradlew :shared:embedAndSignAppleFrameworkForXcode \\\n  -PXCODE_CONFIGURATION=\"${CONFIGURATION}\" \\\n  -PXCODE_SDK_NAME=\"${SDK_NAME}\" \\\n  -PXCODE_CODE_SIGNING_ALLOWED=\"${CODE_SIGNING_ALLOWED}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7F11D8F2D9723D500673AB9 /* Sources */ = {
@@ -323,7 +378,7 @@
 				DEVELOPMENT_TEAM = J9PNCTV3N5;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -387,7 +442,7 @@
 				DEVELOPMENT_TEAM = J9PNCTV3N5;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -576,6 +631,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C7FECCAF2E79B0CA00191928 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rickclephas/KMP-ObservableViewModel.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rickclephas/KMP-NativeCoroutines.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C7FECCB02E79B0CA00191928 /* KMPObservableViewModelCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCAF2E79B0CA00191928 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
+			productName = KMPObservableViewModelCore;
+		};
+		C7FECCB22E79B0CA00191928 /* KMPObservableViewModelSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCAF2E79B0CA00191928 /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
+			productName = KMPObservableViewModelSwiftUI;
+		};
+		C7FECCB52E79B13B00191928 /* KMPNativeCoroutinesAsync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */;
+			productName = KMPNativeCoroutinesAsync;
+		};
+		C7FECCB72E79B13B00191928 /* KMPNativeCoroutinesCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */;
+			productName = KMPNativeCoroutinesCombine;
+		};
+		C7FECCB92E79B13B00191928 /* KMPNativeCoroutinesCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */;
+			productName = KMPNativeCoroutinesCore;
+		};
+		C7FECCBB2E79B13B00191928 /* KMPNativeCoroutinesRxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7FECCB42E79B13B00191928 /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */;
+			productName = KMPNativeCoroutinesRxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C7F11D8B2D9723D500673AB9 /* Project object */;
 }

@@ -17,18 +17,16 @@ struct SecureTextFieldInput: View {
     var body: some View {
         
         VStack {
-            
             HStack {
                 if showPassword {
                     TextField(label, text: $text)
                 } else {
                     SecureField(label, text: $text)
                 }
-                
                 if showEyeIcon {
-                    Button(action: {
+                    Button {
                         showPassword.toggle()
-                    }) {
+                    } label: {
                         Image(systemName: showPassword ? "eye.slash" : "eye")
                             .padding(.trailing, 10)
                             .foregroundColor(.primary)
@@ -48,13 +46,11 @@ struct SecureTextFieldInput: View {
     }
 }
 
-struct SecureTextFieldInput_Previews: PreviewProvider {
-    static var previews: some View {
-        SecureTextFieldInput(
-            label: "Test-Passwort",
-            text: .constant("geheim"),
-            showPassword: .constant(false),
-            showEyeIcon: true
-        )
-    }
+#Preview {
+    SecureTextFieldInput(
+        label: "Test-Passwort",
+        text: .constant("geheim"),
+        showPassword: .constant(false),
+        showEyeIcon: true
+    )
 }

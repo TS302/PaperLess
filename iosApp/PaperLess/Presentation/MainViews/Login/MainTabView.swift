@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Shared
+import KMPObservableViewModelSwiftUI
+
 
 struct MainTabView: View {
     @StateObject private var nfcTagViewModel = CompanyViewModel()
+    @ObservedViewModel var loginViewModel: LoginViewModel
     
-    @Binding var user: User
     
     var body: some View {
         TabView {
@@ -27,10 +30,7 @@ struct MainTabView: View {
                     Text("Personal")
                 }
             
-            SettingsView(
-                user: $user,
-                isLoggedIn: $user.isLoggedIn
-            )
+            SettingsView()
             .tabItem {
                 Image(systemName: "gear")
                 Text("Einstellungen")

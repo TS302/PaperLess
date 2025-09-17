@@ -22,16 +22,12 @@ struct TextFieldInput: View {
                     .fill(Color.white)
                     .stroke(Color.appPrimary, lineWidth: 1))
         }
-        //        Hintergrundfarbe
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 40)
         .background(Color.appSecondary)
-        
     }
 }
 
-struct TextFieldInput_Previews: PreviewProvider {
-    static var previews: some View {
-        TextFieldInput(label: "Text", text: .constant(""))
-    }
+#Preview {
+    TextFieldInput(label: "Label", text: .constant("Text"))
 }

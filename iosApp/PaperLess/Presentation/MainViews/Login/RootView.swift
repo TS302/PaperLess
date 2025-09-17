@@ -6,20 +6,17 @@
 //
 
 import SwiftUI
+import Shared
+import KMPObservableViewModelSwiftUI
 
 struct RootView: View {
-    
-    @State private var user: User = User(firstname: "", lastname: "", email: "tom", password: "2222", isLoggedIn: true)
+    @ObservedViewModel var loginViewModel = LoginViewModel()
     
     var body: some View {
-        if user.isLoggedIn {
-            MainTabView(
-                user: $user
-            )
+        if loginViewModel.isLoggedIn {
+            MainTabView(loginViewModel: loginViewModel)
         } else {
-            LoginView(
-                user: $user
-            )
+            LoginView(loginViewModel: loginViewModel)
         }
     }
 }

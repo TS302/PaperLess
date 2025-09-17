@@ -5,7 +5,7 @@
 //  Created by Tom Salih on 18.04.25.
 //
 
-import SwiftUICore
+import SwiftUI
 
 struct ListRowSubtitle: ViewModifier {
     func body(content: Content) -> some View {
